@@ -2,14 +2,14 @@
 
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="320" prefWidth="480">
+<BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="320" prefWidth="480" maxHeight="320" minHeight="320" maxWidth="480" minWidth="480">
     <left>
-        <fx:include fx:id="uploadTab" source="gear.fxml"/>
+        <fx:include fx:id="gear" source="gear.fxml"/>
     </left>
     <right>
-        <fx:include fx:id="manageTab" source="info.fxml"/>
+        <fx:include fx:id="info" source="info.fxml"/>
     </right>
     <bottom>
-        <fx:include fx:id="homeTab" source="brake.fxml"/>
+        <fx:include fx:id="break" source="brake.fxml"/>
     </bottom>
 </BorderPane>

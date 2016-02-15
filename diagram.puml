@@ -1,0 +1,106 @@
+@startuml
+
+class DataParser{
+}
+
+class App{
+    +main: void
+    +start: void
+}
+
+'Controllers
+class RootController{
+    -graphController: GraphController
+    -brakeController: BrakeController
+    -speedController: SpeedController
+    -gearController: GearController
+    -fuelController: FuelController
+}
+
+class GraphController{
+
+}
+
+class BrakeController{
+    -active: Boolean
+}
+
+class GearController{
+}
+
+class SpeedController{
+}
+
+class FuelController{
+}
+
+'Models
+class BrakeSession{
+    -startSpd
+    -endSpd
+    -time
+    -startTime
+}
+
+class WrongGearSession{
+    -gear
+    -up
+    -startTime
+    -endTime
+}
+
+class FuelSession{
+    -avgUse
+    -start
+    -end
+}
+
+class SpeedSession{
+    -avgSpeed
+    -start
+    -end
+}
+
+'Interfaces
+interface BrakeInterface{
+    +update()
+}
+
+interface RPMInterface{
+    +update()
+}
+
+interface SpeedInterface{
+    +update()
+}
+
+interface GearInterface{
+    +update()
+}
+
+interface FuelInterface{
+    +update()
+}
+
+'Relations
+BrakeInterface<|..BrakeController
+FuelInterface<|..FuelController
+SpeedInterface<|..SpeedController
+RPMInterface<|..GearController
+GearInterface<|..GearController
+
+DataParser o-- BrakeInterface: brakeObservers
+DataParser o-- RPMInterface: rpmObservers
+DataParser o-- GearInterface: gearObservers
+DataParser o-- SpeedInterface: speedObservers
+DataParser o-- FuelInterface: fuelObservers
+
+BrakeController--BrakeSession:save()
+SpeedController--SpeedSession:save()
+GearController--WrongGearSession:save()
+FuelController--FuelSession:save()
+
+App o-- RootController
+
+
+@enduml

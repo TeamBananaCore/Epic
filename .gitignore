@@ -1,3 +1,9 @@
 out/
 target/
 .idea/
+
+projectplan.aux
+projectplan.log
+projectplan.synctex.gz
+projectplan.pdf
+projectplan.toc

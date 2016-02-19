@@ -1,0 +1,169 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{tabularx}
+\usepackage{ragged2e}
+\usepackage[table]{xcolor}
+
+\renewcommand{\abstractname}{}
+\renewcommand{\arraystretch}{1.5}
+\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X} 
+
+\DeclareGraphicsExtensions{.png}
+\begin{document}
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{\includegraphics[height=20px]{epic}}
+\rhead{Project Plan}
+
+\setcounter{secnumdepth}{0}
+
+\author{Team BananaCore\\Product Development Team 35/36}
+\title{Project Plan}
+\date{February 2016}
+
+\maketitle
+\begin{abstract}
+	\begin{tabular}[h]{rl}
+		Project's full name: & Economic Performance Information Console\\
+		Project's short name: & EPIC \\
+		Last modified: & 03.02.2016
+	\end{tabular}
+	\newline
+	\vspace{20px}
+	\newline
+	\begin{tabularx}{\textwidth}{rllY}
+		\hline
+		\multicolumn{4}{c}{Change History: \cellcolor[gray]{0.9}} \\
+		 \cellcolor[gray]{0.9} Version & \cellcolor[gray]{0.9} Date \cellcolor[gray]{0.9} & \cellcolor[gray]{0.9} Made By & \cellcolor[gray]{0.9} Comments  \\
+		\hline
+		0.1 & 03.02.2016 & Ole-Magnus Pedersen & First draft, for first hand-in. \\
+		\hline
+		0.1.1 & 04.02.2016 & Eivind Grimstad & Added time spent and DoD. \\
+		\hline
+		0.2 & 19.02.2016 & Eivind Grimstad & Added more roles. \\
+		\hline
+	\end{tabularx}
+\end{abstract}
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introduction}
+This document presents the framework and methods used in the development of this product, EPIC. It was drawn up by the Product Development Team together, spending about 40 man-hours.
+
+
+\section{Development method}
+We will be using an agile method where eXtreme programming/Scrum is the basis. Our backlog will use KanBan, scheduling is inspired by Mobile-D.
+
+\section{Aims}
+EPIC is a system that aims to inform the driver about his or her driving performance. It measures the efficiency of the driver’s braking and presents data both live and in graph form. In addition it conveys information about fuel usage, engine rpm and speed, and recommends gear shifting for efficient driving.
+
+\section{Results}
+For each sprint, the following should be produced:
+\begin{itemize}
+	\item A working system with each release
+	\item Executables (Java Source Code)
+	\item Documentation of the last sprint
+\end{itemize}
+
+\section{Tasks}
+As we are using an agile method of development (see introduction), we will be using the backlog to keep track of tasks as well as their date of completion.
+
+\section{Definition of Done}
+A user story is defined as done after the features in it have been implemented,
+the code has been properly documented where necessary and it has been
+unit tested. Integration testing will be done on a higher level (between each
+sprint), and is not needed for a story to be defined as done.
+
+\section{Schedule}
+\begin{tabularx}{\textwidth}{YYY}
+	\hline
+	Weeks -- deadline & Phase & Deliverables \\ \hline 
+	3-5 -- 5th February & Exploration & Concept, Project Plan, Backlog \\
+	6-7 -- 19th February & Initialization & Set up Git, Google Drive, Raspberry Pi and 3D-print a RPI-case. \\
+	8-9 -- 18th March & Sprint 1 & Implement skeleton/basics of system \\
+	10-11 -- 23rd March & Sprint 2 & Keep going down backlog, implement more functionality from backlog. \\
+	12 -- 21st to 23rd March & User testing & Somewhat functional MVP for testing \\
+	13-14 -- 8th April & Sprint 3 & Last functionality of MVP \\
+	15-16 -- 11th to 22nd April & Stabilization & Stable MVP \\
+	17 -- 25th to 28th April & Delivery & MVP \\ \hline
+\end{tabularx}
+
+\section{Estimated cost}
+We estimate 8 persons working 8 hours each for 12 weeks. 768 total hours estimated.
+
+In addition to this, there is some hardware cost (price of the Pi and Screen).
+
+\section{Completion of the project}
+Resources (hours) are fixed, with teams consisting of 2 * 4 students each spending 8 hours per week. This adds up to a total of 12 weeks * 8 student * 8 hours = 768 hours of work. Whatever system is finished by this date, will be considered the finished product. Hopefully a working MVP.
+
+\section{Risk Assesment}
+\begin{tabularx}{\textwidth}{YYY}
+	\hline
+	Risk & Means to Prevent & Responsibility \\
+	\hline
+	Meeting absence & Have to bring cake to the next meeting if you are absent & Everyone\\
+	Major bugs & Early and frequent testing & Everyone \\
+	Conflicting schedules & Plan meetings early. Communicate & Product owner for Dev Team meetings and Feature Lead for Feature Team meetings. \\
+	Technical problems & Peer-programming and unit testing & Everyone \\ \hline
+\end{tabularx}
+
+\section{Quality Assurance}
+Following an agile development method, we intend to focus on the acceptance criteria in the backlog as quality. We want an MVP, not a perfect product as our time is short. However, we will be using unit tests (JUnit with Java). 
+There is also a planned user-test in march, where we will simulate data to see if we have a working product.
+
+\section{Documentation}
+\begin{itemize}
+	\item Monitoring of time, on a daily basis
+	\item Meeting summaries, both as full product development teams and feature teams
+	\item Documentation of system, updated after each sprint
+\end{itemize}
+
+\section{Resources and Organization}
+\begin{tabularx}{\textwidth}{p{.4\textwidth}p{.6\textwidth}}
+	Project Development Team Leader and Product Owner & Eivind Grimstad \\
+	Feature Team 36 - Quad Core & 
+		Eivind Grimstad (leader)\newline
+		Ole-Magnus Pedersen (GUI responsible)\newline
+		Marton Skjæveland (scrum master)\newline
+		Andreas Stensbye (lead architect)\newline
+		\\
+	Feature Team 35 - Banana & 
+		Sander Aker Christiansen (leader, lead tester)\newline
+		Carlo Alfredo Morte III\newline
+		Henrik Bjelke Anderson (scrum master)\newline
+		Ida Rostveit
+\end{tabularx}
+\newline
+\vspace{10px}
+
+The Product Development Team of 8 is divided into two Feature Teams of four people each. During each sprint these teams will work independently on a designated part of the system.
+
+After the sprint the Product Development Team will come together to integrate the features they have implemented.
+
+\section{Technical Requirements}
+\begin{itemize}
+	\item Software stack:
+	\begin{itemize}
+		\item Java 8 with JavaFX for GUI
+		\item JUnit for testing
+		\item MySQL for database management
+	\end{itemize}
+	\item Hardware:
+	\begin{itemize}
+		\item Raspberry Pi Model 2
+		\item 3.5" touch-sensitive monitor
+	\end{itemize}
+	\item Version Control
+	\begin{itemize}
+		\item GIT
+	\end{itemize}
+	\item IDE
+	\begin{itemize}
+		\item IntelliJ IDEA
+	\end{itemize}
+\end{itemize}
+
+\end{document}

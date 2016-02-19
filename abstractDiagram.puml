@@ -1,0 +1,19 @@
+@startuml
+
+object Car{
+    <img:car.png>
+}
+object RaspberryPi
+object Database
+object Screen
+object User{
+    <img:stickman.png>
+}
+
+Car -> RaspberryPi: Data
+RaspberryPi --> Database: Save Sessions
+RaspberryPi -> Screen: Display Data
+Screen -> RaspberryPi: Get user input
+Screen <--> User: Interaction
+
+@enduml

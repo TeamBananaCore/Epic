@@ -1,15 +1,14 @@
 package bananacore.epic;
 
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
-public class Parser {
+public class OurParser {
     // input example http://openxcplatform.com.s3.amazonaws.com/traces/nyc/downtown-west.json
 
     //last recorded
@@ -21,6 +20,21 @@ public class Parser {
     JSONObject brakePedalStatus;
     JSONObject latitude;
     JSONObject acceleratorPedalPosition;
+    JSONObject fuelLevel;
+
+    //takes inn json and update JSONObjects. we dont know how we get the data.....which makes this a little difficult
+    //do not work :(
+    private void testReadsJASJONfromURL(String url2)throws IOException{
+        URL url = new URL(url2);
+        InputStream urlInputStream = url.openConnection().getInputStream();
+        //reads name
+        System.out.println(urlInputStream.read());
+
+    }
+
+
+//------------------------------
+    //From json to int and boolean
 
     private int extractIntegerValue(JSONObject obj){
         return (Integer) obj.get("value");
@@ -44,11 +58,19 @@ public class Parser {
         return extractIntegerValue(odometer);
     }  public int getLatitude() {
         return extractIntegerValue(latitude);
+    }  public int getFuelLevel() {
+        return extractIntegerValue(fuelLevel);
+    }public int getAcceleratorPedalPosition() {
+        return extractIntegerValue(acceleratorPedalPosition);
     }public boolean getBreakPedalStatus() {
         return extractBoleanValue(brakePedalStatus);
     }
+//---------------------------
+    //Listeners
 
-    public static void main(String[] args) {
+
+
+    public static void main(String[] args) throws IOException {
 //  eksempler på    http://www.tutorialspoint.com/json/json_java_example.htm
 
         //just learning jason. ignore all the stuff under under this point
@@ -72,6 +94,8 @@ public class Parser {
         test2.put("value", new Boolean(true));
         System.out.println(test2);
 
+        OurParser ourParser = new OurParser();
+        ourParser.testReadsJASJONfromURL("http://openxcplatform.com.s3.amazonaws.com/traces/nyc/uptown-west.json");
 
     }
 

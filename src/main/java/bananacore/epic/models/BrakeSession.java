@@ -57,4 +57,15 @@ public class BrakeSession {
     public void setDuration(int duration) {
         this.duration = duration;
     }
+
+    @Override
+    public String toString() {
+        return "BrakeSession{" +
+                "id=" + id +
+                ", startSpeed=" + startSpeed +
+                ", endSpeed=" + endSpeed +
+                ", startTime=" + startTime +
+                ", duration=" + duration +
+                '}';
+    }
 }

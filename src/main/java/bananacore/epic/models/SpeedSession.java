@@ -46,4 +46,14 @@ public class SpeedSession {
     public void setDuration(int duration) {
         this.duration = duration;
     }
+
+    @Override
+    public String toString() {
+        return "SpeedSession{" +
+                "id=" + id +
+                ", avgSpeed=" + avgSpeed +
+                ", startTime=" + startTime +
+                ", duration=" + duration +
+                '}';
+    }
 }

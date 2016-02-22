@@ -22,7 +22,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.1.0.Final</version>
+            <version>4.3.9.Final</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -40,6 +40,14 @@
                 <version>8.2.0</version>
                 <configuration>
                     <mainClass>bananacore.epic.App</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>

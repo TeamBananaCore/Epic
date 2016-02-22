@@ -1,5 +1,6 @@
 package bananacore.epic;
 
+import bananacore.epic.models.BrakeSession;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 
 public class App extends Application{
 
@@ -19,7 +21,8 @@ public class App extends Application{
 
     @Override
     public void start(Stage primaryStage) {
-        logger.debug("App started");
+        DatabaseManager.connectToDB();
+
         Pane root = null;
         try {
             root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/main.fxml"));
@@ -32,5 +35,6 @@ public class App extends Application{
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
+        logger.debug("App started");
     }
 }

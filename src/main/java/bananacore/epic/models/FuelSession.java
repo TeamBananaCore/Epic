@@ -46,4 +46,14 @@ public class FuelSession {
     public void setDuration(int duration) {
         this.duration = duration;
     }
+
+    @Override
+    public String toString() {
+        return "FuelSession{" +
+                "id=" + id +
+                ", fuelUsage=" + fuelUsage +
+                ", startTime=" + startTime +
+                ", duration=" + duration +
+                '}';
+    }
 }

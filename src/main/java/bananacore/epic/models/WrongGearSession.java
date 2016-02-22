@@ -46,4 +46,14 @@ public class WrongGearSession {
     public void setDuration(int duration) {
         this.duration = duration;
     }
+
+    @Override
+    public String toString() {
+        return "WrongGearSession{" +
+                "id=" + id +
+                ", gear=" + gear +
+                ", startTime=" + startTime +
+                ", duration=" + duration +
+                '}';
+    }
 }

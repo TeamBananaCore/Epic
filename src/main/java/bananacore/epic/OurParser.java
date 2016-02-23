@@ -99,7 +99,7 @@ public class OurParser {
 
         //just learning jason. ignore all the stuff under under this point
 
-        String teststring = "{'name':'vehicle_speed','value':0,'timestamp':1364310855.031100}";
+        String teststring = "{'name':'vehicle_speed','value':0,'timestamp':1364310855.031110}";
         JSONObject jasonObjekt= new JSONObject();
         jasonObjekt.put("name", "vehicle_speed");
         jasonObjekt.put("value", new Integer(100));

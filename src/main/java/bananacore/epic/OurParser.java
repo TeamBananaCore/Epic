@@ -4,6 +4,7 @@ package bananacore.epic;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -23,7 +24,7 @@ public class OurParser {
     JSONObject fuelLevel;
 
     //takes inn json and update JSONObjects. we dont know how we get the data.....which makes this a little difficult
-    //do not work :(
+    //this method do not work :(
     private void testReadsJASJONfromURL(String url2)throws IOException{
         URL url = new URL(url2);
         InputStream urlInputStream = url.openConnection().getInputStream();
@@ -34,7 +35,7 @@ public class OurParser {
 
 
 //------------------------------
-    //From json to int and boolean
+    //From jsonObject to int and boolean
 
     private int extractIntegerValue(JSONObject obj){
         return (Integer) obj.get("value");
@@ -66,8 +67,31 @@ public class OurParser {
         return extractBoleanValue(brakePedalStatus);
     }
 //---------------------------
-    //Listeners
+    //Listeners listen to when JSONObjects get changed
 
+
+
+//--------------------------
+    //update consols. consols must implement update+"the ting they update" method    //should this be caled set instead of update`?
+
+    private void updateGearController(GearController gearController){
+        gearController.updateFuelConsumedSinceRestart(getFuelConsumedSinceRestart());
+        gearController.updateVehicleSpeed(getVehicleSpeed());
+        gearController.updateEngineSpeedInterface(getEngineSpeed());
+
+    }
+    private void updateBreakController(BreakController breakController){
+        breakController.updateVehicleSpeed(getVehicleSpeed());
+        breakController.updateBreakePedalStatus(getBreakPedalStatus());
+
+    }
+    private void updateFuelController(FuelController fuelController){
+        fuelController.updateFuelLevel(getFuelLevel());
+        fuelController.updateFuelConsumedSinceRestart(getFuelConsumedSinceRestart());
+    }
+    private void updateSpeedController(SpeedContorller speedContorller){
+        speedContorller.updateVehicleSpeed(getVehicleSpeed());
+    }
 
 
     public static void main(String[] args) throws IOException {

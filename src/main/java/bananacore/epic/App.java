@@ -15,9 +15,28 @@ public class App extends Application{
 
     private Logger logger = LoggerFactory.getLogger(getClass());
     public static void main(String[] args) {
+        GearController gearController = new GearController;
+        BrakeController brakeController = new BrakeController;
+        SpeedController speedController = new SpeedController;
+        FuelController fuelController = new FuelController;
+        OurParser ourParser = new OurParser();
+        setupControllers();
+
         launch(args);
     }
+    //connects all controllers to data
+    private void setupControllers (OurParser ourParser, GearController gearController, BreakeController breakeController, SpeedController speedController, fuelController fuelController){
+                ourParser.addObserver(ourParser.breakObervers,breakeController);
+            ourParser.addObserver(ourParser.gearObservers,gearController);
+        ourParser.addObserver(ourParser.rpmObservers,gearController);
+        ourParser.addObserver(ourParser.speedObservers,speedController);
+        ourParser.addObserver(ourParser.fuelObservers,fuelController);
 
+
+
+
+
+    }
     @Override
     public void start(Stage primaryStage) {
         logger.debug("App started");

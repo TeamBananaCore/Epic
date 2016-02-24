@@ -1,6 +1,6 @@
 package bananacore.epic;
 
-public interface vehicleSpeedInterface {
+public interface SpeedInterface {
 
     public int updateVehicleSpedInterface(int value);
 

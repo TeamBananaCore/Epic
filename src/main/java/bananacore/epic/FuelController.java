@@ -1,7 +1,16 @@
 package bananacore.epic;
 
 
-public class FuelController implements FuelInterface, OdometerInterface{
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class FuelController implements OdometerInterface{
 
     public static final double MAX_FUEL_CONSUMED_VALUE = 4294967295.0;
     public static final double MAX_ODOMETER_VALUE = 16777214.0;
@@ -13,29 +22,21 @@ public class FuelController implements FuelInterface, OdometerInterface{
     private double estimatedKmLeft;
     private int fuelUpdateCounter;
 
-    public FuelController(double fuelLevel, double startDistance) {
-        if(validFuelLevelValue(fuelLevel) && validDistanceValue(startDistance)){
-            this.fuelLevel = fuelLevel;
-            fuelConsumed = 0;
-        } else {
-            throw new IllegalArgumentException("Invalid fuelLevel and/or fuelConsumed.");
-        }
-    }
-
     public void updateFuel(double fuelLevel, double fuelConsumed){
-        updateTankCapacity(fuelLevel);
+        updateEstimatedKmLeft(fuelLevel);
         updateFuelLevel(fuelLevel);
         updateFuelConsumed(fuelConsumed);
-    }
-
-    public void updateTankCapacity(double fuelLevel){
-        estimatedKmLeft = (fuelConsumed*distanceTravelled)*100/(this.fuelLevel-fuelLevel);
     }
 
     public void updateOdometer(double odometerReading){
         if (validOdometerReading(odometerReading)){
             distanceTravelled = computeDistanceTravelled(odometerReading);
         }
+    }
+
+    private void updateEstimatedKmLeft(double fuelLevel){
+        estimatedKmLeft = (fuelConsumed*distanceTravelled)*100/(this.fuelLevel-fuelLevel);
+        //updateEstimatedKmLeftText();
     }
 
     private void updateFuelConsumed(double fuelConsumed){
@@ -48,6 +49,7 @@ public class FuelController implements FuelInterface, OdometerInterface{
     private void updateFuelLevel(double fuelLevel){
         if(validFuelLevelValue(fuelLevel)){
             this.fuelLevel = fuelLevel;
+            //updateFuelLeftRectangle();
         } else {
             throw new IllegalArgumentException("Invalid fuelLevelValue");
         }
@@ -103,6 +105,20 @@ public class FuelController implements FuelInterface, OdometerInterface{
 
     public double getEstimatedKmLeft(){
         return estimatedKmLeft;
+    }
+
+    @FXML private Pane fuelLeftPane;
+
+    @FXML private Rectangle fuelLeftBar;
+
+    @FXML private Text kmLeftText;
+
+    private void updateFuelLeftRectangle(){
+        fuelLeftBar.setWidth(fuelLevel*fuelLeftPane.getWidth()/100);
+    }
+
+    private void updateEstimatedKmLeftText(){
+        kmLeftText.setText(String.valueOf(estimatedKmLeft) + " km");
     }
 
 }

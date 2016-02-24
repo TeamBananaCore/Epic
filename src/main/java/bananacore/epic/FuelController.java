@@ -1,7 +1,7 @@
 package bananacore.epic;
 
 
-public class FuelController implements FuelInterface, OdometerInterface{
+public class FuelController implements OdometerInterface{
 
     public static final double MAX_FUEL_CONSUMED_VALUE = 4294967295.0;
     public static final double MAX_ODOMETER_VALUE = 16777214.0;

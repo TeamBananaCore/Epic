@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.Pane?>
-<Pane prefWidth="480" prefHeight="130" style="-fx-background-color: green">
-
-</Pane>
+<?import bananacore.epic.PerformanceBar?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Circle?>
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="bananacore.epic.BrakeController" prefWidth="480" prefHeight="130" style="-fx-background-color: turquoise;">
+    <Circle fx:id="brakeLight" radius="10" styleClass="brake_light_off" StackPane.alignment="CENTER_LEFT"/>
+    <PerformanceBar fx:id="breakBar" max="100" min="0" StackPane.alignment="CENTER"/>
+</StackPane>

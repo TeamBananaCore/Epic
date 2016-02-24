@@ -1,0 +1,25 @@
+
+.performance_bar {
+    -fx-background-color: linear-gradient(to right, red, yellow, green);
+    -fx-background-radius: 10px;
+    -fx-border-style: solid;
+    -fx-border-color: black;
+    -fx-border-radius: 10px;
+    -fx-padding: 10px;
+}
+
+.performance_overlay {
+    -fx-background-color: rgba(100,100,100,.5);
+    -fx-background-radius: 10px;
+}
+
+.brake_light_on {
+    -fx-fill: red;
+    -fx-effect: dropshadow(gaussian, red, 10, .2, 0, 0);
+    -fx-stroke: black 1px;
+}
+
+.brake_light_off{
+    -fx-fill: #643026;
+    -fx-stroke: black 1px;
+}

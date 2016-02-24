@@ -20,23 +20,23 @@ public class App extends Application{
         SpeedController speedController = new SpeedController;
         FuelController fuelController = new FuelController;
         OurParser ourParser = new OurParser();
-        setupControllers();
+        setupControllers(ourParser,gearController,brakeController,speedController,fuelController);
 
         launch(args);
     }
     //connects all controllers to data
-    private void setupControllers (OurParser ourParser, GearController gearController, BreakeController breakeController, SpeedController speedController, fuelController fuelController){
-                ourParser.addObserver(ourParser.breakObervers,breakeController);
-            ourParser.addObserver(ourParser.gearObservers,gearController);
+    private void setupControllers (OurParser ourParser, GearController gearController, BrakeController brakeController, SpeedController speedController, fuelController fuelController){
+        ourParser.addObserver(ourParser.breakObervers,brakeController);
+        ourParser.addObserver(ourParser.gearObservers,gearController);
         ourParser.addObserver(ourParser.rpmObservers,gearController);
-        ourParser.addObserver(ourParser.speedObservers,speedController);
-        ourParser.addObserver(ourParser.fuelObservers,fuelController);
-
-
-
-
+        ourParser.addObserver(ourParser.speedObervers,speedController);
+        ourParser.addObserver(ourParser.fuelObervers,fuelController);
+        ourParser.addObserver(ourParser.fuelLevelObervers,fuelController);
+        ourParser.addObserver(ourParser.fuelSInceRestartObervers,fuelController);
+        ourParser.addObserver(ourParser.odometerObservers,fuelController);
 
     }
+
     @Override
     public void start(Stage primaryStage) {
         logger.debug("App started");

@@ -7,6 +7,8 @@ import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.net.URL;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,140 +16,113 @@ public class OurParser {
     // input example http://openxcplatform.com.s3.amazonaws.com/traces/nyc/downtown-west.json
 
 
-    //etc. put in when created
-
-
     //last recorded
     JSONObject vehicleSpeed;
     JSONObject engineSpeed;
-    JSONObject torqueAtTransmission;
     JSONObject fuelConsumedSinceRestart;
     JSONObject odometer;
     JSONObject brakePedalStatus;
-    JSONObject latitude;
     JSONObject acceleratorPedalPosition;
     JSONObject fuelLevel;
+    JSONObject transmissionGearPosition;
 
-
-    ArrayList<CarController> breakObervers = new ArrayList<CarController>();
-    ArrayList<CarController> rpmObservers = new ArrayList<CarController>();
-    ArrayList<CarController> gearObservers = new ArrayList<CarController>();
-    ArrayList<SpeedInterface> speedObervers = new ArrayList<CarController>();
+    ArrayList<BreakInterface> breakObervers = new ArrayList<BreakInterface>();
+    ArrayList<RPMInterface> rpmObservers = new ArrayList<RPMInterface>();
+    ArrayList<GearInterface> gearObservers = new ArrayList<GearInterface>();
+    ArrayList<SpeedInterface> speedObervers = new ArrayList<SpeedInterface>();
     ArrayList<FuelInterface> fuelObervers = new ArrayList<FuelInterface>();
+    ArrayList<OdometerInterface> odometerObservers = new ArrayList<OdometerInterface>();
 
-    private void updateFuelObservers(double fuelvalue, double fuelSinceRestart){
-        for ( CarController (fuelController)carController : fuelObervers){
-             carController.updateFuelLevel(fuelvalue);
-            carController.updateFuelConsumedSinceRestart(double fuelSinceRestart);
+    private void updateFuelLevelObservers(double value, Timestamp timestamp) {
+        for (FuelInterface carController : fuelObervers) {
+            carController.updateFuelLevel(value, timestamp);
         }
     }
-    private void updateSpeedObservers( )
+    private void updateOdometerObservers(int value, Timestamp timestamp){
+        for (OdometerInterface carController : odometerObservers) {
+            carController.updateOdometer(value, timestamp);
+        }
+    }
+
+    private void updateFuelSinceRestartObservers(double value, Timestamp timestamp) {
+        for (FuelInterface carController : fuelObervers) {
+            carController.updateFuelConsumedSinceRestart(value, timestamp);
+        }
+    }
+
+    private void updateSpeedObservers(int vehiclespeed, Timestamp timestamp) {
+        for (SpeedInterface carController : speedObervers) {
+            carController.updateVehicleSpeed(vehiclespeed, timestamp);
+        }
+    }
+
+    private void updateGearObservers(int value, Timestamp timestamp) {
+        for (GearInterface carController : gearObservers) {
+            carController.updateGear(value, timestamp);
+        }
+    }
+
+    private void updateRPMObservers(int value, Timestamp timestamp) {
+        for (RPMInterface carController : rpmObservers) {
+            carController.updateRPM(value, timestamp);
+        }
+    }
+
+    private void updateBrakeObservers(Boolean value, Timestamp timestamp) {
+        for (BreakInterface carController : breakObervers) {
+            carController.updateBreakPedalStatus(value, timestamp);
+        }
+    }
 
 
-    public void addObserver (ArrayList observer, CarController carController){
+    public void addObserver(ArrayList observer, Object carController) {
         observer.add(carController);
     }
 
 
-    //takes inn json and update JSONObjects. we dont know how we get the data.....which makes this a little difficult
-    //this method do not work :(
-    private void testReadsJASJONfromURL(String url2)throws IOException{
-        URL url = new URL(url2);
-        InputStream urlInputStream = url.openConnection().getInputStream();
-        //reads name
-        System.out.println(urlInputStream.read());
-
-    }
-
-
-
-//------------------------------
-    //From jsonObject to int and boolean
-
-    private int extractIntegerValue(JSONObject obj){
-        return (Integer) obj.get("value");
-    }
-
-    //not sure if breakpedal uses string or boolean
-    private boolean extractBoleanValue(JSONObject obj){
-        return (Boolean) obj.get("value");
-    }
-
-    //
-    public int getVehicleSpeed() {
-        return extractIntegerValue(vehicleSpeed);
-    }    public int getEngineSpeed() {
-        return extractIntegerValue(engineSpeed);
-    }  public int getTorqueAtTransmission() {
-        return extractIntegerValue(torqueAtTransmission);
-    }  public int getFuelConsumedSinceRestart() {
-        return extractIntegerValue(fuelConsumedSinceRestart);
-    }  public int getOdometer() {
-        return extractIntegerValue(odometer);
-    }  public int getLatitude() {
-        return extractIntegerValue(latitude);
-    }  public int getFuelLevel() {
-        return extractIntegerValue(fuelLevel);
-    }public int getAcceleratorPedalPosition() {
-        return extractIntegerValue(acceleratorPedalPosition);
-    }public boolean getBreakPedalStatus() {
-        return extractBoleanValue(brakePedalStatus);
-    }
-
-
-//--------------------------
-    //update consols. consols must implement update+"the ting they update" method    //should this be caled set instead of update`?
-//
-//    private void updateGearController(GearController gearController){
-//        gearController.updateFuelConsumedSinceRestart(getFuelConsumedSinceRestart());
-//        gearController.updateVehicleSpeed(getVehicleSpeed());
-//        gearController.updateEngineSpeedInterface(getEngineSpeed());
-//
-//    }
-//    private void updateBreakController(BreakController breakController){
-//        breakController.updateVehicleSpeed(getVehicleSpeed());
-//        breakController.updateBreakePedalStatus(getBreakPedalStatus());
-//
-//    }
-//    private void updateFuelController(FuelController fuelController){
-//        fuelController.updateFuelLevel(getFuelLevel());
-//        fuelController.updateFuelConsumedSinceRestart(getFuelConsumedSinceRestart());
-//    }
-//    private void updateSpeedController(SpeedContorller speedContorller){
-//        speedContorller.updateVehicleSpeed(getVehicleSpeed());
-//    }
-
-
-    private ArrayList<JSONObject> fileToArrayList(String filepath){
+    private ArrayList<JSONObject> fileToArrayList(String filepath) {
         JSONParser parser = new JSONParser();
         try {
-            FileReader fileReader= new FileReader(filepath);
+            FileReader fileReader = new FileReader(filepath);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             ArrayList<JSONObject> arrayList = new ArrayList<JSONObject>();
 
-            while (bufferedReader.ready()){
+            while (bufferedReader.ready()) {
                 JSONObject jsonObject = (JSONObject) new JSONParser().parse(bufferedReader.readLine());
                 arrayList.add(jsonObject);
             }
 
             return arrayList;
 
-        }catch (ParseException pe){
+        } catch (ParseException pe) {
             System.err.println("Parse exception");
-        }catch (IOException ieo){
+        } catch (IOException ieo) {
             System.err.println("IO exception");
         }
         return null;
     }
 
-    private void shippJSON ( JSONObject jsonObject){
-        String name = jsonObject.get("name");
-        if (name.equals("engine_speed"){
-            for (CarController carController : speedObervers){
+    private void updateControllers(JSONObject jsonObject) {
+        String name = (String) jsonObject.get("name");
+        Timestamp timestamp = (Timestamp) jsonObject.get("timestamp");
 
-            }
+        if (name.equals("engine_speed")) {
+            updateRPMObservers((Integer) jsonObject.get("value"), timestamp);
+        }else if(name.equals("fuel_level"))    {
+            updateFuelLevelObservers((Double) jsonObject.get("value"), timestamp);
+        }else if (name.equals("fuel_consumed_since_restart")){
+            updateFuelSinceRestartObservers((Double) jsonObject.get("value"),timestamp);
+        }else if (name.equals("vehicle_speed")){
+            updateSpeedObservers((Integer)jsonObject.get("value"),timestamp);
+        }else if (name.equals("brake_pedal_status")){
+            updateBrakeObservers((Boolean)jsonObject.get("value"),timestamp);
+        }else if (name.equals("transmission_gear_position")){
+            updateGearObservers((Integer)jsonObject.get("value"),timestamp);
+        }else if (name.equals("odometer")){
+            updateOdometerObservers((Integer)jsonObject.get("value"),timestamp);
         }
-    }
+
+}
 
     public static void main(String[] args) throws IOException {
 //  eksempler på    http://www.tutorialspoint.com/json/json_java_example.htm

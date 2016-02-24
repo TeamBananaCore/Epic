@@ -1,8 +1,10 @@
 package bananacore.epic;
 
+import java.sql.Timestamp;
+
 public interface SpeedInterface {
 
-    public int updateVehicleSpedInterface(int value);
+    public int updateVehicleSpeed(int value, Timestamp timestamp);
 
 
 }

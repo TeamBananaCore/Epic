@@ -31,8 +31,6 @@ public class App extends Application{
         ourParser.addObserver(ourParser.rpmObservers,gearController);
         ourParser.addObserver(ourParser.speedObervers,speedController);
         ourParser.addObserver(ourParser.fuelObervers,fuelController);
-        ourParser.addObserver(ourParser.fuelLevelObervers,fuelController);
-        ourParser.addObserver(ourParser.fuelSInceRestartObervers,fuelController);
         ourParser.addObserver(ourParser.odometerObservers,fuelController);
 
     }

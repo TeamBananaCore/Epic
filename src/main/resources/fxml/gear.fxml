@@ -8,9 +8,8 @@
 <Pane prefHeight="190" prefWidth="150" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.GearController">
    <children>
       <ImageView fx:id="gearImageView" fitHeight="135.0" fitWidth="135.0" layoutX="8.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-
-         </image></ImageView>
+         <image></image>
+      </ImageView>
       <TextField fx:id="textField" layoutY="0.0" onKeyReleased="#updateRpm" />
    </children>
 </Pane>

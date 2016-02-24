@@ -14,18 +14,20 @@ public class FuelController implements OdometerInterface{
 
     public static final double MAX_FUEL_CONSUMED_VALUE = 4294967295.0;
     public static final double MAX_ODOMETER_VALUE = 16777214.0;
-    private double fuelLevel;
-    private double fuelConsumed;
-    private double startDistance;
-    private double fuelUsage;
-    private double distanceTravelled;
-    private double estimatedKmLeft;
-    private int fuelUpdateCounter;
+    private double fuelLevel = 100.0;
+    private double fuelConsumed = 0.0;
+    private double startDistance = 0.0;
+    private double fuelUsage = 1.0;
+    private double distanceTravelled = 0.0;
+    private double estimatedKmLeft = 10.0;
+    private double tankSize = 100;
+    private int fuelUpdateCounter = 0;
 
     public void updateFuel(double fuelLevel, double fuelConsumed){
-        updateEstimatedKmLeft(fuelLevel);
-        updateFuelLevel(fuelLevel);
+        updateTankSize(fuelLevel, fuelConsumed);
         updateFuelConsumed(fuelConsumed);
+        updateEstimatedKmLeft(fuelConsumed);
+        updateFuelLevel(fuelLevel);
     }
 
     public void updateOdometer(double odometerReading){
@@ -34,8 +36,12 @@ public class FuelController implements OdometerInterface{
         }
     }
 
-    private void updateEstimatedKmLeft(double fuelLevel){
-        estimatedKmLeft = (fuelConsumed*distanceTravelled)*100/(this.fuelLevel-fuelLevel);
+    private void updateTankSize(double fuelLevel, double fuelConsumed){
+        tankSize = fuelConsumed*100/(this.fuelLevel-fuelLevel);
+    }
+
+    private void updateEstimatedKmLeft(double fuelConsumed){
+        estimatedKmLeft = (tankSize - fuelConsumed)/fuelUsage;
         //updateEstimatedKmLeftText();
     }
 

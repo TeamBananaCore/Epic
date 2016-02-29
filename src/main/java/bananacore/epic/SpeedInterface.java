@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public interface SpeedInterface {
 
-    public int updateVehicleSpeed(int value, Timestamp timestamp);
+    public void updateVehicleSpeed(int value, Timestamp timestamp);
 
 
 }

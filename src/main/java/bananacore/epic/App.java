@@ -26,7 +26,7 @@ public class App extends Application{
     }
     //connects all controllers to data
     private static void setupControllers (OurParser ourParser, GearInterface gearController, BrakeInterface brakeController, SpeedInterface speedController, FuelInterface fuelController){
-        ourParser.addObserver(ourParser.breakObervers,brakeController);
+        ourParser.addObserver(ourParser.brakeObervers,brakeController);
         ourParser.addObserver(ourParser.gearObservers,gearController);
         ourParser.addObserver(ourParser.rpmObservers,gearController);
         ourParser.addObserver(ourParser.speedObervers,speedController);

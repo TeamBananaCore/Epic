@@ -22,7 +22,7 @@ public class OurParser {
     JSONObject fuelLevel;
     JSONObject transmissionGearPosition;
 
-    ArrayList<BrakeInterface> breakObervers = new ArrayList<BrakeInterface>();
+    ArrayList<BrakeInterface> brakeObervers = new ArrayList<BrakeInterface>();
     ArrayList<RPMInterface> rpmObservers = new ArrayList<RPMInterface>();
     ArrayList<GearInterface> gearObservers = new ArrayList<GearInterface>();
     ArrayList<SpeedInterface> speedObervers = new ArrayList<SpeedInterface>();
@@ -65,14 +65,34 @@ public class OurParser {
     }
 
     private void updateBrakeObservers(Boolean value, Timestamp timestamp) {
-        for (BrakeInterface carController : breakObervers) {
+        for (BrakeInterface carController : brakeObervers) {
             carController.updateBreakPedalStatus(value, timestamp);
         }
     }
 
-
+//can be used in App to add observers
     public void addObserver(ArrayList observer, Object carController) {
         observer.add(carController);
+    }
+  //these are used by the Consoles to add themself.
+    public void addToBrakeObserver(BrakeInterface controller){
+        brakeObervers.add(controller);
+    }
+
+    public void addToFuelObserver (FuelInterface controller){
+        fuelObervers.add(controller);
+    }
+    public void addToGearObservers (GearInterface controller){
+        gearObservers.add(controller);
+    }
+    public void addToOdometerObservers (OdometerInterface controller){
+        odometerObservers.add(controller);
+    }
+    public void addToRPMObservers (RPMInterface controller){
+        rpmObservers.add(controller);
+    }
+    public void addToSpeedObservers (SpeedInterface controller){
+        speedObervers.add(controller);
     }
 
 
@@ -106,6 +126,7 @@ public class OurParser {
         Long time = milliseconds.longValue();
 
         Timestamp timestamp = new Timestamp(time);
+
 
         if (name.equals("engine_speed")) {
             updateRPMObservers(Integer.parseInt(jsonObject.get("value").toString()), timestamp);

@@ -120,7 +120,7 @@ public class OurParser {
         }else if (name.equals("transmission_gear_position")){
             updateGearObservers(Integer.parseInt(jsonObject.get("value").toString()),timestamp);
         }else if (name.equals("odometer")){
-            updateOdometerObservers(Integer.parseInt(jsonObject.get("value").toString()),timestamp);
+            updateOdometerObservers((int) Double.parseDouble(jsonObject.get("value").toString()),timestamp);
         }
 
 }

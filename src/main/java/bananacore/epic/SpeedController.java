@@ -8,10 +8,7 @@ import java.sql.Timestamp;
 public class SpeedController implements SpeedInterface{
 
 
-    int vehicleSpeed = 0;
-
     public void updateVehicleSpeed(int value, Timestamp timestamp) {
-        vehicleSpeed = value;
-        System.out.println("Speed: " + vehicleSpeed);
+
     }
 }

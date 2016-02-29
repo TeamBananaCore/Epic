@@ -15,14 +15,14 @@ public class FuelController implements FuelInterface, OdometerInterface{
     private double estimatedKmLeft;
     private int fuelUpdateCounter;
 
-    /*public FuelController(double fuelLevel, double startDistance) {
+    public FuelController(double fuelLevel, double startDistance) {
         if(validFuelLevelValue(fuelLevel) && validDistanceValue(startDistance)){
             this.fuelLevel = fuelLevel;
             fuelConsumed = 0;
         } else {
             throw new IllegalArgumentException("Invalid fuelLevel and/or fuelConsumed.");
         }
-    }*/
+    }
 
     public void updateFuel(double fuelLevel, double fuelConsumed){
         updateTankCapacity(fuelLevel);

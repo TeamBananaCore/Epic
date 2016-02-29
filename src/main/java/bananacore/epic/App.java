@@ -21,7 +21,6 @@ public class App extends Application{
 
 
         ourParser.fileToArrayList("src/main/resources/downtown-west.txt");
-        System.out.println(speedController.vehicleSpeed);
 
         launch(args);
     }

@@ -135,16 +135,35 @@ public class OurParser {
         }else if (name.equals("fuel_consumed_since_restart")){
             updateFuelSinceRestartObservers((Double) jsonObject.get("value"),timestamp);
         }else if (name.equals("vehicle_speed")){
-            updateSpeedObservers(Integer.parseInt(jsonObject.get("value").toString()),timestamp);
+            updateSpeedObservers((int) Double.parseDouble(jsonObject.get("value").toString()),timestamp);
         }else if (name.equals("brake_pedal_status")){
             updateBrakeObservers((Boolean)jsonObject.get("value"),timestamp);
         }else if (name.equals("transmission_gear_position")){
-            updateGearObservers(Integer.parseInt(jsonObject.get("value").toString()),timestamp);
+            updateGearObservers(numericToInt((String) jsonObject.get("value")),timestamp);
         }else if (name.equals("odometer")){
             updateOdometerObservers((int) Double.parseDouble(jsonObject.get("value").toString()),timestamp);
         }
+    }
 
-}
+    private int numericToInt(String numeric) {
+        if (numeric.equals("first")) {
+            return 1;
+        } else if (numeric.equals("second")) {
+            return 2;
+        } else if (numeric.equals("third")) {
+            return 3;
+        } else if (numeric.equals("fourth")) {
+            return 4;
+        } else if (numeric.equals("fifth")) {
+            return 5;
+        } else if (numeric.equals("sixth")) {
+            return 6;
+        } else if (numeric.equals("neutral")) {
+            return 0;
+        } else if (numeric.equals("reverse")) {
+            return 7;
+        } else {return -1;}
+    }
 
     public static void main(String[] args) throws IOException {
 //  eksempler på    http://www.tutorialspoint.com/json/json_java_example.htm

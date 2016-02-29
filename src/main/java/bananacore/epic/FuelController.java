@@ -24,6 +24,8 @@ public class FuelController implements FuelInterface, OdometerInterface{
         }
     }
 
+    public FuelController(){};
+
     public void updateFuel(double fuelLevel, double fuelConsumed){
         updateTankCapacity(fuelLevel);
         updateFuelLevel(fuelLevel);

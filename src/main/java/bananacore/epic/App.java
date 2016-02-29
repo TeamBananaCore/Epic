@@ -20,7 +20,7 @@ public class App extends Application{
         setupControllers(ourParser,gearController,brakeController,speedController,fuelController);
 
 
-        ourParser.fileToArrayList("src/main/resources/downtown-west.txt");
+        ourParser.fileToArrayList("src/main/resources/downtown-west.json");
 
         launch(args);
     }

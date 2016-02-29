@@ -12,6 +12,6 @@ public class SpeedController implements SpeedInterface{
 
     public void updateVehicleSpeed(int value, Timestamp timestamp) {
         vehicleSpeed = value;
-        System.out.println(vehicleSpeed);
+        System.out.println("Speed: " + vehicleSpeed);
     }
 }

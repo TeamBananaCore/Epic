@@ -102,7 +102,6 @@ public class OurParser {
     private void updateControllers(JSONObject jsonObject) {
         String name = (String) jsonObject.get("name");
         Double milliseconds = (Double) jsonObject.get("timestamp") * 1000;
-        System.out.println(milliseconds);
 
         Long time = milliseconds.longValue();
 
@@ -115,13 +114,13 @@ public class OurParser {
         }else if (name.equals("fuel_consumed_since_restart")){
             updateFuelSinceRestartObservers((Double) jsonObject.get("value"),timestamp);
         }else if (name.equals("vehicle_speed")){
-            updateSpeedObservers((Integer)jsonObject.get("value"),timestamp);
+            updateSpeedObservers(Integer.parseInt(jsonObject.get("value").toString()),timestamp);
         }else if (name.equals("brake_pedal_status")){
             updateBrakeObservers((Boolean)jsonObject.get("value"),timestamp);
         }else if (name.equals("transmission_gear_position")){
-            updateGearObservers((Integer)jsonObject.get("value"),timestamp);
+            updateGearObservers(Integer.parseInt(jsonObject.get("value").toString()),timestamp);
         }else if (name.equals("odometer")){
-            updateOdometerObservers((Integer)jsonObject.get("value"),timestamp);
+            updateOdometerObservers(Integer.parseInt(jsonObject.get("value").toString()),timestamp);
         }
 
 }

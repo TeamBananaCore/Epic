@@ -5,27 +5,27 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 
 import java.io.IOException;
 
 public class App extends Application{
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    //private Logger logger = LoggerFactory.getLogger(getClass());
     public static void main(String[] args) {
-        GearController gearController = new GearController;
-        BrakeController brakeController = new BrakeController;
-        SpeedController speedController = new SpeedController;
-        FuelController fuelController = new FuelController;
+        GearController gearController = new GearController();
+        BrakeController brakeController = new BrakeController();
+        SpeedController speedController = new SpeedController();
+        FuelController fuelController = new FuelController();
         OurParser ourParser = new OurParser();
         setupControllers(ourParser,gearController,brakeController,speedController,fuelController);
 
         launch(args);
     }
     //connects all controllers to data
-    private void setupControllers (OurParser ourParser, GearController gearController, BrakeController brakeController, SpeedController speedController, fuelController fuelController){
+    private static void setupControllers (OurParser ourParser, GearInterface gearController, BrakeInterface brakeController, SpeedInterface speedController, FuelInterface fuelController){
         ourParser.addObserver(ourParser.breakObervers,brakeController);
         ourParser.addObserver(ourParser.gearObservers,gearController);
         ourParser.addObserver(ourParser.rpmObservers,gearController);
@@ -37,7 +37,7 @@ public class App extends Application{
 
     @Override
     public void start(Stage primaryStage) {
-        logger.debug("App started");
+        //logger.debug("App started");
         Pane root = null;
         try {
             root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/main.fxml"));

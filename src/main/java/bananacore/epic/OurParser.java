@@ -6,8 +6,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
-import java.net.URL;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -26,7 +24,7 @@ public class OurParser {
     JSONObject fuelLevel;
     JSONObject transmissionGearPosition;
 
-    ArrayList<BreakInterface> breakObervers = new ArrayList<BreakInterface>();
+    ArrayList<BrakeInterface> breakObervers = new ArrayList<BrakeInterface>();
     ArrayList<RPMInterface> rpmObservers = new ArrayList<RPMInterface>();
     ArrayList<GearInterface> gearObservers = new ArrayList<GearInterface>();
     ArrayList<SpeedInterface> speedObervers = new ArrayList<SpeedInterface>();
@@ -69,7 +67,7 @@ public class OurParser {
     }
 
     private void updateBrakeObservers(Boolean value, Timestamp timestamp) {
-        for (BreakInterface carController : breakObervers) {
+        for (BrakeInterface carController : breakObervers) {
             carController.updateBreakPedalStatus(value, timestamp);
         }
     }

@@ -20,7 +20,8 @@ public class App extends Application{
 
     @Override
     public void start(Stage primaryStage) {
-        logger.debug("App started");
+        DatabaseManager.connectToDB();
+
         BorderPane root = new BorderPane();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/main.fxml"));
@@ -33,5 +34,6 @@ public class App extends Application{
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
+        logger.debug("App started");
     }
 }

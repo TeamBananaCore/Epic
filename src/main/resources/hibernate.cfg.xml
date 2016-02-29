@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <!-- DB connection -->
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://mysql.stud.ntnu.no/olemagnp_epic_database</property>
+        <property name="connection.username">olemagnp_remote</property>
+        <property name="connection.password">epic42</property>
+
+        <property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+
+        <property name="connection.pool_size">1</property>
+
+        <property name="show_sql">false</property>
+
+        <property name="generate_statistics">true</property>
+
+        <mapping class="bananacore.epic.models.BrakeSession"/>
+        <mapping class="bananacore.epic.models.FuelSession"/>
+        <mapping class="bananacore.epic.models.SpeedSession"/>
+        <mapping class="bananacore.epic.models.WrongGearSession"/>
+    </session-factory>
+</hibernate-configuration>

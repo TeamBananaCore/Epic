@@ -59,19 +59,18 @@ public class PerformanceBar extends Pane {
         hand.setLayoutY(0);
         hand.visibleProperty().bind(activeProperty);
         getChildren().add(hand);
-
-        setValue(75);
     }
 
     public void setValue(double current) {
-        if (current > max) this.current = max;
-        else if (current < min) this.current = min;
-        else this.current = current;
+        logger.debug("" + current);
+
+        if (current > max) current = max;
+        else if (current < min) current = min;
+        this.current = current;
 
         double pos = current/(max-min) * getPrefWidth();
         hand.xProperty().setValue(0.5*getPrefWidth());
         activeProperty.setValue(true);
-        logger.debug(pos + "");
         Timeline moveHand = new Timeline();
         moveHand.setCycleCount(1);
         moveHand.setAutoReverse(false);
@@ -83,6 +82,23 @@ public class PerformanceBar extends Pane {
             tl.play();
         });
         moveHand.play();
+    }
+
+    public double getMin() {
+        return min;
+    }
+
+    public void setMin(double min) {
+        this.min = min;
+    }
+
+    public double getMax() {
+        return max;
+    }
+
+    public void setMax(double max){
+        this.max = max;
+
     }
 
     private void setInactive(){

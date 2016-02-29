@@ -6,10 +6,9 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class BrakeThread extends Thread{
-    private static final int BRAKE_POST_TRESHOLD = 1000;
 
     private Timestamp startTime;
-    private int startSpeed, currentSpeed;
+    private int startSpeed;
     private BrakeController brakeController;
     private boolean active = false;
 
@@ -22,23 +21,17 @@ public class BrakeThread extends Thread{
     public void run(){
         active = true;
         try{
-            Thread.sleep(BRAKE_POST_TRESHOLD);
+            Thread.sleep(Constants.BRAKE_POST_TRESHOLD);
         } catch (InterruptedException e) {
             run();
             return;
         }
         long duration = (Timestamp.valueOf(LocalDateTime.now()).getTime() - startTime.getTime())/1000;
-        Platform.runLater(() -> {
-            brakeController.updateView(startSpeed, currentSpeed, duration);
-        });
+        Platform.runLater(() -> brakeController.updateView(startSpeed, brakeController.getSpeed(), duration));
         active = false;
     }
 
     public boolean isActive(){
         return active;
-    }
-
-    public void setCurrentSpeed(int currentSpeed){
-        this.currentSpeed = currentSpeed;
     }
 }

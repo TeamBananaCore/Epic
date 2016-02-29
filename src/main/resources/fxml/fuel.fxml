@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
@@ -21,6 +22,9 @@
                   </LinearGradient>
                </fill>
             </Rectangle>
+            <TextField id="fuelLevelField" text="100" />
+            <TextField id="odoField" layoutY="63.0" text="100" />
+            <TextField id="fuelConsumedField" layoutY="33.0" text="100" />
          </children>
       </Pane>
    </top>

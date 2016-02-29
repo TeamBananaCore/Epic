@@ -1,6 +1,9 @@
 
 import bananacore.epic.App;
 import bananacore.epic.FuelController;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.stage.Stage;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -67,5 +70,4 @@ public class FuelControllerTest {
         }
         assertEquals(2.0, controller.getFuelUsage(), 0);
     }
-
 }

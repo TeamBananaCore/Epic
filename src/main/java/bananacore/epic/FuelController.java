@@ -1,8 +1,11 @@
 package bananacore.epic;
 
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -119,6 +122,29 @@ public class FuelController implements OdometerInterface{
 
     @FXML private Text kmLeftText;
 
+    @FXML private TextField fuelLevelField;
+    @FXML private TextField fuelConsumedField;
+    @FXML private TextField odoField;
+
+    @FXML
+    public void initialize(){
+        fuelLevelField.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println(oldValue);
+            updateFuel(Double.parseDouble(newValue), Double.parseDouble(fuelConsumedField.getText()));
+            System.out.println(newValue);
+            updateFuelLeftRectangle();
+            updateEstimatedKmLeftText();
+        });
+        fuelConsumedField.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateFuel(Double.parseDouble(fuelLevelField.getText()), Double.parseDouble(newValue));
+            updateEstimatedKmLeftText();
+        });
+        odoField.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateOdometer(Double.parseDouble(newValue));
+            updateEstimatedKmLeftText();
+        });
+    }
+
     private void updateFuelLeftRectangle(){
         fuelLeftBar.setWidth(fuelLevel*fuelLeftPane.getWidth()/100);
     }
@@ -126,5 +152,4 @@ public class FuelController implements OdometerInterface{
     private void updateEstimatedKmLeftText(){
         kmLeftText.setText(String.valueOf(estimatedKmLeft) + " km");
     }
-
 }

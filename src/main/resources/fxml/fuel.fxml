@@ -9,9 +9,9 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="190.0" prefWidth="330.0" style="-fx-background-color: sienna" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.FuelController">
    <top>
-      <Pane id="fuelLeftPane" prefHeight="90.0" prefWidth="330.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+      <Pane fx:id="fuelLeftPane" prefHeight="90.0" prefWidth="330.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <Rectangle id="fuelLeftBar" arcHeight="5.0" arcWidth="5.0" height="90.0" stroke="TRANSPARENT" strokeType="INSIDE" width="330.0">
+            <Rectangle fx:id="fuelLeftBar" arcHeight="5.0" arcWidth="5.0" height="90.0" stroke="TRANSPARENT" strokeType="INSIDE" width="330.0">
                <fill>
                   <LinearGradient endX="1.0" endY="1.0">
                      <stops>
@@ -22,14 +22,14 @@
                   </LinearGradient>
                </fill>
             </Rectangle>
-            <TextField id="fuelLevelField" text="100" />
-            <TextField id="odoField" layoutY="63.0" text="100" />
-            <TextField id="fuelConsumedField" layoutY="33.0" text="100" />
+            <TextField fx:id="fuelLevelField" text="100" />
+            <TextField fx:id="odoField" layoutY="63.0" text="100" />
+            <TextField fx:id="fuelConsumedField" layoutY="33.0" text="100" />
          </children>
       </Pane>
    </top>
    <bottom>
-      <Text id="kmLeftText" fill="WHITE" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="4.0" text="0 km" textAlignment="CENTER" wrappingWidth="330.0" BorderPane.alignment="CENTER">
+      <Text fx:id="kmLeftText" fill="WHITE" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="4.0" text="0 km" textAlignment="CENTER" wrappingWidth="330.0" BorderPane.alignment="CENTER">
          <font>
             <Font size="80.0" />
          </font>

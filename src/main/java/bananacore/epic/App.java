@@ -36,7 +36,7 @@ public class App extends Application{
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) {//
         //logger.debug("App started");
         Pane root = null;
         try {

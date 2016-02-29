@@ -4,36 +4,75 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class GearController {
 
     @FXML
     private ImageView gearImageView;
+    @FXML
+    private Rectangle rectangle;
 
     private int thresholdRpmGas = 3000;
     private int thresholdRpmDiesel = 2000;
 
-    private int lowerThresholdRpmGas = 1800;
+    private int lowerThresholdRpmGas = 1500;
     private int lowerThresholdRpmDiesel = 1000;
 
-    private int rpmStatus;
+    private double maxRpm = 14000;
+
+    private double rpmStatus;
     private int gearStatus = 4;
 
     private String carType = "gas";
 
+    private double opacity = 1;
+
+    public void initialize(){
+        initGearImageList();
+        setGearImage(gearStatus);
+    }
+
+    public void updateView(){
+        gearImageViewUpdate();
+        if(rpmStatus == 0){
+            setGearImage(1);
+        }
+    }
+
     public void gearImageViewUpdate(){
+        updateBgRpm();
         if(carType.equals("gas")){
             if(rpmStatus >= thresholdRpmGas){
                 setGearImageUp();
-            }else if(rpmStatus <= lowerThresholdRpmGas){
+            }else if( rpmStatus > 0 && rpmStatus <= lowerThresholdRpmGas){
                 setGearImageDown();
             }else if(gearStatus >= 0 && gearStatus < 7){
                 setGearImage(gearStatus);
             }
+        }
+    }
+
+    private void updateBgRpm() {
+        setOpacity();
+        System.out.println(opacity);
+        Color colorRed;
+        if(rpmStatus >= 2500){
+            colorRed = new Color(1,0,0,opacity);
+        }else{
+            colorRed = new Color(1,0,0,0);
+        }
+        rectangle.setFill(colorRed);
+    }
+
+    private void setOpacity(){
+        double x = Math.pow(rpmStatus, 2.0) / 2285 / maxRpm;
+        if(x <= 0.60 && x > 0.10){
+            opacity =x;
         }
     }
 
@@ -44,7 +83,7 @@ public class GearController {
     @FXML
     private void updateRpm(){
         if(!textField.getText().isEmpty()){
-            rpmStatus = Integer.parseInt(textField.getText());
+            rpmStatus = Double.parseDouble(textField.getText());
             gearImageViewUpdate();
         }
     }
@@ -58,7 +97,7 @@ public class GearController {
         this.gearStatus = gearStatus;
     }
 
-    public int getRpmStatus() {
+    public double getRpmStatus() {
         return rpmStatus;
     }
 
@@ -66,10 +105,6 @@ public class GearController {
         this.rpmStatus = rpmStatus;
     }
 
-    public void initialize(){
-        initGearImageList();
-        setGearImageUp();
-    }
 
     private List<Image> gearImageList = new ArrayList<Image>();
     private void initGearImageList() {

@@ -107,17 +107,17 @@ public class FuelController implements FuelInterface, OdometerInterface{
         return estimatedKmLeft;
     }
 
-    @Override
+
     public void updateFuelLevel(double value, Timestamp timestamp) {
 
     }
 
-    @Override
+
     public void updateFuelConsumedSinceRestart(double value, Timestamp timestamp) {
 
     }
 
-    @Override
+
     public void updateOdometer(int value, Timestamp timestamp) {
 
     }

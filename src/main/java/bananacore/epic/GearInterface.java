@@ -7,5 +7,5 @@ import java.sql.Timestamp;
  */
 public interface GearInterface {
 
-    public void updateGear(int value, Timestamp timestamp);
+    void updateGear(int value, Timestamp timestamp);
 }

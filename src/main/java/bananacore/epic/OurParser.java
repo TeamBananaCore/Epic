@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class OurParser {
     // input example http://openxcplatform.com.s3.amazonaws.com/traces/nyc/downtown-west.json
 
-
     //last recorded
     JSONObject vehicleSpeed;
     JSONObject engineSpeed;
@@ -77,7 +76,7 @@ public class OurParser {
     }
 
 
-    private ArrayList<JSONObject> fileToArrayList(String filepath) {
+    public void fileToArrayList(String filepath) {
         JSONParser parser = new JSONParser();
         try {
             FileReader fileReader = new FileReader(filepath);
@@ -87,24 +86,30 @@ public class OurParser {
             while (bufferedReader.ready()) {
                 JSONObject jsonObject = (JSONObject) new JSONParser().parse(bufferedReader.readLine());
                 arrayList.add(jsonObject);
+                updateControllers(jsonObject);
             }
 
-            return arrayList;
+
 
         } catch (ParseException pe) {
             System.err.println("Parse exception");
         } catch (IOException ieo) {
             System.err.println("IO exception");
         }
-        return null;
+
     }
 
     private void updateControllers(JSONObject jsonObject) {
         String name = (String) jsonObject.get("name");
-        Timestamp timestamp = (Timestamp) jsonObject.get("timestamp");
+        Double milliseconds = (Double) jsonObject.get("timestamp") * 1000;
+        System.out.println(milliseconds);
+
+        Long time = milliseconds.longValue();
+
+        Timestamp timestamp = new Timestamp(time);
 
         if (name.equals("engine_speed")) {
-            updateRPMObservers((Integer) jsonObject.get("value"), timestamp);
+            updateRPMObservers(Integer.parseInt(jsonObject.get("value").toString()), timestamp);
         }else if(name.equals("fuel_level"))    {
             updateFuelLevelObservers((Double) jsonObject.get("value"), timestamp);
         }else if (name.equals("fuel_consumed_since_restart")){
@@ -126,6 +131,7 @@ public class OurParser {
 
         //just learning jason. ignore all the stuff under under this point
         JSONParser parser = new JSONParser();
+
 try {
     FileReader fileReader= new FileReader("src/main/resources/downtown-west.json");
     BufferedReader bufferedReader = new BufferedReader(fileReader);

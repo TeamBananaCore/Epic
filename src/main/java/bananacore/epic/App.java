@@ -5,15 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-
-
-import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class App extends Application{
 
-    //private Logger logger = LoggerFactory.getLogger(getClass());
+    private Logger logger = LoggerFactory.getLogger(getClass());
     public static void main(String[] args) {
         GearController gearController = new GearController();
         BrakeController brakeController = new BrakeController();
@@ -21,6 +18,10 @@ public class App extends Application{
         FuelController fuelController = new FuelController();
         OurParser ourParser = new OurParser();
         setupControllers(ourParser,gearController,brakeController,speedController,fuelController);
+
+
+        ourParser.fileToArrayList("src/main/resources/downtown-west.txt");
+        System.out.println(speedController.vehicleSpeed);
 
         launch(args);
     }
@@ -37,7 +38,7 @@ public class App extends Application{
 
     @Override
     public void start(Stage primaryStage) {//
-        //logger.debug("App started");
+        logger.debug("App started");
         Pane root = null;
         try {
             root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/main.fxml"));

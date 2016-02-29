@@ -12,6 +12,10 @@ public class BrakeThread extends Thread{
     private BrakeController brakeController;
     private boolean active = false;
 
+    public BrakeThread(){
+        setDaemon(true);
+    }
+
     public void setValues(Timestamp startTime, int startSpeed, BrakeController brakeController){
         this.startTime = startTime;
         this.startSpeed = startSpeed;

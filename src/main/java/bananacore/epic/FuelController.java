@@ -2,6 +2,7 @@ package bananacore.epic;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
@@ -128,6 +129,8 @@ public class FuelController implements OdometerInterface, Initializable{
     private TextField fuelConsumedField;
     @FXML
     private TextField odoField;
+    @FXML
+    private Button registerButton;
 
     private boolean textFieldsNotEmpty(){
         return !(fuelLevelField.getText().isEmpty() && fuelConsumedField.getText().isEmpty() && odoField.getText().isEmpty());
@@ -143,6 +146,7 @@ public class FuelController implements OdometerInterface, Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+    /*
         fuelLevelField.textProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println(oldValue);
             updateFuel(Double.parseDouble(newValue), Double.parseDouble(fuelConsumedField.getText()));
@@ -158,5 +162,15 @@ public class FuelController implements OdometerInterface, Initializable{
             updateOdometer(Double.parseDouble(newValue));
             updateEstimatedKmLeftText();
         });
+        */
+    }
+
+
+    @FXML
+    public void updateValues(){
+        updateFuel(Double.parseDouble(fuelLevelField.getText()), Double.parseDouble(fuelConsumedField.getText()));
+        updateFuelLeftRectangle();
+        updateOdometer(Double.parseDouble(odoField.getText()));
+        updateEstimatedKmLeftText();
     }
 }

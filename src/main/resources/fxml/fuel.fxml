@@ -24,7 +24,7 @@
             </Rectangle>
             <TextField fx:id="fuelLevelField" text="100" />
             <TextField fx:id="odoField" layoutY="63.0" text="100" />
-            <TextField fx:id="fuelConsumedField" layoutY="33.0" text="100" />
+            <TextField fx:id="fuelConsumedField" layoutY="33.0" text="0" />
          </children>
       </Pane>
    </top>
@@ -35,4 +35,7 @@
          </font>
       </Text>
    </bottom>
+   <right>
+      <Button fx:id="registerButton" mnemonicParsing="false" onAction="#updateValues" text="Button" BorderPane.alignment="CENTER" />
+   </right>
 </BorderPane>

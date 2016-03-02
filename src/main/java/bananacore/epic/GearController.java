@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GearController {
+public class GearController implements GearInterface, RPMInterface{
 
     @FXML
     private ImageView gearImageView;
@@ -42,8 +42,24 @@ public class GearController {
     private double opacity = 1;
 
     public void initialize(){
+        Constants.PARSER.addToGearObservers(this);
+        Constants.PARSER.addToRPMObservers(this);
         initGearImageList();
         setGearImage(gearStatus);
+    }
+
+    @Override
+    public void updateGear(int value, Timestamp timestamp) {
+        setGearStatus(value);
+        this.gearTimestamp = timestamp;
+        updateView();
+    }
+
+    @Override
+    public void updateRPM(int value, Timestamp timestamp) {
+        setRpmStatus(value);
+        this.rpmTimestamp = timestamp;
+        updateView();
     }
 
     public void updateView(){
@@ -68,7 +84,6 @@ public class GearController {
 
     private void updateBgRpm() {
         setOpacity();
-        System.out.println(opacity);
         Color colorRed;
         if(rpmStatus >= 2500){
             colorRed = new Color(1,0,0,opacity);
@@ -148,5 +163,6 @@ public class GearController {
     public void setMaxGear(int maxGear) {
         this.maxGear = maxGear;
     }
+
 }
 

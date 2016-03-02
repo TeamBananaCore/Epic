@@ -1,11 +1,16 @@
 package bananacore.epic;
 
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
+import bananacore.epic.interfaces.GearInterface;
+import bananacore.epic.interfaces.RPMInterface;
+
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -30,7 +35,7 @@ public class GearController {
     private Timestamp gearTimestamp;
 
     private double rpmStatus;
-    private int gearStatus = 6;
+    private int gearStatus = 4;
     private int maxGear = 6;
 
     private String carType = "gas";
@@ -79,19 +84,6 @@ public class GearController {
             opacity =x;
         }
     }
-
-    //Bare en test
-    @FXML
-    private TextField textField;
-
-    @FXML
-    private void updateRpm(){
-        if(!textField.getText().isEmpty()){
-            rpmStatus = Double.parseDouble(textField.getText());
-            gearImageViewUpdate();
-        }
-    }
-    //Test slutt
 
     public int getGearStatus() {
         return gearStatus;

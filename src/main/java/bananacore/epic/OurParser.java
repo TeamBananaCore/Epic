@@ -164,33 +164,4 @@ public class OurParser {
             return 7;
         } else {return -1;}
     }
-
-    public static void main(String[] args) throws IOException {
-//  eksempler på    http://www.tutorialspoint.com/json/json_java_example.htm
-
-        //just learning jason. ignore all the stuff under under this point
-        JSONParser parser = new JSONParser();
-
-try {
-    FileReader fileReader= new FileReader("src/main/resources/downtown-west.json");
-    BufferedReader bufferedReader = new BufferedReader(fileReader);
-    Scanner in = new Scanner("src/main/resources/downtown-west.txt");
-    ArrayList<JSONObject> arrayList = new ArrayList<JSONObject>();
-
-    while (bufferedReader.ready()){
-        JSONObject jsonObject = (JSONObject) new JSONParser().parse(bufferedReader.readLine());
-        arrayList.add(jsonObject);
-    }
-    for (JSONObject jsonObject : arrayList){
-        System.out.println(jsonObject.get("name"));
-    }
-
-
-}catch (ParseException pe){
-    System.out.println("feil");
-}
-    }
-
-
-
 }

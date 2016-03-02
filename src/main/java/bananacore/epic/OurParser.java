@@ -1,6 +1,7 @@
 package bananacore.epic;
 
 
+import bananacore.epic.interfaces.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -33,7 +34,7 @@ public class OurParser {
             carController.updateFuelLevel(value, timestamp);
         }
     }
-    private void updateOdometerObservers(int value, Timestamp timestamp){
+    private void updateOdometerObservers(double value, Timestamp timestamp){
         for (OdometerInterface carController : odometerObservers) {
             carController.updateOdometer(value, timestamp);
         }
@@ -140,7 +141,7 @@ public class OurParser {
         }else if (name.equals("transmission_gear_position")){
             updateGearObservers(numericToInt((String) jsonObject.get("value")),timestamp);
         }else if (name.equals("odometer")){
-            updateOdometerObservers((int) Double.parseDouble(jsonObject.get("value").toString()),timestamp);
+            updateOdometerObservers( Double.parseDouble(jsonObject.get("value").toString()),timestamp);
         }
     }
 

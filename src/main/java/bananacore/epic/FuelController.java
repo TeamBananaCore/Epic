@@ -1,7 +1,12 @@
 package bananacore.epic;
 
 
-public class FuelController{
+import bananacore.epic.interfaces.OdometerInterface;
+
+import java.sql.Timestamp;
+
+public class FuelController {
+
 
     public static final double MAX_FUEL_CONSUMED_VALUE = 4294967295.0;
     public static final double MAX_ODOMETER_VALUE = 16777214.0;

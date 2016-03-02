@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.Pane?>
-<Pane prefWidth="150" prefHeight="190" minWidth="150" style="-fx-background-color: blue">
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 
-</Pane>
+<AnchorPane fx:id="pane" prefHeight="190" prefWidth="150" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.GearController">
+   <children>
+      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#FFFFFF" height="190.0" stroke="#FFFFFF" strokeType="INSIDE" width="150.0" />
+      <ImageView fx:id="gearImageView" fitHeight="135.0" fitWidth="135.0" layoutX="8.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+         </image></ImageView>
+   </children>
+</AnchorPane>

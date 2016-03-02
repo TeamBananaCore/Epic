@@ -38,6 +38,9 @@ public class FuelController implements OdometerInterface, Initializable{
     }
 
     private void updateTankSize(double fuelLevel, double fuelConsumed) {
+        if (this.fuelLevel == fuelLevel){
+            return;
+        }
         tankSize = fuelConsumed * 100 / (this.fuelLevel - fuelLevel);
     }
 

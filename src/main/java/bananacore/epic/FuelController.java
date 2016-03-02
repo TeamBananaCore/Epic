@@ -1,15 +1,10 @@
 package bananacore.epic;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class FuelController implements OdometerInterface{
 
@@ -70,9 +65,7 @@ public class FuelController implements OdometerInterface{
 
     private void updateFuelLevel(double fuelLevel) {
         if (validFuelLevelValue(fuelLevel)) {
-            if(this.fuelLevel == fuelLevel){
-                return;
-            } else {
+            if(this.fuelLevel != fuelLevel){
                 this.fuelLevel = fuelLevel;
                 fuelLevelUpdated = true;
                 updateFuelLeftRectangle();
@@ -126,12 +119,6 @@ public class FuelController implements OdometerInterface{
     @FXML
     private Text kmLeftText;
 
-    @FXML
-    private TextField fuelLevelField;
-    @FXML
-    private TextField fuelConsumedField;
-    @FXML
-    private TextField odoField;
 
     private void updateFuelLeftRectangle() {
         fuelLeftBar.setWidth(fuelLevel * fuelLeftPane.getWidth() / 100);

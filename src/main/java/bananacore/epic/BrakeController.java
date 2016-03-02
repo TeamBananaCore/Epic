@@ -1,5 +1,7 @@
 package bananacore.epic;
 
+import bananacore.epic.interfaces.BrakeInterface;
+import bananacore.epic.interfaces.SpeedInterface;
 import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXML;

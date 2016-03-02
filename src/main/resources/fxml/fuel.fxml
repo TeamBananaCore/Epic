@@ -15,7 +15,7 @@
                <fill>
                   <LinearGradient endX="1.0" endY="1.0">
                      <stops>
-                        <Stop color="#b715d3" />
+                        <Stop color="#b715d3" />   
                         <Stop color="#adff1f" offset="0.5085910652920962" />
                         <Stop color="#1094a8" offset="1.0" />
                      </stops>

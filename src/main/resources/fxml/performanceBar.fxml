@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+<?import java.net.URL?>
+<fx:root type="bananacore.epic.PerformanceBar" xmlns:fx="http://javafx.com/fxml" prefWidth="400" prefHeight="50" styleClass="performance_bar">
+    <Pane fx:id="overlay" styleClass="performance_overlay" />
+</fx:root>

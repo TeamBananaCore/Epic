@@ -36,29 +36,28 @@ class FuelController{
 
 'Models
 class BrakeSession{
-    -startSpd
-    -endSpd
-    -time
-    -startTime
+    -startSpd: Integer
+    -endSpd: Integer
+    -startTime: Timestamp
+    -duration: Integer
 }
 
 class WrongGearSession{
-    -gear
-    -up
-    -startTime
-    -endTime
+    -gear: Integer
+    -startTime: Timestamp
+    -duration: Integer
 }
 
 class FuelSession{
-    -avgUse
-    -start
-    -end
+    -avgUse: Float
+    -startTime: Timestamp
+    -duration: Integer
 }
 
 class SpeedSession{
-    -avgSpeed
-    -start
-    -end
+    -avgSpeed: Integer
+    -startTime: Timestamp
+    -duration: Integer
 }
 
 'Interfaces

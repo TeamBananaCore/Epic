@@ -1,9 +1,7 @@
 package bananacore.epic;
 
 
-import java.sql.Timestamp;
-
-public class FuelController implements FuelInterface, OdometerInterface{
+public class FuelController implements OdometerInterface{
 
     public static final double MAX_FUEL_CONSUMED_VALUE = 4294967295.0;
     public static final double MAX_ODOMETER_VALUE = 16777214.0;
@@ -23,8 +21,6 @@ public class FuelController implements FuelInterface, OdometerInterface{
             throw new IllegalArgumentException("Invalid fuelLevel and/or fuelConsumed.");
         }
     }
-
-    public FuelController(){};
 
     public void updateFuel(double fuelLevel, double fuelConsumed){
         updateTankCapacity(fuelLevel);
@@ -109,18 +105,4 @@ public class FuelController implements FuelInterface, OdometerInterface{
         return estimatedKmLeft;
     }
 
-
-    public void updateFuelLevel(double value, Timestamp timestamp) {
-
-    }
-
-
-    public void updateFuelConsumedSinceRestart(double value, Timestamp timestamp) {
-
-    }
-
-
-    public void updateOdometer(int value, Timestamp timestamp) {
-
-    }
 }

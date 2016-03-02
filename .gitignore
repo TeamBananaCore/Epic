@@ -2,6 +2,7 @@ out/
 target/
 .idea/
 log/
+*.iml
 
 projectplan.aux
 projectplan.log

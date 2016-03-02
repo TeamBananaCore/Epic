@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FuelController implements OdometerInterface, Initializable{
+public class FuelController implements OdometerInterface{
 
     public static final double MAX_FUEL_CONSUMED_VALUE = 4294967295.0;
     public static final double MAX_ODOMETER_VALUE = 16777214.0;
@@ -98,7 +98,7 @@ public class FuelController implements OdometerInterface, Initializable{
     }
 
     private boolean validOdometerReading(double odometerReading) {
-        return odometerReading >= distanceTravelled + startDistance && validDistanceValue(odometerReading);
+        return odometerReading >= startDistance && validDistanceValue(odometerReading);
     }
 
     private boolean validDistanceValue(double startDistance) {
@@ -141,31 +141,4 @@ public class FuelController implements OdometerInterface, Initializable{
         kmLeftText.setText(String.valueOf(estimatedKmLeft) + " km");
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-    /*
-        fuelLevelField.textProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println(oldValue);
-            updateFuel(Double.parseDouble(newValue), Double.parseDouble(fuelConsumedField.getText()));
-            System.out.println(newValue);
-            updateFuelLeftRectangle();
-            updateEstimatedKmLeftText();
-        });
-        fuelConsumedField.textProperty().addListener((observable, oldValue, newValue) -> {
-            updateFuel(Double.parseDouble(fuelLevelField.getText()), Double.parseDouble(newValue));
-            updateEstimatedKmLeftText();
-        });
-        odoField.textProperty().addListener((observable, oldValue, newValue) -> {
-            updateOdometer(Double.parseDouble(newValue));
-            updateEstimatedKmLeftText();
-        });
-        */
-    }
-
-
-    @FXML
-    public void updateValues(){
-        updateOdometer(Double.parseDouble(odoField.getText()));
-        updateFuel(Double.parseDouble(fuelLevelField.getText()), Double.parseDouble(fuelConsumedField.getText()));
-    }
 }

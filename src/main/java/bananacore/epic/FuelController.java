@@ -16,32 +16,42 @@ public class FuelController implements OdometerInterface, Initializable{
     public static final double MAX_FUEL_CONSUMED_VALUE = 4294967295.0;
     public static final double MAX_ODOMETER_VALUE = 16777214.0;
     private double fuelLevel = 100.0;
+    private double fuelStart = 0.0;
     private double fuelConsumed = 0.0;
     private double startDistance = 0.0;
     private double fuelUsage = 1.0;
     private double distanceTravelled = 0.0;
     private double estimatedKmLeft = 10.0;
-    private double tankSize = 100;
-    private int fuelUpdateCounter = 0;
+    private double tankSize = 0.0;
+
+    private boolean fuelLevelUpdated = false;
+    private boolean fuelConsumedUpdated = false;
+    private boolean odoUpdated = false;
 
     public void updateFuel(double fuelLevel, double fuelConsumed) {
-        updateTankSize(fuelLevel, fuelConsumed);
-        updateFuelLevel(fuelLevel);
         updateFuelConsumed(fuelConsumed);
-        updateEstimatedKmLeft(fuelConsumed);
+        if (tankSize == 0.0){
+            tankSize = fuelConsumed * 100 / (this.fuelLevel - fuelLevel);
+        }
+        updateFuelLevel(fuelLevel);
+
+        if (odoUpdated && fuelLevelUpdated && fuelConsumedUpdated){
+            updateEstimatedKmLeft(fuelConsumed);
+            odoUpdated = false;
+            fuelConsumedUpdated = false;
+            fuelLevelUpdated = false;
+        }
     }
 
     public void updateOdometer(double odometerReading) {
         if (validOdometerReading(odometerReading)) {
-            distanceTravelled = computeDistanceTravelled(odometerReading);
+            if (odometerReading - startDistance != 0){
+                odoUpdated = true;
+                distanceTravelled = odometerReading - startDistance;
+                startDistance = odometerReading;
+            }
         }
-    }
 
-    private void updateTankSize(double fuelLevel, double fuelConsumed) {
-        if (this.fuelLevel == fuelLevel){
-            return;
-        }
-        tankSize = fuelConsumed * 100 / (this.fuelLevel - fuelLevel);
     }
 
     private void updateEstimatedKmLeft(double fuelConsumed) {
@@ -50,42 +60,32 @@ public class FuelController implements OdometerInterface, Initializable{
     }
 
     private void updateFuelConsumed(double fuelConsumed) {
-        if (validFuelConsumedValue(fuelConsumed)) {
-            this.fuelConsumed = fuelConsumed;
+        if (validFuelConsumedValue(fuelConsumed) && fuelConsumed != this.fuelConsumed) {
+            this.fuelConsumed = fuelConsumed-fuelStart;
+            fuelConsumedUpdated = true;
+            fuelStart = fuelConsumed;
+            updateFuelUsage();
         }
-        updateFuelUsage();
     }
 
     private void updateFuelLevel(double fuelLevel) {
         if (validFuelLevelValue(fuelLevel)) {
-            this.fuelLevel = fuelLevel;
-            updateFuelLeftRectangle();
+            if(this.fuelLevel == fuelLevel){
+                return;
+            } else {
+                this.fuelLevel = fuelLevel;
+                fuelLevelUpdated = true;
+                updateFuelLeftRectangle();
+            }
         } else {
             throw new IllegalArgumentException("Invalid fuelLevelValue");
         }
     }
 
     private void updateFuelUsage() {
-        fuelUpdateCounter++;
-        if (fuelUpdateCounter == 10) {
-            /* After 10 readings, reset counter
-                Also set new start distance to get proper measuring interval for fuel usage and estimateKmLeft
-            */
-            fuelUsage = computeFuelUsed() / distanceTravelled;
-            fuelUpdateCounter = 0;
-            startDistance = distanceTravelled;
+        if(distanceTravelled > 0){
+            fuelUsage = fuelConsumed / distanceTravelled;
         }
-    }
-
-    private double computeDistanceTravelled(double currentOdometerReading) {
-        return currentOdometerReading - startDistance;
-    }
-
-    private double computeFuelUsed() {
-        double consumed = fuelConsumed;
-        // Reset fuel consumed since last computation
-        fuelConsumed = 0;
-        return consumed;
     }
 
     private boolean validFuelConsumedValue(double fuelConsumed) {

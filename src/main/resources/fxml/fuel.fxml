@@ -23,15 +23,15 @@
                </fill>
             </Rectangle>
             <TextField fx:id="fuelLevelField" text="90" />
-            <TextField fx:id="odoField" layoutY="63.0" text="110" />
+            <TextField fx:id="odoField" layoutY="63.0" text="10" />
             <TextField fx:id="fuelConsumedField" layoutY="33.0" text="10" />
          </children>
       </Pane>
    </top>
    <bottom>
-      <Text fx:id="kmLeftText" fill="WHITE" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="4.0" text="0 km" textAlignment="CENTER" wrappingWidth="330.0" BorderPane.alignment="CENTER">
+      <Text fx:id="kmLeftText" fill="WHITE" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="4.0" text="0 km " textAlignment="RIGHT" wrappingWidth="330.0" BorderPane.alignment="CENTER">
          <font>
-            <Font size="80.0" />
+            <Font size="70.0" />
          </font>
       </Text>
    </bottom>

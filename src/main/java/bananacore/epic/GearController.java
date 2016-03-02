@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +26,14 @@ public class GearController {
 
     private double maxRpm = 14000;
 
+    private Timestamp rpmTimestamp;
+    private Timestamp gearTimestamp;
+
     private double rpmStatus;
-    private int gearStatus = 4;
+    private int gearStatus = 6;
+    private int maxGear = 6;
 
     private String carType = "gas";
-
     private double opacity = 1;
 
     public void initialize(){
@@ -46,10 +50,10 @@ public class GearController {
 
     public void gearImageViewUpdate(){
         updateBgRpm();
-        if(carType.equals("gas")){
-            if(rpmStatus >= thresholdRpmGas){
+        if(carType.equals("gas") && gearStatus != -1){
+            if( !(gearStatus == maxGear) && rpmStatus >= thresholdRpmGas){
                 setGearImageUp();
-            }else if( rpmStatus > 0 && rpmStatus <= lowerThresholdRpmGas){
+            }else if( !(gearStatus == 1) && rpmStatus > 0 && rpmStatus <= lowerThresholdRpmGas){
                 setGearImageDown();
             }else if(gearStatus >= 0 && gearStatus < 7){
                 setGearImage(gearStatus);
@@ -115,6 +119,7 @@ public class GearController {
         Image gear4 = new Image(String.valueOf(getClass().getClassLoader().getResource("image/Gear4.png")));
         Image gear5 = new Image(String.valueOf(getClass().getClassLoader().getResource("image/Gear5.png")));
         Image gear6 = new Image(String.valueOf(getClass().getClassLoader().getResource("image/Gear6.png")));
+        Image gearFree = new Image(String.valueOf(getClass().getClassLoader().getResource("image/GearFree.png")));
         gearImageList.add(gearR);
         gearImageList.add(gear1);
         gearImageList.add(gear2);
@@ -122,6 +127,7 @@ public class GearController {
         gearImageList.add(gear4);
         gearImageList.add(gear5);
         gearImageList.add(gear6);
+        gearImageList.add(gearFree);
     }
 
     private Image arrowUpImage = new Image(String.valueOf(getClass().getClassLoader().getResource("image/arrow_up.png")));
@@ -145,5 +151,9 @@ public class GearController {
 
     public void setCarType(String carType) {
         this.carType = carType;
+    }
+
+    public void setMaxGear(int maxGear) {
+        this.maxGear = maxGear;
     }
 }

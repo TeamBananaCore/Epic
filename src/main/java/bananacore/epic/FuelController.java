@@ -26,9 +26,9 @@ public class FuelController implements OdometerInterface, Initializable{
 
     public void updateFuel(double fuelLevel, double fuelConsumed) {
         updateTankSize(fuelLevel, fuelConsumed);
+        updateFuelLevel(fuelLevel);
         updateFuelConsumed(fuelConsumed);
         updateEstimatedKmLeft(fuelConsumed);
-        updateFuelLevel(fuelLevel);
     }
 
     public void updateOdometer(double odometerReading) {
@@ -43,7 +43,7 @@ public class FuelController implements OdometerInterface, Initializable{
 
     private void updateEstimatedKmLeft(double fuelConsumed) {
         estimatedKmLeft = (tankSize - fuelConsumed) / fuelUsage;
-        //updateEstimatedKmLeftText();
+        updateEstimatedKmLeftText();
     }
 
     private void updateFuelConsumed(double fuelConsumed) {
@@ -129,12 +129,6 @@ public class FuelController implements OdometerInterface, Initializable{
     private TextField fuelConsumedField;
     @FXML
     private TextField odoField;
-    @FXML
-    private Button registerButton;
-
-    private boolean textFieldsNotEmpty(){
-        return !(fuelLevelField.getText().isEmpty() && fuelConsumedField.getText().isEmpty() && odoField.getText().isEmpty());
-    }
 
     private void updateFuelLeftRectangle() {
         fuelLeftBar.setWidth(fuelLevel * fuelLeftPane.getWidth() / 100);
@@ -168,9 +162,7 @@ public class FuelController implements OdometerInterface, Initializable{
 
     @FXML
     public void updateValues(){
-        updateFuel(Double.parseDouble(fuelLevelField.getText()), Double.parseDouble(fuelConsumedField.getText()));
-        updateFuelLeftRectangle();
         updateOdometer(Double.parseDouble(odoField.getText()));
-        updateEstimatedKmLeftText();
+        updateFuel(Double.parseDouble(fuelLevelField.getText()), Double.parseDouble(fuelConsumedField.getText()));
     }
 }

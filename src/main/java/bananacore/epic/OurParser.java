@@ -1,13 +1,13 @@
 package bananacore.epic;
 
 
+import bananacore.epic.interfaces.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import java.io.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class OurParser {
     // input example http://openxcplatform.com.s3.amazonaws.com/traces/nyc/downtown-west.json

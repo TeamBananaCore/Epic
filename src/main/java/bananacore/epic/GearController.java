@@ -1,5 +1,8 @@
 package bananacore.epic;
 
+import bananacore.epic.interfaces.GearInterface;
+import bananacore.epic.interfaces.RPMInterface;
+
 import java.sql.Timestamp;
 
 /**

@@ -7,11 +7,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="190.0" prefWidth="330.0" style="-fx-background-color: sienna" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.FuelController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200" minWidth="340" prefHeight="200.0" prefWidth="340.0" style="-fx-background-color: sienna" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.FuelController">
    <top>
-      <Pane fx:id="fuelLeftPane" prefHeight="90.0" prefWidth="330.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+      <Pane fx:id="fuelLeftPane" prefHeight="90.0" minWidth="340" prefWidth="340.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <Rectangle fx:id="fuelLeftBar" arcHeight="5.0" arcWidth="5.0" height="90.0" stroke="TRANSPARENT" strokeType="INSIDE" width="330.0">
+            <Rectangle fx:id="fuelLeftBar" arcHeight="5.0" arcWidth="5.0" height="90.0" stroke="TRANSPARENT" strokeType="INSIDE" width="340.0">
                <fill>
                   <LinearGradient endX="1.0" endY="1.0">
                      <stops>

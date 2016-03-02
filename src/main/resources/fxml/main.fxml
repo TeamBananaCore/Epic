@@ -2,14 +2,18 @@
 
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="320" prefWidth="480" maxHeight="320" minHeight="320" maxWidth="480" minWidth="480">
+<?import java.net.URL?>
+<fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml" prefHeight="320" prefWidth="480" maxHeight="320" minHeight="320" maxWidth="480" minWidth="480">
     <left>
         <fx:include fx:id="gear" source="gear.fxml"/>
     </left>
-    <right>
+    <center>
         <fx:include fx:id="info" source="info.fxml"/>
-    </right>
+    </center>
     <bottom>
         <fx:include fx:id="break" source="brake.fxml"/>
     </bottom>
-</BorderPane>
+    <stylesheets>
+        <URL value="@../css/app.css" />
+    </stylesheets>
+</fx:root>

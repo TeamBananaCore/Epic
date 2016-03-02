@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class BrakeController implements Initializable {
+public class BrakeController implements Initializable, BrakeInterface, SpeedInterface {
     private BooleanProperty isBraking;
     private Timestamp start, end;
     private int speed;
@@ -32,14 +32,16 @@ public class BrakeController implements Initializable {
     private double optimalSpeedReduction;
 
     public void initialize(URL location, ResourceBundle resources) {
+        Constants.PARSER.addToBrakeObserver(this);
+        Constants.PARSER.addToSpeedObservers(this);
         optimalSpeedReduction = 10.0 / (50.0 * Constants.WEIGHT);
     }
 
-    public void updateSpeed(int speed){
+    public void updateVehicleSpeed(int speed, Timestamp timestamp){
         this.speed = speed;
     }
 
-    public void updateBrake(boolean isBraking, Timestamp timestamp){
+    public void updateBrakePedalStatus(boolean isBraking, Timestamp timestamp){
         if (isBraking && brakingThread == null){
             brakingThread = new BrakeThread();
             brakingThread.setValues(timestamp, speed, this);

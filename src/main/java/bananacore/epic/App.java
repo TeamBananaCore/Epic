@@ -33,8 +33,6 @@ public class App extends Application{
             e.printStackTrace();
         }
         Scene scene = new Scene(root);
-        primaryStage.setHeight(320);
-        primaryStage.setWidth(480);
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();

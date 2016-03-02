@@ -7,7 +7,6 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class OurParser {
     // input example http://openxcplatform.com.s3.amazonaws.com/traces/nyc/downtown-west.json
@@ -66,7 +65,7 @@ public class OurParser {
 
     private void updateBrakeObservers(Boolean value, Timestamp timestamp) {
         for (BrakeInterface carController : brakeObervers) {
-            carController.updateBreakPedalStatus(value, timestamp);
+            carController.updateBrakePedalStatus(value, timestamp);
         }
     }
 

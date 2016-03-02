@@ -32,6 +32,7 @@ public class App extends Application{
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         Scene scene = new Scene(root);
         primaryStage.setHeight(320);
         primaryStage.setWidth(480);

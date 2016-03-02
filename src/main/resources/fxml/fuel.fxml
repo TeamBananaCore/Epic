@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="190.0" prefWidth="330.0" style="-fx-background-color: sienna" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.FuelController">
+   <top>
+      <Pane fx:id="fuelLeftPane" prefHeight="90.0" prefWidth="330.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+         <children>
+            <Rectangle fx:id="fuelLeftBar" arcHeight="5.0" arcWidth="5.0" height="90.0" stroke="TRANSPARENT" strokeType="INSIDE" width="330.0">
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="#b715d3" />
+                        <Stop color="#adff1f" offset="0.5085910652920962" />
+                        <Stop color="#1094a8" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+         </children>
+      </Pane>
+   </top>
+   <bottom>
+      <Text fx:id="kmLeftText" fill="WHITE" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="4.0" text="0 km " textAlignment="RIGHT" wrappingWidth="330.0" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="70.0" />
+         </font>
+      </Text>
+   </bottom>
+</BorderPane>

@@ -1,84 +1,84 @@
 package bananacore.epic;
 
+import javafx.fxml.FXML;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
-import bananacore.epic.interfaces.OdometerInterface;
 
-import java.sql.Timestamp;
-
-public class FuelController {
-
+public class FuelController implements OdometerInterface{
 
     public static final double MAX_FUEL_CONSUMED_VALUE = 4294967295.0;
     public static final double MAX_ODOMETER_VALUE = 16777214.0;
-    private double fuelLevel;
-    private double fuelConsumed;
-    private double startDistance;
-    private double fuelUsage;
-    private double distanceTravelled;
-    private double estimatedKmLeft;
-    private int fuelUpdateCounter;
+    private double fuelLevel = 100.0;
+    private double fuelStart = 0.0;
+    private double fuelConsumed = 0.0;
+    private double startDistance = 0.0;
+    private double fuelUsage = 1.0;
+    private double distanceTravelled = 0.0;
+    private double estimatedKmLeft = 10.0;
+    private double tankSize = 0.0;
 
-    public FuelController(double fuelLevel, double startDistance) {
-        if(validFuelLevelValue(fuelLevel) && validDistanceValue(startDistance)){
-            this.fuelLevel = fuelLevel;
-            fuelConsumed = 0;
-        } else {
-            throw new IllegalArgumentException("Invalid fuelLevel and/or fuelConsumed.");
-        }
-    }
+    private boolean fuelLevelUpdated = false;
+    private boolean fuelConsumedUpdated = false;
+    private boolean odoUpdated = false;
 
-    public void updateFuel(double fuelLevel, double fuelConsumed){
-        updateTankCapacity(fuelLevel);
-        updateFuelLevel(fuelLevel);
+    public void updateFuel(double fuelLevel, double fuelConsumed) {
         updateFuelConsumed(fuelConsumed);
-    }
+        if (tankSize == 0.0){
+            tankSize = fuelConsumed * 100 / (this.fuelLevel - fuelLevel);
+        }
+        updateFuelLevel(fuelLevel);
 
-    public void updateTankCapacity(double fuelLevel){
-        estimatedKmLeft = (fuelConsumed*distanceTravelled)*100/(this.fuelLevel-fuelLevel);
-    }
-
-    public void updateOdometer(double odometerReading){
-        if (validOdometerReading(odometerReading)){
-            distanceTravelled = computeDistanceTravelled(odometerReading);
+        if (odoUpdated && fuelLevelUpdated && fuelConsumedUpdated){
+            updateEstimatedKmLeft(fuelConsumed);
+            odoUpdated = false;
+            fuelConsumedUpdated = false;
+            fuelLevelUpdated = false;
         }
     }
 
-    private void updateFuelConsumed(double fuelConsumed){
-        if (validFuelConsumedValue(fuelConsumed)){
-            this.fuelConsumed = fuelConsumed;
+    public void updateOdometer(double odometerReading) {
+        if (validOdometerReading(odometerReading)) {
+            if (odometerReading - startDistance != 0){
+                odoUpdated = true;
+                distanceTravelled = odometerReading - startDistance;
+                startDistance = odometerReading;
+            }
         }
-        updateFuelUsage();
+
     }
 
-    private void updateFuelLevel(double fuelLevel){
-        if(validFuelLevelValue(fuelLevel)){
-            this.fuelLevel = fuelLevel;
+    private void updateEstimatedKmLeft(double fuelConsumed) {
+        estimatedKmLeft = (tankSize - fuelConsumed) / fuelUsage;
+        updateEstimatedKmLeftText();
+    }
+
+    private void updateFuelConsumed(double fuelConsumed) {
+        if (validFuelConsumedValue(fuelConsumed) && fuelConsumed != this.fuelConsumed) {
+            this.fuelConsumed = fuelConsumed-fuelStart;
+            fuelConsumedUpdated = true;
+            fuelStart = fuelConsumed;
+            updateFuelUsage();
+        }
+    }
+
+    private void updateFuelLevel(double fuelLevel) {
+        if (validFuelLevelValue(fuelLevel)) {
+            if(this.fuelLevel != fuelLevel){
+                this.fuelLevel = fuelLevel;
+                fuelLevelUpdated = true;
+                updateFuelLeftRectangle();
+            }
         } else {
             throw new IllegalArgumentException("Invalid fuelLevelValue");
         }
     }
 
-    private void updateFuelUsage(){
-        fuelUpdateCounter++;
-        if(fuelUpdateCounter == 10){
-            /* After 10 readings, reset counter
-                Also set new start distance to get proper measuring interval for fuel usage and estimateKmLeft
-            */
-            fuelUsage = computeFuelUsed()/distanceTravelled;
-            fuelUpdateCounter = 0;
-            startDistance = distanceTravelled;
+    private void updateFuelUsage() {
+        if(distanceTravelled > 0){
+            fuelUsage = fuelConsumed / distanceTravelled;
         }
-    }
-
-    private double computeDistanceTravelled(double currentOdometerReading){
-        return currentOdometerReading - startDistance;
-    }
-
-    private double computeFuelUsed(){
-        double consumed = fuelConsumed;
-        // Reset fuel consumed since last computation
-        fuelConsumed = 0;
-        return consumed;
     }
 
     private boolean validFuelConsumedValue(double fuelConsumed) {
@@ -90,8 +90,8 @@ public class FuelController {
         return fuelLevel <= 105.0 && fuelLevel >= 0.0;
     }
 
-    private boolean validOdometerReading(double odometerReading){
-        return odometerReading >= distanceTravelled + startDistance && validDistanceValue(odometerReading);
+    private boolean validOdometerReading(double odometerReading) {
+        return odometerReading >= startDistance && validDistanceValue(odometerReading);
     }
 
     private boolean validDistanceValue(double startDistance) {
@@ -106,8 +106,26 @@ public class FuelController {
         return fuelUsage;
     }
 
-    public double getEstimatedKmLeft(){
+    public double getEstimatedKmLeft() {
         return estimatedKmLeft;
+    }
+
+    @FXML
+    private Pane fuelLeftPane;
+
+    @FXML
+    private Rectangle fuelLeftBar;
+
+    @FXML
+    private Text kmLeftText;
+
+
+    private void updateFuelLeftRectangle() {
+        fuelLeftBar.setWidth(fuelLevel * fuelLeftPane.getWidth() / 100);
+    }
+
+    private void updateEstimatedKmLeftText() {
+        kmLeftText.setText(String.valueOf(estimatedKmLeft) + " km");
     }
 
 }

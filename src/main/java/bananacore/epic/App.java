@@ -42,5 +42,6 @@ public class App extends Application{
             System.exit(0);
         });
         logger.debug("App started");
+        Constants.PARSER.fileToArrayList(getClass().getClassLoader().getResource("downtown-west.txt").getPath());
     }
 }

@@ -1,10 +1,13 @@
 package bananacore.epic.models;
 
+import bananacore.epic.Constants;
+import bananacore.epic.interfaces.Graphable;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity(name="BrakeSession")
-public class BrakeSession {
+public class BrakeSession implements Graphable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -67,5 +70,15 @@ public class BrakeSession {
                 ", startTime=" + startTime +
                 ", duration=" + duration +
                 '}';
+    }
+
+    @Override
+    public Timestamp getDate() {
+        return startTime;
+    }
+
+    @Override
+    public double getGraphValue() {
+        return Constants.calculateBrakePerformance(startSpeed,endSpeed,duration);
     }
 }

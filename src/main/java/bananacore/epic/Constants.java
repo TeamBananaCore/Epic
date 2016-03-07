@@ -7,7 +7,7 @@ public class Constants {
     public static OurParser PARSER;
 
     static {
-        PARSER = new OurParser();
+        PARSER = new OurParser("downtown-west.json");
     }
 
 }

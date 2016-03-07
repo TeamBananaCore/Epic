@@ -10,6 +10,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class OurParser {
+    public OurParser(String filepath) {
+        updateFromFile(filepath);
+    }
+
     // input example http://openxcplatform.com.s3.amazonaws.com/traces/nyc/downtown-west.json
 
     //last recorded
@@ -96,7 +100,7 @@ public class OurParser {
     }
 
 
-    public void fileToArrayList(String filepath) {
+    public void updateFromFile(String filepath) {
         JSONParser parser = new JSONParser();
         try {
             FileReader fileReader = new FileReader(filepath);

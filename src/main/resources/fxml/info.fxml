@@ -3,4 +3,5 @@
 <?import javafx.scene.layout.Pane?>
 <Pane minHeight="190" minWidth="330" prefWidth="330" prefHeight="190" style="-fx-background-color: lightgrey" xmlns:fx="http://javafx.com/fxml">
     <fx:include fx:id="fuel" source="fuel.fxml"/>
+    <fx:include fx:id="speed" source="speed.fxml"/>
 </Pane>

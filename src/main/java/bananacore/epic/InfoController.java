@@ -1,11 +1,17 @@
 package bananacore.epic;
 
 
+import bananacore.epic.interfaces.SpeedInterface;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
-public class InfoController{
+import java.sql.Timestamp;
+
+public class InfoController implements SpeedInterface{
+
+    private Timestamp lastTime;
 
     @FXML
     BorderPane fuel;
@@ -13,19 +19,25 @@ public class InfoController{
     @FXML
     AnchorPane speed;
 
-    InfoThread infoThread;
-
     public void initialize(){
         speed.visibleProperty().set(false);
-        infoThread = new InfoThread();
-        infoThread.setSettings(5000, 1000, false, speed, fuel);
-        //startRunning();
     }
 
-    public void startRunning(){
-        while(true){
-            infoThread.run();
+    @Override
+    public void updateVehicleSpeed(int value, Timestamp timestamp) {
+        if(lastTime == null){
+            lastTime = timestamp;
+        } else {
+            if(timestamp.getTime() - lastTime.getTime() > 2000){
+                if(speed.visibleProperty().get()){
+                    speed.visibleProperty().set(false);
+                    fuel.visibleProperty().set(true);
+                } else {
+                    speed.visibleProperty().set(true);
+                    fuel.visibleProperty().set(false);
+                }
+            }
         }
-    }
 
+    }
 }

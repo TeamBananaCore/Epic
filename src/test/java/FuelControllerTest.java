@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public class FuelControllerTest {
 
-    FuelController controller;
+    /*FuelController controller;
 
     public void initController(){
         controller = new FuelController();
@@ -35,13 +35,13 @@ public class FuelControllerTest {
         } catch (Exception e){
             assertTrue(e.getClass().equals(IllegalArgumentException.class));
         }
-        /*
+
         try{
             controller.updateOdometer(-500.0);
         } catch (Exception e){
             assertTrue(e.getClass().equals(IllegalArgumentException.class));
         }
-        */
+
     }
 
     @Test
@@ -70,5 +70,5 @@ public class FuelControllerTest {
             controller.updateFuel(10, 10);
         }
         assertEquals(2.0, controller.getFuelUsage(), 0);
-    }
+    }*/
 }

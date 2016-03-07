@@ -1,8 +1,6 @@
 package bananacore.epic;
 
-
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -11,12 +9,11 @@ import javafx.scene.shape.Rectangle;
 import bananacore.epic.interfaces.GearInterface;
 import bananacore.epic.interfaces.RPMInterface;
 
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GearController {
+public class GearController implements GearInterface, RPMInterface{
 
     @FXML
     private ImageView gearImageView;
@@ -42,8 +39,24 @@ public class GearController {
     private double opacity = 1;
 
     public void initialize(){
+        Constants.PARSER.addToGearObservers(this);
+        Constants.PARSER.addToRPMObservers(this);
         initGearImageList();
         setGearImage(gearStatus);
+    }
+
+    @Override
+    public void updateGear(int value, Timestamp timestamp) {
+        setGearStatus(value);
+        this.gearTimestamp = timestamp;
+        updateView();
+    }
+
+    @Override
+    public void updateRPM(int value, Timestamp timestamp) {
+        setRpmStatus(value);
+        this.rpmTimestamp = timestamp;
+        updateView();
     }
 
     public void updateView(){
@@ -55,7 +68,7 @@ public class GearController {
 
     public void gearImageViewUpdate(){
         updateBgRpm();
-        if(carType.equals("gas") && gearStatus != -1){
+        if(carType.equals("gas")){
             if( !(gearStatus == maxGear) && rpmStatus >= thresholdRpmGas){
                 setGearImageUp();
             }else if( !(gearStatus == 1) && rpmStatus > 0 && rpmStatus <= lowerThresholdRpmGas){
@@ -68,7 +81,6 @@ public class GearController {
 
     private void updateBgRpm() {
         setOpacity();
-        System.out.println(opacity);
         Color colorRed;
         if(rpmStatus >= 2500){
             colorRed = new Color(1,0,0,opacity);
@@ -85,41 +97,32 @@ public class GearController {
         }
     }
 
-    public int getGearStatus() {
-        return gearStatus;
-    }
-
     public void setGearStatus(int gearStatus) {
         this.gearStatus = gearStatus;
-    }
-
-    public double getRpmStatus() {
-        return rpmStatus;
     }
 
     public void setRpmStatus(int rpmStatus) {
         this.rpmStatus = rpmStatus;
     }
 
-
     private List<Image> gearImageList = new ArrayList<Image>();
     private void initGearImageList() {
-        Image gearR = new Image(String.valueOf(getClass().getClassLoader().getResource("image/GearR.png")));
+        Image gearFree = new Image(String.valueOf(getClass().getClassLoader().getResource("image/GearFree.png")));
         Image gear1 = new Image(String.valueOf(getClass().getClassLoader().getResource("image/Gear1.png")));
         Image gear2 = new Image(String.valueOf(getClass().getClassLoader().getResource("image/Gear2.png")));
         Image gear3 = new Image(String.valueOf(getClass().getClassLoader().getResource("image/Gear3.png")));
         Image gear4 = new Image(String.valueOf(getClass().getClassLoader().getResource("image/Gear4.png")));
         Image gear5 = new Image(String.valueOf(getClass().getClassLoader().getResource("image/Gear5.png")));
         Image gear6 = new Image(String.valueOf(getClass().getClassLoader().getResource("image/Gear6.png")));
-        Image gearFree = new Image(String.valueOf(getClass().getClassLoader().getResource("image/GearFree.png")));
-        gearImageList.add(gearR);
+        Image gearR = new Image(String.valueOf(getClass().getClassLoader().getResource("image/GearR.png")));
+        gearImageList.add(gearFree);
         gearImageList.add(gear1);
         gearImageList.add(gear2);
         gearImageList.add(gear3);
         gearImageList.add(gear4);
         gearImageList.add(gear5);
         gearImageList.add(gear6);
-        gearImageList.add(gearFree);
+        gearImageList.add(gearR);
     }
 
     private Image arrowUpImage = new Image(String.valueOf(getClass().getClassLoader().getResource("image/arrow_up.png")));
@@ -131,7 +134,6 @@ public class GearController {
     private void setGearImageDown(){
         gearImageView.setImage(arrowDownImage);
     }
-
 
     private void setGearImage(int index){
         gearImageView.setImage(gearImageList.get(index));

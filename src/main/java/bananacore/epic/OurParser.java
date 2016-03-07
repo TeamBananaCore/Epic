@@ -6,13 +6,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import java.io.*;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class OurParser {
-    public OurParser(String filepath) {
-        updateFromFile(filepath);
-    }
+
 
     // input example http://openxcplatform.com.s3.amazonaws.com/traces/nyc/downtown-west.json
 
@@ -105,22 +104,25 @@ public class OurParser {
         try {
             FileReader fileReader = new FileReader(filepath);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            ArrayList<JSONObject> arrayList = new ArrayList<JSONObject>();
 
+            JSONObject jsonObject = (JSONObject) new JSONParser().parse(bufferedReader.readLine());
+            Long diffTime = ( System.currentTimeMillis())- new Double((Double)jsonObject.get("timestamp")*1000).longValue();
             while (bufferedReader.ready()) {
-                JSONObject jsonObject = (JSONObject) new JSONParser().parse(bufferedReader.readLine());
-                arrayList.add(jsonObject);
+                jsonObject = (JSONObject) new JSONParser().parse(bufferedReader.readLine());
+                Long milliseconds = new Double((Double) jsonObject.get("timestamp") * 1000).longValue();
+                Long currentTime = System.currentTimeMillis();
+                Long compareTime = milliseconds- (currentTime-diffTime);
+                while ( compareTime>0){
+                    currentTime=System.currentTimeMillis();
+                    compareTime=milliseconds- (currentTime-diffTime);
+                }
                 updateControllers(jsonObject);
             }
-
-
-
         } catch (ParseException pe) {
             System.err.println("Parse exception");
         } catch (IOException ieo) {
             System.err.println("IO exception");
         }
-
     }
 
     private void updateControllers(JSONObject jsonObject) {

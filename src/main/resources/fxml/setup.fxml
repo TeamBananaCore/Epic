@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="fuelSize" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <RadioButton fx:id="auto" layoutX="49.0" layoutY="35.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="115.0" text="Automatic gears" />
+      <RadioButton fx:id="maual" layoutX="49.0" layoutY="63.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="108.0" text="Manual gears" />
+      <Spinner id="FuelSize" fx:id="tankSize" editable="true" layoutX="43.0" layoutY="232.0" prefHeight="111.0" prefWidth="149.0" />
+      <Label layoutX="49.0" layoutY="183.0" text="Fuel tank size" />
+      <Label layoutX="328.0" layoutY="183.0" text="Number of Gears" />
+      <Spinner id="FuelSize" fx:id="gearNumber" editable="true" layoutX="335.0" layoutY="232.0" prefHeight="111.0" prefWidth="149.0" />
+      <RadioButton fx:id="disel" layoutX="328.0" layoutY="35.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="67.0" text="Disel" />
+      <RadioButton fx:id="gasoline" layoutX="328.0" layoutY="63.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="91.0" text="Gasoline" />
+   </children>
+</AnchorPane>

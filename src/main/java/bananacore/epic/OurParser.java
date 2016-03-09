@@ -3,6 +3,8 @@ package bananacore.epic;
 
 import bananacore.epic.interfaces.*;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -10,9 +12,12 @@ import java.io.*;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class OurParser implements Runnable {
+
+
 
 
     // input example http://openxcplatform.com.s3.amazonaws.com/traces/nyc/downtown-west.json

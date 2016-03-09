@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.Pane?>
-<Pane minHeight="190" minWidth="330" prefWidth="330" prefHeight="190" style="-fx-background-color: lightgrey" xmlns:fx="http://javafx.com/fxml">
-    <fx:include fx:id="fuel" source="fuel.fxml"/>
+
+<Pane minHeight="190" minWidth="330" prefHeight="190" prefWidth="330" style="-fx-background-color: lightgrey" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+    <fx:include fx:id="fuel" source="fuel.fxml" />
 </Pane>

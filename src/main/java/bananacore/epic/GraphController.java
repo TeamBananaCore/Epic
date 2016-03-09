@@ -2,8 +2,10 @@ package bananacore.epic;
 
 import bananacore.epic.interfaces.Graphable;
 import bananacore.epic.models.BrakeSession;
+import bananacore.epic.models.WrongGearSession;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 
 import java.net.URL;
 import java.sql.Timestamp;
@@ -17,30 +19,43 @@ public class GraphController implements Initializable{
     private List<BrakeSession> brakeSessions;
 
     @FXML private Graph graph;
+    @FXML private Button lastWeek;
+    @FXML private Button nextWeek;
+
+    private Timestamp startDate, endDate;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        DatabaseManager.update();
+        endDate = Timestamp.valueOf(LocalDateTime.now());
+        startDate = new Timestamp(endDate.getTime() - Constants.SECONDS_PER_WEEK*1000);
+        DatabaseManager.update(startDate, endDate);
         brakeSessions = DatabaseManager.getBrakeSessions();
+        setData();
+    }
 
-        List<Graphable> graphables = new ArrayList<>();
-        LocalDateTime time = LocalDateTime.now();
-        for(int i = 0; i < 100;i++){
-            time = time.plusSeconds((long) (Math.random()*1000));
-            Graphable thing = new GraphableTester(Timestamp.valueOf(time), Math.random()*100);
-            graphables.add(thing);
-        }
+    @FXML
+    public void lastWeek(){
+        startDate = new Timestamp(startDate.getTime() - Constants.SECONDS_PER_WEEK*1000);
+        endDate = new Timestamp(endDate.getTime() - Constants.SECONDS_PER_WEEK*1000);
+        DatabaseManager.update(startDate, endDate);
+        setData();
+    }
 
-        graph.addDataSource("random", graphables);
+    @FXML
+    public void nextWeek(){
+        startDate = new Timestamp(startDate.getTime() + Constants.SECONDS_PER_WEEK*1000);
+        endDate = new Timestamp(endDate.getTime() + Constants.SECONDS_PER_WEEK*1000);
+        DatabaseManager.update(startDate, endDate);
+        setData();
+    }
 
-        List<Graphable> graphables2 = new ArrayList<>();
-        time = LocalDateTime.now();
-        for(int i = 0; i < 100;i++){
-            time = time.plusSeconds((long) (Math.random()*1000));
-            Graphable thing = new GraphableTester(Timestamp.valueOf(time), Math.random()*50);
-            graphables2.add(thing);
-        }
-
-        graph.addDataSource("random2", graphables2);
+    private void setData(){
+        graph.clearDataSources();
+        graph.addDataSource("Brakes", new GraphableList(DatabaseManager.getBrakeSessions()));
+        graph.addDataSource("Fuel", new GraphableList(DatabaseManager.getFuelSessions()));
+        if (!DatabaseManager.brakeDataExistsBefore(startDate)) lastWeek.setDisable(true);
+        else lastWeek.setDisable(false);
+        if (!DatabaseManager.brakeDataExistsAfter(endDate)) nextWeek.setDisable(true);
+        else nextWeek.setDisable(false);
     }
 }

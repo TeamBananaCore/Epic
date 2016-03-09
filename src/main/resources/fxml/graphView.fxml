@@ -4,9 +4,17 @@
 
 <?import java.net.URL?>
 <?import bananacore.epic.Graph?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Button?>
 <fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml" prefHeight="320" prefWidth="480" maxHeight="320" minHeight="320" maxWidth="480" minWidth="480">
+    <top>
+        <HBox prefWidth="480" spacing="10">
+            <Button fx:id="lastWeek" onAction="#lastWeek" text="-" />
+            <Button fx:id="nextWeek" onAction="#nextWeek" text="+" />
+        </HBox>
+    </top>
     <center>
-        <Graph fx:id="graph" prefWidth="480" prefHeight="320"/>
+            <Graph fx:id="graph" prefHeight="290" prefWidth="480"/>
     </center>
     <stylesheets>
         <URL value="@../css/app.css" />

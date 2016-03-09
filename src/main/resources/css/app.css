@@ -25,3 +25,7 @@
     -fx-stroke: black 1px;
     -fx-padding: 10px;
 }
+
+.graph_label{
+    -fx-font-size: 1.2em;
+}

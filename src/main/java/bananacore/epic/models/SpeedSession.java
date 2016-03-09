@@ -1,10 +1,12 @@
 package bananacore.epic.models;
 
+import bananacore.epic.interfaces.Graphable;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity(name = "SpeedSession")
-public class SpeedSession {
+public class SpeedSession implements Graphable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -55,5 +57,15 @@ public class SpeedSession {
                 ", startTime=" + startTime +
                 ", duration=" + duration +
                 '}';
+    }
+
+    @Override
+    public Timestamp getDate() {
+        return startTime;
+    }
+
+    @Override
+    public double getGraphValue() {
+        return avgSpeed;
     }
 }

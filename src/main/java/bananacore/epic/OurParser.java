@@ -2,32 +2,32 @@ package bananacore.epic;
 
 
 import bananacore.epic.interfaces.*;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import java.io.*;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
-public class OurParser {
+
+public class OurParser implements Runnable {
+
+
+
+
     // input example http://openxcplatform.com.s3.amazonaws.com/traces/nyc/downtown-west.json
 
-    //last recorded
-    JSONObject vehicleSpeed;
-    JSONObject engineSpeed;
-    JSONObject fuelConsumedSinceRestart;
-    JSONObject odometer;
-    JSONObject brakePedalStatus;
-    JSONObject acceleratorPedalPosition;
-    JSONObject fuelLevel;
-    JSONObject transmissionGearPosition;
-
-    ArrayList<BrakeInterface> brakeObervers = new ArrayList<BrakeInterface>();
-    ArrayList<RPMInterface> rpmObservers = new ArrayList<RPMInterface>();
-    ArrayList<GearInterface> gearObservers = new ArrayList<GearInterface>();
-    ArrayList<SpeedInterface> speedObervers = new ArrayList<SpeedInterface>();
-    ArrayList<FuelInterface> fuelObervers = new ArrayList<FuelInterface>();
-    ArrayList<OdometerInterface> odometerObservers = new ArrayList<OdometerInterface>();
+        volatile  ArrayList<BrakeInterface> brakeObervers = new ArrayList<BrakeInterface>();
+    volatile ArrayList<RPMInterface> rpmObservers = new ArrayList<RPMInterface>();
+    volatile ArrayList<GearInterface> gearObservers = new ArrayList<GearInterface>();
+    volatile ArrayList<SpeedInterface> speedObervers = new ArrayList<SpeedInterface>();
+    volatile ArrayList<FuelInterface> fuelObervers = new ArrayList<FuelInterface>();
+    volatile ArrayList<OdometerInterface> odometerObservers = new ArrayList<OdometerInterface>();
 
     private void updateFuelLevelObservers(double value, Timestamp timestamp) {
         for (FuelInterface carController : fuelObervers) {
@@ -96,27 +96,31 @@ public class OurParser {
     }
 
 
-    public void fileToArrayList(String filepath) {
+    public void updateFromFile(String filepath) {
         JSONParser parser = new JSONParser();
         try {
             FileReader fileReader = new FileReader(filepath);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            ArrayList<JSONObject> arrayList = new ArrayList<JSONObject>();
 
+            JSONObject jsonObject = (JSONObject) new JSONParser().parse(bufferedReader.readLine());
+            Long diffTime = ( System.currentTimeMillis())- new Double((Double)jsonObject.get("timestamp")*1000).longValue();
             while (bufferedReader.ready()) {
-                JSONObject jsonObject = (JSONObject) new JSONParser().parse(bufferedReader.readLine());
-                arrayList.add(jsonObject);
-                updateControllers(jsonObject);
+                JSONObject jsonObject2 = (JSONObject) new JSONParser().parse(bufferedReader.readLine());
+                Long milliseconds = new Double((Double) jsonObject2.get("timestamp") * 1000).longValue();
+                Long currentTime = System.currentTimeMillis();
+                Long compareTime = milliseconds- (currentTime-diffTime);
+                while ( compareTime>0){
+                    currentTime=System.currentTimeMillis();
+                    compareTime=milliseconds- (currentTime-diffTime);
+                }
+
+                Platform.runLater(() -> updateControllers(jsonObject2));
             }
-
-
-
         } catch (ParseException pe) {
             System.err.println("Parse exception");
         } catch (IOException ieo) {
             System.err.println("IO exception");
         }
-
     }
 
     private void updateControllers(JSONObject jsonObject) {
@@ -164,5 +168,13 @@ public class OurParser {
         } else if (numeric.equals("reverse")) {
             return 7;
         } else {return -1;}
+    }
+
+    @Override
+    public void run() {
+
+        updateFromFile(getClass().getClassLoader().getResource("downtown-west.txt").getPath());
+
+
     }
 }

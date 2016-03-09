@@ -5,12 +5,9 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 public class App extends Application{
 
@@ -42,6 +39,7 @@ public class App extends Application{
             System.exit(0);
         });
         logger.debug("App started");
-        Constants.PARSER.fileToArrayList(getClass().getClassLoader().getResource("downtown-west.txt").getPath());
+        new Thread(Constants.PARSER, "parserThread").start();
+
     }
 }

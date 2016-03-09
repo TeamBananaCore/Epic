@@ -3,6 +3,7 @@ package bananacore.epic;
 import bananacore.epic.interfaces.FuelInterface;
 import bananacore.epic.interfaces.OdometerInterface;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -11,6 +12,7 @@ import java.sql.Timestamp;
 
 
 public class FuelController implements OdometerInterface, FuelInterface {
+
 
     public static final double MAX_FUEL_CONSUMED_VALUE = 4294967295.0;
     public static final double MAX_ODOMETER_VALUE = 16777214.0;

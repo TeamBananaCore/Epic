@@ -10,7 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.Spinner;
+//import javafx.scene.control.Spinner;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 

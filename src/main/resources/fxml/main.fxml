@@ -13,6 +13,7 @@
     <bottom>
         <fx:include fx:id="break" source="brake.fxml"/>
     </bottom>
+
     <stylesheets>
         <URL value="@../css/app.css" />
     </stylesheets>

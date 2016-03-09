@@ -63,6 +63,6 @@
         </GridPane>
     </center>
    <top>
-      <Button fx:id="infoSettingsButton" mnemonicParsing="false" onAction="#infoSettings" text="Save Settings" BorderPane.alignment="TOP_RIGHT" />
+      <Button fx:id="infoSettingsButton" mnemonicParsing="false" onAction="#infoSettings" text="Settings" BorderPane.alignment="TOP_RIGHT" />
    </top>
 </BorderPane>

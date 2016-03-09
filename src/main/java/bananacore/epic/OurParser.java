@@ -101,7 +101,7 @@ public class OurParser implements Runnable {
             Long diffTime = ( System.currentTimeMillis())- new Double((Double)jsonObject.get("timestamp")*1000).longValue();
             while (bufferedReader.ready()) {
                 JSONObject jsonObject2 = (JSONObject) new JSONParser().parse(bufferedReader.readLine());
-                Long milliseconds = new Double((Double) jsonObject.get("timestamp") * 1000).longValue();
+                Long milliseconds = new Double((Double) jsonObject2.get("timestamp") * 1000).longValue();
                 Long currentTime = System.currentTimeMillis();
                 Long compareTime = milliseconds- (currentTime-diffTime);
                 while ( compareTime>0){

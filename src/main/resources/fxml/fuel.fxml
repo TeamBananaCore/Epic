@@ -9,15 +9,17 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200" minWidth="340" prefHeight="200.0" prefWidth="340.0" style="-fx-background-color: lightgrey" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.FuelController">
    <top>
-      <Pane fx:id="fuelLeftPane" prefHeight="90.0" minWidth="340" prefWidth="340.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+      <Pane fx:id="fuelLeftPane" minWidth="340" prefHeight="90.0" prefWidth="340.0" style="-fx-background-color: lightgrey;" BorderPane.alignment="CENTER">
          <children>
-            <Rectangle fx:id="fuelLeftBar" arcHeight="5.0" arcWidth="5.0" height="90.0" stroke="TRANSPARENT" strokeType="INSIDE" width="340.0">
+            <Rectangle fx:id="fuelLeftBar" arcHeight="50.0" arcWidth="50.0" height="86.0" layoutX="7.0" layoutY="30.0" stroke="TRANSPARENT" strokeType="INSIDE" width="326.0">
                <fill>
-                  <LinearGradient endX="1.0" endY="1.0">
+                  <LinearGradient endX="1.0" endY="1.0" startY="1.0">
                      <stops>
-                        <Stop color="#b715d3" />
-                        <Stop color="#adff1f" offset="0.5085910652920962" />
-                        <Stop color="#1094a8" offset="1.0" />
+                        <Stop color="#cf1919" />
+                        <Stop color="#ffca0f" offset="0.24359126278785" />
+                        <Stop color="#0fff13" offset="0.5083145712367183" />
+                        <Stop color="#0f3cff" offset="0.780621716633092" />
+                        <Stop color="#8c10a3" offset="1.0" />
                      </stops>
                   </LinearGradient>
                </fill>

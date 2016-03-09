@@ -1,5 +1,6 @@
 package bananacore.epic;
 
+import bananacore.epic.interfaces.FuelInterface;
 import bananacore.epic.interfaces.OdometerInterface;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
@@ -9,7 +10,7 @@ import javafx.scene.text.Text;
 import java.sql.Timestamp;
 
 
-public class FuelController implements OdometerInterface {
+public class FuelController implements OdometerInterface, FuelInterface {
 
     public static final double MAX_FUEL_CONSUMED_VALUE = 4294967295.0;
     public static final double MAX_ODOMETER_VALUE = 16777214.0;
@@ -25,6 +26,40 @@ public class FuelController implements OdometerInterface {
     private boolean fuelLevelUpdated = false;
     private boolean fuelConsumedUpdated = false;
     private boolean odoUpdated = false;
+
+    private boolean fuelLevelInterfaceUpdate = false;
+    private boolean fuelConsumedInterfaceUpdate = false;
+    private double fuelLevelInterfaceValue = 0;
+    private double fuelConsumedInterfaceValue = 0;
+
+    @Override
+    public void updateFuelLevel(double value, Timestamp timestamp) {
+        if (fuelConsumedInterfaceUpdate){
+            updateFuel(value, fuelConsumedInterfaceValue);
+            fuelLevelInterfaceUpdate = false;
+            fuelConsumedInterfaceUpdate = false;
+        } else {
+            fuelLevelInterfaceUpdate = true;
+            fuelLevelInterfaceValue = value;
+        }
+    }
+
+    @Override
+    public void updateFuelConsumedSinceRestart(double value, Timestamp timestamp) {
+        if (fuelLevelInterfaceUpdate){
+            updateFuel(fuelLevelInterfaceValue, value);
+            fuelLevelInterfaceUpdate = false;
+            fuelConsumedInterfaceUpdate = false;
+        } else {
+            fuelConsumedInterfaceUpdate = true;
+            fuelConsumedInterfaceValue = value;
+        }
+    }
+
+    public void initialize(){
+        Constants.PARSER.addToFuelObserver(this);
+        Constants.PARSER.addToOdometerObservers(this);
+    }
 
     public void updateFuel(double fuelLevel, double fuelConsumed) {
         updateFuelConsumed(fuelConsumed);

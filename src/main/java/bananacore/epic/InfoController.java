@@ -13,6 +13,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -46,7 +47,13 @@ public class InfoController implements SpeedInterface{
     Button infoSettingsButton;
 
     @FXML
-    Spinner<Integer> intervalSpinner;
+    Text intervalText;
+
+    @FXML
+    Button decreaseIntervalButton;
+
+    @FXML
+    Button increaseIntervalButton;
 
     public void saveSettings(){
         if (displayFuel){
@@ -54,13 +61,13 @@ public class InfoController implements SpeedInterface{
         } else if (displaySpeed){
             speed.visibleProperty().set(displaySpeed);
         }
-        switchDelay = intervalSpinner.getValue();
+        //switchDelay = intervalSpinner.getValue();
         infoSettingsPane.visibleProperty().set(false);
         infoSettingsButton.visibleProperty().setValue(true);
     }
 
     public void initialize(){
-        intervalSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2,10));
+        Constants.PARSER.addToSpeedObservers(this);
         displayFuelCheckbox.selectedProperty().set(true);
         displaySpeedCheckbox.selectedProperty().set(false);
         infoSettingsButton.visibleProperty().set(false);
@@ -73,6 +80,24 @@ public class InfoController implements SpeedInterface{
             displaySpeed = displaySpeedCheckbox.selectedProperty().get();
         });
 
+    }
+
+    public void increaseInterval(){
+        int current = Integer.parseInt(intervalText.getText());
+        if (current < 10){
+            current++;
+            switchDelay = current;
+            intervalText.setText(String.valueOf(current));
+        }
+    }
+
+    public void decreaseInterval(){
+        int current = Integer.parseInt(intervalText.getText());
+        if (current > 2){
+            current--;
+            switchDelay = current;
+            intervalText.setText(String.valueOf(current));
+        }
     }
 
     public void infoSettings(){

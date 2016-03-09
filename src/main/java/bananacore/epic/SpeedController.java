@@ -15,7 +15,11 @@ public class SpeedController implements SpeedInterface {
     @FXML
     Text speedText;
 
+    public void initialize(){
+        Constants.PARSER.addToSpeedObservers(this);
+    }
+
     public void updateVehicleSpeed(int value, Timestamp timestamp) {
-        speedText.setText(String.valueOf(value));
+        speedText.setText(String.valueOf(value) + " km/h");
     }
 }

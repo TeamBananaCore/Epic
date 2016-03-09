@@ -14,8 +14,8 @@
     <center>
         <GridPane fx:id="infoSettingsPane" BorderPane.alignment="CENTER">
             <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="220.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="61.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="179.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="102.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -29,24 +29,40 @@
                 <Button fx:id="saveSettingsButton" mnemonicParsing="false" onAction="#saveSettings" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Display Speed" GridPane.rowIndex="1">
                     <font>
-                        <Font size="30.0" />
+                        <Font size="25.0" />
                     </font>
                 </Text>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Display Fuel">
                     <font>
-                        <Font size="30.0" />
+                        <Font size="25.0" />
                     </font>
                 </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Switching Interval" GridPane.rowIndex="2">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Switch Interval" GridPane.rowIndex="2">
                <font>
                   <Font size="25.0" />
                </font>
             </Text>
-            <Spinner fx:id="intervalSpinner" prefHeight="25.0" prefWidth="73.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <Button fx:id="decreaseIntervalButton" mnemonicParsing="false" onAction="#decreaseInterval" text="-">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Button>
+                  <Text fx:id="intervalText" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="increaseIntervalButton" mnemonicParsing="false" onAction="#increaseInterval" text="+">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Button>
+               </children>
+            </HBox>
             </children>
         </GridPane>
     </center>
-   <right>
-      <Button fx:id="infoSettingsButton" mnemonicParsing="false" onAction="#infoSettings" text="Settings" BorderPane.alignment="CENTER" />
-   </right>
+   <top>
+      <Button fx:id="infoSettingsButton" mnemonicParsing="false" onAction="#infoSettings" text="Save Settings" BorderPane.alignment="TOP_RIGHT" />
+   </top>
 </BorderPane>

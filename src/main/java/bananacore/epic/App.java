@@ -39,6 +39,7 @@ public class App extends Application{
             System.exit(0);
         });
         logger.debug("App started");
-        Constants.PARSER.updateFromFile(getClass().getClassLoader().getResource("downtown-west.txt").getPath());
+        new Thread(Constants.PARSER, "parserThread").start();
+
     }
 }

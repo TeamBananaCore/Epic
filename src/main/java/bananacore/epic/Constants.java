@@ -8,6 +8,6 @@ public class Constants {
 
     static {
         PARSER = new OurParser();
-    }
 
+    }
 }

@@ -11,7 +11,7 @@
    <top>
       <Pane fx:id="fuelLeftPane" minWidth="340" prefHeight="90.0" prefWidth="340.0" style="-fx-background-color: lightgrey;" BorderPane.alignment="CENTER">
          <children>
-            <Rectangle fx:id="fuelLeftBar" arcHeight="50.0" arcWidth="50.0" height="86.0" layoutX="7.0" layoutY="30.0" stroke="TRANSPARENT" strokeType="INSIDE" width="326.0">
+            <Rectangle fx:id="fuelLeftBar" arcHeight="50.0" arcWidth="50.0" height="86.0" layoutX="10.0" layoutY="14.0" stroke="TRANSPARENT" strokeType="INSIDE" width="320.0">
                <fill>
                   <LinearGradient endX="1.0" endY="1.0" startY="1.0">
                      <stops>

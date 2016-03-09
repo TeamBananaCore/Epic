@@ -12,10 +12,5 @@
             <Font size="85.0" />
          </font>
       </Text>
-      <Text layoutX="80.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current speed:">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Text>
    </children>
 </AnchorPane>

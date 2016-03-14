@@ -5,10 +5,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.sql.Timestamp;
@@ -54,13 +58,25 @@ public class MenuController implements SpeedInterface{
 
     @FXML
     public void showGraph(){
-        speed = 0;
-        update();
+        try {
+            Stage stage = (Stage) settingsButton.getScene().getWindow();
+            Parent root = (Parent) FXMLLoader.load(getClass().getClassLoader().getResource("fxml/graphView.fxml"));
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @FXML
     public void showSettings(){
-        speed = 1;
-        update();
+        try {
+            Stage stage = (Stage) settingsButton.getScene().getWindow();
+            Parent root = (Parent) FXMLLoader.load(getClass().getClassLoader().getResource("fxml/settings.fxml"));
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

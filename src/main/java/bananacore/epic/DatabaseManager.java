@@ -17,7 +17,9 @@ import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class DatabaseManager {
     private static Logger logger = LoggerFactory.getLogger("DatabaseManager");
@@ -97,8 +99,6 @@ public class DatabaseManager {
     public static void update(Timestamp fromDate, Timestamp toDate){
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        System.out.println(fromDate);
-        System.out.println(toDate);
         brakeSessions.setAll(FXCollections.observableArrayList(session.createQuery("from BrakeSession where starttime between '" + fromDate + "' AND '" + toDate + "' order by starttime asc").list()));
         fuelSessions.setAll(FXCollections.observableArrayList(session.createQuery("from FuelSession where starttime between  '" + fromDate + "' AND '" + toDate + "' order by starttime asc").list()));
         wrongGearSessions.setAll(FXCollections.observableArrayList(session.createQuery("from WrongGearSession where starttime between  '" + fromDate + "' AND '" + toDate + "' order by starttime asc").list()));
@@ -127,6 +127,33 @@ public class DatabaseManager {
         tx.commit();
         session.close();
         return exists;
+    }
+
+    public static Timestamp getLatestData(){
+        Timestamp newest = new Timestamp(0);
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        Timestamp brake = (Timestamp) session.createQuery(" select max(startTime) from BrakeSession").list().get(0);
+        if(brake != null){
+            newest = brake;
+        }
+        Timestamp fuel = (Timestamp) session.createQuery("select max(startTime) from FuelSession").list().get(0);
+        if(fuel != null && (fuel.compareTo(newest) > 0)){
+            newest = fuel;
+        }
+        Timestamp wrong = (Timestamp) session.createQuery("select max(startTime) from WrongGearSession").list().get(0);
+        if(wrong != null && (wrong.compareTo(newest) > 0)){
+            newest = wrong;
+        }
+        Timestamp speed = (Timestamp) session.createQuery("select max(startTime) from SpeedSession").list().get(0);
+        if(speed != null && (speed.compareTo(newest) > 0)){
+            newest = speed;
+        }
+        tx.commit();
+        session.close();
+        return newest;
+
+
     }
 
     public static ObservableList<BrakeSession> getBrakeSessions() {

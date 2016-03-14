@@ -1,20 +1,20 @@
 package bananacore.epic;
 
-import bananacore.epic.interfaces.Graphable;
 import bananacore.epic.models.BrakeSession;
-import bananacore.epic.models.WrongGearSession;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.net.URL;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class GraphController implements Initializable{
+
+    Logger logger = org.slf4j.LoggerFactory.getLogger(getClass());
 
     private List<BrakeSession> brakeSessions;
 
@@ -26,7 +26,7 @@ public class GraphController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        endDate = Timestamp.valueOf(LocalDateTime.now());
+        endDate = DatabaseManager.getLatestData();
         startDate = new Timestamp(endDate.getTime() - Constants.SECONDS_PER_WEEK*1000);
         DatabaseManager.update(startDate, endDate);
         brakeSessions = DatabaseManager.getBrakeSessions();

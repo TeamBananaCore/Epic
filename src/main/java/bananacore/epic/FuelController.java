@@ -39,7 +39,7 @@ public class FuelController implements OdometerInterface, FuelInterface {
         if(fuelLevel == 0.0){
             fuelLevel = value;
         }
-        System.out.println(String.valueOf(value - fuelLevel));
+        //System.out.println(String.valueOf(value - fuelLevel));
         if (fuelConsumedInterfaceUpdate){
             updateFuel(value, fuelConsumedInterfaceValue);
             fuelLevelInterfaceUpdate = false;
@@ -111,7 +111,7 @@ public class FuelController implements OdometerInterface, FuelInterface {
     }
 
     private void updateFuelLevel(double fuelLevel) {
-        System.out.println("fuelLevel: " + String.valueOf(fuelLevel));
+        //System.out.println("fuelLevel: " + String.valueOf(fuelLevel));
         if (validFuelLevelValue(fuelLevel)) {
             if(this.fuelLevel != fuelLevel){
                 this.fuelLevel = fuelLevel;

@@ -1,5 +1,6 @@
 package bananacore.epic;
 
+import bananacore.epic.models.WrongGearSession;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,10 +21,10 @@ public class GearController implements GearInterface, RPMInterface{
     @FXML
     private Rectangle rectangle;
 
-    private int thresholdRpmGas = 3000;
+    private int thresholdRpmGas = 2100;
     private int thresholdRpmDiesel = 2000;
 
-    private int lowerThresholdRpmGas = 1500;
+    private int lowerThresholdRpmGas = 1200;
     private int lowerThresholdRpmDiesel = 1000;
 
     private double maxRpm = 14000;
@@ -47,6 +48,7 @@ public class GearController implements GearInterface, RPMInterface{
 
     @Override
     public void updateGear(int value, Timestamp timestamp) {
+        System.out.println("Gear " + value + " RPM " + rpmStatus);
         setGearStatus(value);
         this.gearTimestamp = timestamp;
         updateView();
@@ -71,12 +73,33 @@ public class GearController implements GearInterface, RPMInterface{
         if(carType.equals("gas")){
             if( !(gearStatus == maxGear) && rpmStatus >= thresholdRpmGas){
                 setGearImageUp();
+                startWrongGearSession();
             }else if( !(gearStatus == 1) && rpmStatus > 0 && rpmStatus <= lowerThresholdRpmGas){
                 setGearImageDown();
+                startWrongGearSession();
             }else if(gearStatus >= 0 && gearStatus < 7){
                 setGearImage(gearStatus);
+                if (session != null){
+                    endWrongGearSession();
+                }
             }
         }
+    }
+
+    private WrongGearSession session;
+
+    private void startWrongGearSession() {
+        session = new WrongGearSession();
+        session.setStartTime(rpmTimestamp);
+        session.setGear(gearStatus);
+    }
+
+    private void endWrongGearSession(){
+        System.out.println("dskjlhseøkfghslfgskjd: " +rpmTimestamp.getTime());
+        long diff = rpmTimestamp.getTime() - session.getStartTime().getTime();
+        session.setDuration((int) diff);
+        System.out.println("Diff "+ diff);
+        session = null;
     }
 
     private void updateBgRpm() {

@@ -31,5 +31,5 @@ public class SettingsController {
 
     @FXML
     Button increaseIntervalButton;
-
+    
 }

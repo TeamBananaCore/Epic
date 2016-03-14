@@ -4,7 +4,6 @@
 
 <?import java.net.URL?>
 <?import bananacore.epic.Graph?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Button?>
 <fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml" prefHeight="320" prefWidth="480" maxHeight="320" minHeight="320" maxWidth="480" minWidth="480">
     <top>

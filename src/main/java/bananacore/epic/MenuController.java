@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -59,10 +60,12 @@ public class MenuController implements SpeedInterface{
     @FXML
     public void showGraph(){
         try {
-            Stage stage = (Stage) settingsButton.getScene().getWindow();
-            Parent root = (Parent) FXMLLoader.load(getClass().getClassLoader().getResource("fxml/graphView.fxml"));
-            stage.setScene(new Scene(root));
-            stage.show();
+            BorderPane root = new BorderPane();
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/graphView.fxml"));
+            loader.setController(new GraphController());
+            loader.setRoot(root);
+            loader.load();
+            Constants.SCENE.setRoot(root);
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -71,10 +74,8 @@ public class MenuController implements SpeedInterface{
     @FXML
     public void showSettings(){
         try {
-            Stage stage = (Stage) settingsButton.getScene().getWindow();
             Parent root = (Parent) FXMLLoader.load(getClass().getClassLoader().getResource("fxml/settings.fxml"));
-            stage.setScene(new Scene(root));
-            stage.show();
+            Constants.SCENE.setRoot(root);
         } catch (Exception e){
             e.printStackTrace();
         }

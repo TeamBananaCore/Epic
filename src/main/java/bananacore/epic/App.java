@@ -23,15 +23,14 @@ public class App extends Application{
 
         BorderPane root = new BorderPane();
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/graphView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/main.fxml"));
             loader.setRoot(root);
-            loader.setController(new GraphController());
             loader.load();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, 480, 320);
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -39,6 +38,8 @@ public class App extends Application{
             Platform.exit();
             System.exit(0);
         });
+
+        Constants.SCENE = scene;
         logger.debug("App started");
         new Thread(Constants.PARSER, "parserThread").start();
 

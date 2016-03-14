@@ -25,3 +25,15 @@
     -fx-stroke: black 1px;
     -fx-padding: 10px;
 }
+
+.menubar{
+    -fx-fill: #747474;
+    -fx-stroke: #747474;
+    -fx-effect: dropshadow(three-pass-box, #4b4b4b, 10, 0, 0, 0);
+}
+
+.menubutton{
+    -fx-background-color: #bababa;
+    -fx-background-radius: 100px;
+    -fx-effect: dropshadow(three-pass-box, #4b4b4b, 10, 0, 0, 0);
+}

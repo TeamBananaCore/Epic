@@ -16,4 +16,7 @@
     <stylesheets>
         <URL value="@../css/app.css" />
     </stylesheets>
+    <HBox layoutY="-135">
+        <fx:include source="menu.fxml"/>
+    </HBox>
 </fx:root>

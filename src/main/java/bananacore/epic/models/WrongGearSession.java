@@ -1,10 +1,12 @@
 package bananacore.epic.models;
 
+import bananacore.epic.interfaces.Graphable;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity(name = "WrongGearSession")
-public class WrongGearSession {
+public class WrongGearSession{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

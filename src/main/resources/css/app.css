@@ -37,3 +37,12 @@
     -fx-background-radius: 100px;
     -fx-effect: dropshadow(three-pass-box, #4b4b4b, 10, 0, 0, 0);
 }
+
+.graph_label{
+    -fx-font-size: 1.2em;
+}
+
+.axis{
+    -fx-stroke: #636363;
+    -fx-stroke-width: 2px;
+}

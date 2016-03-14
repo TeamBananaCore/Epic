@@ -23,8 +23,9 @@ public class App extends Application{
 
         BorderPane root = new BorderPane();
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/main.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/graphView.fxml"));
             loader.setRoot(root);
+            loader.setController(new GraphController());
             loader.load();
         } catch (Exception e) {
             e.printStackTrace();

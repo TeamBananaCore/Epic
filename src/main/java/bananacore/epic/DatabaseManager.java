@@ -8,6 +8,7 @@ import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -15,6 +16,8 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.sql.Timestamp;
 
 public class DatabaseManager {
     private static Logger logger = LoggerFactory.getLogger("DatabaseManager");
@@ -83,12 +86,47 @@ public class DatabaseManager {
     public static void update(){
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        brakeSessions.setAll(FXCollections.observableArrayList(session.createQuery("from BrakeSession").list()));
-        fuelSessions.setAll(FXCollections.observableArrayList(session.createQuery("from FuelSession").list()));
-        wrongGearSessions.setAll(FXCollections.observableArrayList(session.createQuery("from WrongGearSession").list()));
-        speedSessions.setAll(FXCollections.observableArrayList(session.createQuery("from SpeedSession").list()));
+        brakeSessions.setAll(FXCollections.observableArrayList(session.createQuery("from BrakeSession order by starttime asc").list()));
+        fuelSessions.setAll(FXCollections.observableArrayList(session.createQuery("from FuelSession order by starttime asc").list()));
+        wrongGearSessions.setAll(FXCollections.observableArrayList(session.createQuery("from WrongGearSession order by starttime asc").list()));
+        speedSessions.setAll(FXCollections.observableArrayList(session.createQuery("from SpeedSession order by starttime asc").list()));
         tx.commit();
         session.close();
+    }
+
+    public static void update(Timestamp fromDate, Timestamp toDate){
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        System.out.println(fromDate);
+        System.out.println(toDate);
+        brakeSessions.setAll(FXCollections.observableArrayList(session.createQuery("from BrakeSession where starttime between '" + fromDate + "' AND '" + toDate + "' order by starttime asc").list()));
+        fuelSessions.setAll(FXCollections.observableArrayList(session.createQuery("from FuelSession where starttime between  '" + fromDate + "' AND '" + toDate + "' order by starttime asc").list()));
+        wrongGearSessions.setAll(FXCollections.observableArrayList(session.createQuery("from WrongGearSession where starttime between  '" + fromDate + "' AND '" + toDate + "' order by starttime asc").list()));
+        speedSessions.setAll(FXCollections.observableArrayList(session.createQuery("from SpeedSession where starttime between  '" + fromDate + "' AND '" + toDate + "' order by starttime asc").list()));
+        tx.commit();
+        session.close();
+    }
+
+    public static boolean brakeDataExistsBefore(Timestamp date){
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        Query query = session.createQuery("from BrakeSession where starttime < '" + date + "'");
+        query.setMaxResults(1);
+        boolean exists = query.list().size() > 0;
+        tx.commit();
+        session.close();
+        return exists;
+    }
+
+    public static boolean brakeDataExistsAfter(Timestamp date){
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        Query query = session.createQuery("from BrakeSession where starttime > '" + date + "'");
+        query.setMaxResults(1);
+        boolean exists = query.list().size() > 0;
+        tx.commit();
+        session.close();
+        return exists;
     }
 
     public static ObservableList<BrakeSession> getBrakeSessions() {

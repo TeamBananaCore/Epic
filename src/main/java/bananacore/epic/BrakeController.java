@@ -2,6 +2,7 @@ package bananacore.epic;
 
 import bananacore.epic.interfaces.BrakeInterface;
 import bananacore.epic.interfaces.SpeedInterface;
+import bananacore.epic.models.BrakeSession;
 import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXML;
@@ -22,8 +23,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class BrakeController implements Initializable, BrakeInterface, SpeedInterface {
-    private BooleanProperty isBraking;
-    private Timestamp start, end;
+
+    private Timestamp timestamp;
     private int speed;
 
     private BrakeThread brakingThread;
@@ -31,16 +32,15 @@ public class BrakeController implements Initializable, BrakeInterface, SpeedInte
     @FXML private PerformanceBar brakeBar;
     @FXML private Circle brakeLight;
 
-    private double optimalSpeedReduction;
-
     public void initialize(URL location, ResourceBundle resources) {
         Constants.PARSER.addToBrakeObserver(this);
         Constants.PARSER.addToSpeedObservers(this);
-        optimalSpeedReduction = 10.0 / (50.0 * Constants.WEIGHT);
     }
 
     public void updateVehicleSpeed(int speed, Timestamp timestamp){
         this.speed = speed;
+        this.timestamp = timestamp;
+
     }
 
     public void updateBrakePedalStatus(boolean isBraking, Timestamp timestamp){
@@ -57,12 +57,10 @@ public class BrakeController implements Initializable, BrakeInterface, SpeedInte
     }
 
     public void updateView(int startSpeed, int endSpeed, long duration){
-        double performance = duration / ((double)(startSpeed - endSpeed) * Constants.WEIGHT);
-        System.out.println("Optimal: " + optimalSpeedReduction);
-        System.out.println("Actual: " + performance);
-        brakeBar.setValue(100* performance/optimalSpeedReduction);
+        brakeBar.setValue(Constants.calculateBrakePerformance(startSpeed,endSpeed,duration));
         brakeLight.getStyleClass().setAll("brake_light_off");
-        // TODO Create BrakeSession and save to DB
+        BrakeSession session = new BrakeSession(startSpeed, endSpeed, timestamp, (int) duration);
+        DatabaseManager.insertBrakeSession(session);
     }
 
     public int getSpeed() {

@@ -16,7 +16,7 @@ public class FuelController implements OdometerInterface, FuelInterface {
 
     public static final double MAX_FUEL_CONSUMED_VALUE = 4294967295.0;
     public static final double MAX_ODOMETER_VALUE = 16777214.0;
-    private double fuelLevel = 100.0;
+    private double fuelLevel = 0.0;
     private double fuelStart = 0.0;
     private double fuelConsumed = 0.0;
     private double startDistance = 0.0;
@@ -36,6 +36,10 @@ public class FuelController implements OdometerInterface, FuelInterface {
 
     @Override
     public void updateFuelLevel(double value, Timestamp timestamp) {
+        if(fuelLevel == 0.0){
+            fuelLevel = value;
+        }
+        System.out.println(String.valueOf(value - fuelLevel));
         if (fuelConsumedInterfaceUpdate){
             updateFuel(value, fuelConsumedInterfaceValue);
             fuelLevelInterfaceUpdate = false;
@@ -67,6 +71,7 @@ public class FuelController implements OdometerInterface, FuelInterface {
         updateFuelConsumed(fuelConsumed);
         if (tankSize == 0.0){
             tankSize = fuelConsumed * 100 / (this.fuelLevel - fuelLevel);
+            System.out.println("tanksize: " + String.valueOf(tankSize));
         }
         updateFuelLevel(fuelLevel);
 
@@ -92,6 +97,7 @@ public class FuelController implements OdometerInterface, FuelInterface {
 
     private void updateEstimatedKmLeft(double fuelConsumed) {
         estimatedKmLeft = (tankSize - fuelConsumed) / fuelUsage;
+        System.out.println("estimatedLeft: " + estimatedKmLeft);
         updateEstimatedKmLeftText();
     }
 
@@ -105,6 +111,7 @@ public class FuelController implements OdometerInterface, FuelInterface {
     }
 
     private void updateFuelLevel(double fuelLevel) {
+        System.out.println("fuelLevel: " + String.valueOf(fuelLevel));
         if (validFuelLevelValue(fuelLevel)) {
             if(this.fuelLevel != fuelLevel){
                 this.fuelLevel = fuelLevel;

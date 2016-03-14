@@ -86,7 +86,7 @@ public class InfoController implements SpeedInterface{
         int current = Integer.parseInt(intervalText.getText());
         if (current < 10){
             current++;
-            switchDelay = current;
+            switchDelay = current*1000;
             intervalText.setText(String.valueOf(current));
         }
     }
@@ -95,7 +95,7 @@ public class InfoController implements SpeedInterface{
         int current = Integer.parseInt(intervalText.getText());
         if (current > 2){
             current--;
-            switchDelay = current;
+            switchDelay = current*1000;
             intervalText.setText(String.valueOf(current));
         }
     }

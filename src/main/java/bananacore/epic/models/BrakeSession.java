@@ -25,6 +25,15 @@ public class BrakeSession implements Graphable{
     @Column(name = "duration")
     private int duration;
 
+    public BrakeSession(){}
+
+    public BrakeSession(int startSpeed, int endSpeed, Timestamp startTime, int duration) {
+        this.startSpeed = startSpeed;
+        this.endSpeed = endSpeed;
+        this.startTime = startTime;
+        this.duration = duration;
+    }
+
     public int getId() {
         return id;
     }

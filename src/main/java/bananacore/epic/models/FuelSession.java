@@ -66,6 +66,6 @@ public class FuelSession implements Graphable {
 
     @Override
     public double getGraphValue() {
-        return fuelUsage/duration;
+        return fuelUsage;
     }
 }

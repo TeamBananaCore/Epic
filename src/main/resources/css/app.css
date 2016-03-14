@@ -29,3 +29,8 @@
 .graph_label{
     -fx-font-size: 1.2em;
 }
+
+.axis{
+    -fx-stroke: #636363;
+    -fx-stroke-width: 2px;
+}

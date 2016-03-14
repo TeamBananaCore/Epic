@@ -11,18 +11,23 @@ public class GraphableList extends ArrayList<Graphable> {
     private double min;
     private double max;
 
-    public GraphableList(int initialCapacity) {
+    private String unit;
+
+    public GraphableList(int initialCapacity, String unit) {
         super(initialCapacity);
+        this.unit = unit;
     }
 
-    public GraphableList() {
+    public GraphableList(String unit) {
         super();
+        this.unit = unit;
     }
 
-    public GraphableList(Collection<? extends Graphable> c) {
+    public GraphableList(Collection<? extends Graphable> c, String unit) {
         super(c);
         generateMin();
         generateMax();
+        this.unit = unit;
     }
 
     public void generateMin(){
@@ -145,5 +150,13 @@ public class GraphableList extends ArrayList<Graphable> {
         super.replaceAll(operator);
         generateMax();
         generateMin();
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }

@@ -3,7 +3,6 @@ package bananacore.epic;
 import bananacore.epic.interfaces.FuelInterface;
 import bananacore.epic.interfaces.OdometerInterface;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -18,34 +17,19 @@ public class FuelController implements OdometerInterface, FuelInterface {
 
     public static final double MAX_FUEL_CONSUMED_VALUE = 4294967295.0;
     public static final double MAX_ODOMETER_VALUE = 16777214.0;
-    private double fuelLevel = 0.0;
-    private double fuelStart = 0.0;
-    private double fuelConsumed = 0.0;
-    private double startDistance = 0.0;
-    private double fuelUsage = 1.0;
-    private double distanceTravelled = 0.0;
-    private double estimatedKmLeft = 10.0;
-    private double tankSize = 2.0;
+    private double fuelLevelPercentage = 0.0;
+    private double fuelIntervalStart = 0.0;
+    private double fuelConsumedInterval = 0.0;
+    private double distanceIntervalStart = 0.0;
+    private double fuelUsageInterval = 890.0;
+    private double distanceTravelledInterval = 0.0;
+    private double estimatedKmLeft = 0.0;
+    private double tankSize = 50.0;
     private double totalFuelConsumed = 0.0;
-    private double startFuelLevel = 100.0;
+    private double startFuelLevelPercentage = 100.0;
 
-    private boolean fuelLevelUpdated = false;
-    private boolean fuelConsumedUpdated = false;
     private boolean odoUpdated = false;
 
-
-    @Override
-    public void updateFuelConsumedSinceRestart(double value, Timestamp timestamp) {
-        updateFuelConsumed(value);
-        updateFuelLevel(value);
-        System.out.println("read value from JSON: " + String.valueOf(value));
-        if (odoUpdated && fuelLevelUpdated && fuelConsumedUpdated){
-            updateEstimatedKmLeft(value);
-            odoUpdated = false;
-            fuelConsumedUpdated = false;
-            fuelLevelUpdated = false;
-        }
-    }
 
     public void initialize(){
         Constants.PARSER.addToFuelObserver(this);
@@ -53,47 +37,58 @@ public class FuelController implements OdometerInterface, FuelInterface {
     }
 
     @Override
-    public void updateOdometer(double odometerReading, Timestamp timestamp) {
-        System.out.println("dist: " + String.valueOf(odometerReading-startDistance));
-        if (validOdometerReading(odometerReading) && odometerReading - startDistance > 0.05) {
-            if (odometerReading - startDistance != 0){
-                odoUpdated = true;
-
-                distanceTravelled = odometerReading - startDistance;
-                startDistance = odometerReading;
-            }
+    public void updateFuelConsumedSinceRestart(double value, Timestamp timestamp) {
+        updateFuelConsumed(value);
+        updateFuelLevel(value);
+        if (odoUpdated){
+            updateEstimatedKmLeft();
+            odoUpdated = false;
         }
-
-    }
-
-    private void updateEstimatedKmLeft(double fuelConsumed) {
-        estimatedKmLeft = round((tankSize - fuelConsumed) / fuelUsage, 2);
-        updateEstimatedKmLeftText();
     }
 
     private void updateFuelConsumed(double fuelConsumed) {
         if (validFuelConsumedValue(fuelConsumed)) {
-            this.fuelConsumed = fuelConsumed-fuelStart;
-            fuelConsumedUpdated = true;
+            this.fuelConsumedInterval = fuelConsumed- fuelIntervalStart;
             if(odoUpdated){
-                fuelStart = fuelConsumed;
+                fuelIntervalStart = fuelConsumed;
+                updateFuelUsage();
             }
-            updateFuelUsage();
+        }
+    }
+
+    private void updateFuelUsage() {
+        if(distanceTravelledInterval < 0.5 && distanceTravelledInterval >= 0.1){
+            fuelUsageInterval = fuelConsumedInterval / distanceTravelledInterval;
         }
     }
 
     private void updateFuelLevel(double fuelConsumed) {
-        totalFuelConsumed = tankSize-(tankSize/100*startFuelLevel) + fuelConsumed;
-        double fuelLevel = ((startFuelLevel*tankSize/100)-totalFuelConsumed)*(100/tankSize);
-        this.fuelLevel = fuelLevel;
-        fuelLevelUpdated = true;
+        // this part is probably wrong, the rest is ok.
+        totalFuelConsumed = tankSize-(tankSize/100*startFuelLevelPercentage) + fuelConsumed;
+        this.fuelLevelPercentage = ((startFuelLevelPercentage*tankSize/100)-totalFuelConsumed)*(100/tankSize);
         updateFuelLeftRectangle();
     }
 
-    private void updateFuelUsage() {
-        if(distanceTravelled > 0){
-            fuelUsage = fuelConsumed / distanceTravelled;
+    @Override
+    public void updateOdometer(double odometerReading, Timestamp timestamp) {
+        double distanceTravelledInterval = odometerReading-distanceIntervalStart;
+        if (validOdometerReading(odometerReading)) {
+            if(distanceTravelledInterval > 0.1){
+                odoUpdated = true;
+                this.distanceTravelledInterval = odometerReading - distanceIntervalStart;
+                distanceIntervalStart = odometerReading;
+                if(distanceTravelledInterval > 0.5){
+                    fuelUsageInterval = 0.112;
+                }
+            }
         }
+
+    }
+
+    private void updateEstimatedKmLeft() {
+        System.out.println("fuelLeft: " + String.valueOf(tankSize-totalFuelConsumed) + " fuelUsageInterval: " + String.valueOf(fuelUsageInterval));
+        estimatedKmLeft = round((tankSize - totalFuelConsumed) / fuelUsageInterval, 2);
+        updateEstimatedKmLeftText();
     }
 
     private boolean validFuelConsumedValue(double fuelConsumed) {
@@ -101,19 +96,19 @@ public class FuelController implements OdometerInterface, FuelInterface {
     }
 
     private boolean validOdometerReading(double odometerReading) {
-        return odometerReading >= startDistance && validDistanceValue(odometerReading);
+        return odometerReading >= distanceIntervalStart && validDistanceValue(odometerReading);
     }
 
     private boolean validDistanceValue(double startDistance) {
         return startDistance >= 0.0 && startDistance <= MAX_ODOMETER_VALUE;
     }
 
-    public double getFuelLevel() {
-        return fuelLevel;
+    public double getFuelLevelPercentage() {
+        return fuelLevelPercentage;
     }
 
-    public double getFuelUsage() {
-        return fuelUsage;
+    public double getFuelUsageInterval() {
+        return fuelUsageInterval;
     }
 
     public double getEstimatedKmLeft() {
@@ -131,8 +126,8 @@ public class FuelController implements OdometerInterface, FuelInterface {
 
 
     private void updateFuelLeftRectangle() {
-        if (fuelLevel != 0.0){
-            fuelLeftBar.setWidth(fuelLevel * fuelLeftPane.getWidth() / 100);
+        if (fuelLevelPercentage != 0.0){
+            fuelLeftBar.setWidth(fuelLevelPercentage * 320 / 100);
         }
     }
 

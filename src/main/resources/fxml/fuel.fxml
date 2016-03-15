@@ -31,7 +31,7 @@
    <bottom>
       <Text fx:id="kmLeftText" fill="WHITE" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="4.0" text="0 km " textAlignment="RIGHT" wrappingWidth="330.0" BorderPane.alignment="CENTER">
          <font>
-            <Font size="70.0" />
+            <Font size="60.0" />
          </font>
       </Text>
    </bottom>

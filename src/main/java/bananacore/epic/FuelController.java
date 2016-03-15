@@ -21,7 +21,7 @@ public class FuelController implements OdometerInterface, FuelInterface {
     private double fuelIntervalStart = 0.0;
     private double fuelConsumedInterval = 0.0;
     private double distanceIntervalStart = 0.0;
-    private double fuelUsageInterval = 890.0;
+    private double fuelUsageInterval = 0.0;
     private double distanceTravelledInterval = 0.0;
     private double estimatedKmLeft = 0.0;
     private double tankSize = 50.0;
@@ -57,7 +57,7 @@ public class FuelController implements OdometerInterface, FuelInterface {
     }
 
     private void updateFuelUsage() {
-        if(distanceTravelledInterval < 0.5 && distanceTravelledInterval >= 0.1){
+        if(distanceTravelledInterval < 1 && distanceTravelledInterval >= 0.5){
             fuelUsageInterval = fuelConsumedInterval / distanceTravelledInterval;
         }
     }
@@ -73,11 +73,11 @@ public class FuelController implements OdometerInterface, FuelInterface {
     public void updateOdometer(double odometerReading, Timestamp timestamp) {
         double distanceTravelledInterval = odometerReading-distanceIntervalStart;
         if (validOdometerReading(odometerReading)) {
-            if(distanceTravelledInterval > 0.1){
+            if(distanceTravelledInterval > 0.5){
                 odoUpdated = true;
                 this.distanceTravelledInterval = odometerReading - distanceIntervalStart;
                 distanceIntervalStart = odometerReading;
-                if(distanceTravelledInterval > 0.5){
+                if(distanceTravelledInterval > 1){
                     fuelUsageInterval = 0.112;
                 }
             }

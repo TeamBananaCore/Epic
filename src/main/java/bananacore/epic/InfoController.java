@@ -56,14 +56,17 @@ public class InfoController implements SpeedInterface{
     Button increaseIntervalButton;
 
     public void saveSettings(){
+        fuel.setVisible(false);
+        speed.setVisible(false);
         if (displayFuel){
-            fuel.visibleProperty().set(displayFuel);
+            fuel.setVisible(true);
         } else if (displaySpeed){
-            speed.visibleProperty().set(displaySpeed);
+            speed.setVisible(true);
         }
-        //switchDelay = intervalSpinner.getValue();
+        switchDelay = Integer.parseInt(intervalText.getText());
         infoSettingsPane.visibleProperty().set(false);
         infoSettingsButton.visibleProperty().setValue(true);
+        saveSettingsButton.setVisible(false);
     }
 
     public void initialize(){
@@ -86,7 +89,6 @@ public class InfoController implements SpeedInterface{
         int current = Integer.parseInt(intervalText.getText());
         if (current < 10){
             current++;
-            switchDelay = current*1000;
             intervalText.setText(String.valueOf(current));
         }
     }
@@ -95,7 +97,6 @@ public class InfoController implements SpeedInterface{
         int current = Integer.parseInt(intervalText.getText());
         if (current > 2){
             current--;
-            switchDelay = current*1000;
             intervalText.setText(String.valueOf(current));
         }
     }
@@ -112,7 +113,7 @@ public class InfoController implements SpeedInterface{
         if(lastTime == null){
             lastTime = timestamp;
         } else {
-            if(timestamp.getTime() - lastTime.getTime() > switchDelay){
+            if((timestamp.getTime()-lastTime.getTime())/1000 > switchDelay){
                 if(speed.visibleProperty().get() && displayFuel){
                     speed.visibleProperty().set(false);
                     fuel.visibleProperty().set(true);
@@ -120,6 +121,7 @@ public class InfoController implements SpeedInterface{
                     speed.visibleProperty().set(true);
                     fuel.visibleProperty().set(false);
                 }
+                lastTime = timestamp;
             }
         }
 

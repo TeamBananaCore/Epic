@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 
 
@@ -78,13 +79,13 @@ public class SetupController extends Application {
     private void handleDieselButton() {
         disel.setSelected(true);
         gasoline.setSelected(false);
-        setGassoline(false);
+        setGasoline(false);
 }
     @FXML
     private void handleGasolineButton() {
         disel.setSelected(false);
         gasoline.setSelected(true);
-        setGassoline(true);
+        setGasoline(true);
     }
     @FXML
     private void setTankSizeLabel(String value) {

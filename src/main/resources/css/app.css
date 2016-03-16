@@ -53,6 +53,7 @@
 
 .masterScrollPane{
     -fx-background-color: #636363;
+    -fx-stroke: #636363;
 }
 
 .scrollContentPane{
@@ -62,7 +63,7 @@
 }
 
 .scrollPane{
-    -fx-background-color: red;
+    -fx-background-insets: 10;
 }
 
 .settingsButton{

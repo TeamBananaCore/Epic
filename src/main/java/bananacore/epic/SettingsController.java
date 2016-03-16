@@ -1,21 +1,22 @@
 package bananacore.epic;
 
+import bananacore.epic.interfaces.OdometerInterface;
+import bananacore.epic.interfaces.SpeedInterface;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 
-/**
- * Created by Carlo on 16.03.2016.
- */
-public class SettingsController {
+import java.sql.Timestamp;
+
+public class SettingsController implements SpeedInterface {
 
     @FXML private CheckBox displayFuelCheckbox;
     @FXML private CheckBox displaySpeedCheckbox;
     @FXML private Button decreaseIntervalButton;
     @FXML private Button increaseIntervalButton;
-    @FXML private Label intervalText;
+    @FXML private Label intervalLabel;
     @FXML private ScrollPane scrollPane;
 
     private int interval = 2;
@@ -23,9 +24,9 @@ public class SettingsController {
     private boolean speedDisplay = false;
 
     public void initialize(){
-        intervalText.setText(addSpace(interval));
+        intervalLabel.setText(addSpace(interval));
         scrollPane.setFitToWidth(true);
-
+        Constants.PARSER.addToSpeedObservers(this);
     }
 
     public String addSpace(int x){
@@ -38,7 +39,7 @@ public class SettingsController {
     @FXML
     public void increaseInterval(){
         interval++;
-        intervalText.setText(addSpace(interval));
+        intervalLabel.setText(addSpace(interval));
     }
 
     @FXML
@@ -46,11 +47,40 @@ public class SettingsController {
         if(interval - 1 > 1){
             interval--;
         }
-        intervalText.setText(addSpace(interval));
+        intervalLabel.setText(addSpace(interval));
     }
 
     @FXML
     public void save(){
+        fuelDisplay = displayFuelCheckbox.isSelected();
+        speedDisplay = displaySpeedCheckbox.isSelected();
+        interval = Integer.parseInt(intervalLabel.getText().trim());
+        showMain();
 
+
+    }
+
+    @FXML
+    public void cancel() {
+        showMain();
+    }
+
+    private void showMain() {
+        try {
+            BorderPane root = new BorderPane();
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/main.fxml"));
+            loader.setRoot(root);
+            loader.load();
+            Constants.SCENE.setRoot(root);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateVehicleSpeed(int value, Timestamp timestamp) {
+        if(value != 0){
+            //showMain();
+        }
     }
 }

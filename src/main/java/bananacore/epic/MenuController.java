@@ -31,7 +31,7 @@ public class MenuController implements SpeedInterface{
         Image settingsImage = new Image(String.valueOf(getClass().getClassLoader().getResource("image/settingImage.png")), 80, 80, false, false);
         graphButton.setGraphic(new ImageView(graphImage));
         settingsButton.setGraphic(new ImageView(settingsImage));
-
+        Constants.PARSER.addToSpeedObservers(this);
         update();
     }
 

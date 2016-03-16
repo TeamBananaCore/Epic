@@ -7,13 +7,11 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.sql.Timestamp;
@@ -25,6 +23,8 @@ public class MenuController implements SpeedInterface{
 
     @FXML AnchorPane menuPane;
     private int speed = 0;
+    private boolean animationDown = true;
+    private boolean animationUp = false;
 
     public void initialize(){
         Image graphImage = new Image(String.valueOf(getClass().getClassLoader().getResource("image/graphImage.png")), 65, 65, false, false);
@@ -42,19 +42,24 @@ public class MenuController implements SpeedInterface{
     }
 
     public void update(){
-        if(speed == 0){
+        if(speed == 0 && animationDown){
+            animationDown = false;
             final Timeline timeline = new Timeline();
             timeline.setAutoReverse(true);
             timeline.getKeyFrames().add(new KeyFrame(Duration.millis(1000),
                     new KeyValue(menuPane.translateYProperty(), 135)));
             timeline.play();
-        }else {
+            animationUp = true;
+        }else if( speed > 0 && animationUp){
+            animationUp = false;
             final Timeline timeline = new Timeline();
             timeline.setAutoReverse(true);
             timeline.getKeyFrames().add(new KeyFrame(Duration.millis(1000),
                     new KeyValue(menuPane.translateYProperty(), -135)));
             timeline.play();
+            animationDown = true;
         }
+
     }
 
     @FXML

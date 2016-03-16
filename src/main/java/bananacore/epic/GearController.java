@@ -10,7 +10,9 @@ import javafx.scene.shape.Rectangle;
 import bananacore.epic.interfaces.GearInterface;
 import bananacore.epic.interfaces.RPMInterface;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,10 +75,14 @@ public class GearController implements GearInterface, RPMInterface{
         if(carType.equals("gas")){
             if( !(gearStatus == maxGear) && rpmStatus >= thresholdRpmGas){
                 setGearImageUp();
-                startWrongGearSession();
+                if(session == null) {
+                    startWrongGearSession();
+                }
             }else if( !(gearStatus == 1) && rpmStatus > 0 && rpmStatus <= lowerThresholdRpmGas){
                 setGearImageDown();
-                startWrongGearSession();
+                if(session == null) {
+                    startWrongGearSession();
+                }
             }else if(gearStatus >= 0 && gearStatus < 7){
                 setGearImage(gearStatus);
                 if (session != null){
@@ -95,7 +101,6 @@ public class GearController implements GearInterface, RPMInterface{
     }
 
     private void endWrongGearSession(){
-        System.out.println("dskjlhseøkfghslfgskjd: " +rpmTimestamp.getTime());
         long diff = rpmTimestamp.getTime() - session.getStartTime().getTime();
         session.setDuration((int) diff);
         System.out.println("Diff "+ diff);

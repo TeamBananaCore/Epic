@@ -5,8 +5,12 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.stage.Stage;
 
 
 import javax.swing.*;
@@ -15,8 +19,7 @@ import java.io.IOException;
 /**
  * Created by fonnavn on 09.03.2016.
  */
-public class SetupController implements NumpadInterface {
-public class SetupController extends Application {
+public class SetupController extends Application implements NumpadInterface {
 
 
  
@@ -129,7 +132,7 @@ public class SetupController extends Application {
     public String getNumber() {
         return null;
     }
-}
+
 
     @Override
     public void start(Stage stage) throws Exception {

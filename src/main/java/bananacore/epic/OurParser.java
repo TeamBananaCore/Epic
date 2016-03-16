@@ -30,9 +30,11 @@ public class OurParser implements Runnable {
     volatile ArrayList<OdometerInterface> odometerObservers = new ArrayList<OdometerInterface>();
 
     private void updateFuelLevelObservers(double value, Timestamp timestamp) {
-        for (FuelInterface carController : fuelObervers) {
+        /* for (FuelInterface carController : fuelObervers) {
             carController.updateFuelLevel(value, timestamp);
         }
+        So we do not need this on either :)
+        */
     }
     private void updateOdometerObservers(double value, Timestamp timestamp){
         for (OdometerInterface carController : odometerObservers) {

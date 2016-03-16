@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
@@ -14,14 +15,13 @@
     <center>
         <GridPane fx:id="infoSettingsPane" prefHeight="192.0" prefWidth="343.0" BorderPane.alignment="CENTER">
             <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="179.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="102.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="189.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="65.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="44.0" minHeight="0.0" prefHeight="41.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="79.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="59.0" minHeight="0.0" prefHeight="45.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="59.0" minHeight="4.0" prefHeight="18.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <CheckBox fx:id="displayFuelCheckbox" mnemonicParsing="false" GridPane.columnIndex="1">
@@ -31,12 +31,8 @@
                 <CheckBox fx:id="displaySpeedCheckbox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="30.0" />
-               </font></CheckBox>
-                <Button fx:id="saveSettingsButton" mnemonicParsing="false" onAction="#saveSettings" text="Save" GridPane.rowIndex="3">
-               <font>
-                  <Font size="25.0" />
                </font>
-            </Button>
+            </CheckBox>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Display Speed" GridPane.rowIndex="1">
                     <font>
                         <Font size="25.0" />
@@ -78,4 +74,14 @@
             <Font size="25.0" />
          </font></Button>
    </top>
+   <right>
+          <Button fx:id="saveSettingsButton" mnemonicParsing="false" onAction="#saveSettings" text="Save" BorderPane.alignment="TOP_LEFT">
+         <font>
+            <Font size="25.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </Button>
+   </right>
 </BorderPane>

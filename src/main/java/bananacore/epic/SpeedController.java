@@ -20,6 +20,6 @@ public class SpeedController implements SpeedInterface {
     }
 
     public void updateVehicleSpeed(int value, Timestamp timestamp) {
-        speedText.setText(String.valueOf(value) + " km/h");
+        speedText.setText(String.valueOf(value));
     }
 }

@@ -57,6 +57,17 @@ public class SetupController extends Application implements NumpadInterface {
         gearTitel.setVisible(true);
     }
     @FXML
+    private void handleAutoButton() {
+        maual.setSelected(false);
+        auto.setSelected(true);
+        setAuto(true);
+        gear4.setVisible(false);
+        gear5.setVisible(false);
+        gear6.setVisible(false);
+        gearTitel.setVisible(false);
+    }
+
+    @FXML
     private void handleGearfour() {
         gear4.setSelected(true);
         gear5.setSelected(false);

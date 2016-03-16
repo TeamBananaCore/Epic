@@ -65,6 +65,7 @@ public class SetupController extends Application implements NumpadInterface {
         gear5.setVisible(false);
         gear6.setVisible(false);
         gearTitel.setVisible(false);
+
     }
 
     @FXML
@@ -122,6 +123,7 @@ public class SetupController extends Application implements NumpadInterface {
 
     public void setAuto(Boolean auto) {
         Constants.auto = auto;
+
     }
 
     public void setWeight(int weight) {

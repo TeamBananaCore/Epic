@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane id="fuelSize" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.SetupController">
    <children>
       <SplitPane dividerPositions="0.5" layoutX="66.0" layoutY="9.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -16,7 +15,7 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="190.0" prefWidth="597.0">
                <children>
                   <Separator layoutX="250.0" layoutY="10.0" orientation="VERTICAL" prefHeight="194.0" prefWidth="0.0" />
-                  <Label fx:id="tanksizeLabel" layoutX="503.0" layoutY="50.0" prefHeight="27.0" prefWidth="34.0" text="0 L">
+                  <Label fx:id="tanksizeLabel" layoutX="492.0" layoutY="48.0" prefHeight="27.0" prefWidth="34.0" text="0 L">
                      <font>
                         <Font size="23.0" />
                      </font>
@@ -33,7 +32,7 @@
                   </Button>
                   <Label fx:id="weightLabel" layoutX="492.0" layoutY="131.0" prefHeight="32.0" prefWidth="54.0" text="0 kg">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="23.0" />
                      </font>
                   </Label>
                   <RadioButton fx:id="gasoline" layoutX="34.0" layoutY="134.0" mnemonicParsing="false" onAction="#handleGasolineButton" prefHeight="36.0" prefWidth="173.0" text="Gasoline">
@@ -56,7 +55,7 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
                   <Separator layoutX="251.0" layoutY="-35.0" orientation="VERTICAL" prefHeight="271.0" prefWidth="4.0" />
-                  <Button fx:id="save" layoutX="451.0" layoutY="141.0" mnemonicParsing="false" prefHeight="14.0" prefWidth="130.0" text="Save" underline="true">
+                  <Button fx:id="save" layoutX="451.0" layoutY="141.0" mnemonicParsing="false" prefHeight="14.0" prefWidth="130.0" style="-fx-background-color: lightblue;" styleClass="bananacore.resources.css.app.css" stylesheets="@../css/app.css" text="Save" underline="true">
                      <font>
                         <Font size="23.0" />
                      </font>

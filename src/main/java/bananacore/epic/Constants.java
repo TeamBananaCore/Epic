@@ -9,7 +9,7 @@ public class Constants {
     public static Boolean auto;
     public static int numberOfGears;
     public static int weight;
-    public static Boolean gassoline;
+    public static Boolean gasoline;
     public static int fuelsize;
 
     static {

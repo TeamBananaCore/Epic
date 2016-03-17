@@ -56,6 +56,8 @@ public class InfoController implements SpeedInterface{
     Button increaseIntervalButton;
 
     public void saveSettings(){
+        displaySpeed = true;
+        displayFuel = false;
         if (displayFuel){
             fuel.visibleProperty().set(displayFuel);
         } else if (displaySpeed){

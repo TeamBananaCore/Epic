@@ -38,7 +38,7 @@ public class Graph extends Pane {
     private double pixelsPerSec;
     private double xOffset = 50;
     private double yOffset = 10;
-    private double graphHeight = 250-yOffset;
+    private double graphHeight = 230-yOffset;
     private double graphOffset = 5;
 
     HashMap<String, GraphableList> dataSources = new HashMap<>();

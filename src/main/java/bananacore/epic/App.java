@@ -42,6 +42,5 @@ public class App extends Application{
         Constants.SCENE = scene;
         logger.debug("App started");
         new Thread(Constants.PARSER, "parserThread").start();
-
     }
 }

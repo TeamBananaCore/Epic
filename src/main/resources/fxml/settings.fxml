@@ -8,12 +8,12 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="200" minWidth="340" prefHeight="200" prefWidth="340" style="-fx-background-color: lightgrey" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.SettingsController">
+<BorderPane minHeight="200" minWidth="340" prefHeight="200" prefWidth="340" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.SettingsController">
     <center>
         <GridPane fx:id="infoSettingsPane" prefHeight="192.0" prefWidth="343.0" BorderPane.alignment="CENTER">
             <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="179.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="102.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="165.0" minWidth="10.0" prefWidth="102.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="44.0" minHeight="0.0" prefHeight="41.0" vgrow="SOMETIMES" />
@@ -22,7 +22,7 @@
                 <RowConstraints maxHeight="59.0" minHeight="4.0" prefHeight="18.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <CheckBox fx:id="displayFuelCheckbox" mnemonicParsing="false" GridPane.columnIndex="1">
+                <CheckBox fx:id="displayFuelCheckbox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="0">
                     <font>
                         <Font size="30.0" />
                     </font></CheckBox>
@@ -30,37 +30,22 @@
                     <font>
                         <Font size="30.0" />
                     </font></CheckBox>
-                <Button fx:id="saveSettingsButton" mnemonicParsing="false" onAction="#saveSettings" text="Save" GridPane.rowIndex="3">
+                <Button fx:id="saveSettingsButton" mnemonicParsing="false" onAction="#saveSettings" text="Save" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2">
                     <font>
                         <Font size="25.0" />
                     </font>
                 </Button>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Display Speed" GridPane.rowIndex="1">
-                    <font>
-                        <Font size="25.0" />
-                    </font>
-                </Text>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Display Fuel">
-                    <font>
-                        <Font size="25.0" />
-                    </font>
-                </Text>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Switch Interval" GridPane.rowIndex="2">
-                    <font>
-                        <Font size="25.0" />
-                    </font>
-                </Text>
-                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <Label styleClass="settingsLabel" text="Display Fuel" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <Label styleClass="settingsLabel" text="Display Speed" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <Label styleClass="settingsLabel" text="Switch Interval" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <children>
                         <Button fx:id="decreaseIntervalButton" mnemonicParsing="false" onAction="#decreaseInterval" text="-">
                             <font>
                                 <Font size="20.0" />
                             </font></Button>
-                        <Text fx:id="intervalText" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
-                            <font>
-                                <Font size="25.0" />
-                            </font>
-                        </Text>
+                        <Label fx:id="intervalText" styleClass="settingsLabel" text="2">
+                        </Label>
                         <Button fx:id="increaseIntervalButton" mnemonicParsing="false" onAction="#increaseInterval" text="+">
                             <font>
                                 <Font size="20.0" />

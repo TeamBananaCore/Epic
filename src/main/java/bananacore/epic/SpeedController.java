@@ -2,6 +2,7 @@ package bananacore.epic;
 
 import bananacore.epic.interfaces.SpeedInterface;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
@@ -13,7 +14,7 @@ public class SpeedController implements SpeedInterface {
     AnchorPane speedPane;
 
     @FXML
-    Text speedText;
+    Label speedText;
 
     public void initialize(){
         Constants.PARSER.addToSpeedObservers(this);

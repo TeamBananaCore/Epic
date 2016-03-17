@@ -1,9 +1,18 @@
+* {
+    -fx-logo-color: #49caf5;
+    -fx-standard-background: lightgrey;
+}
+
+.root {
+    -fx-background-color: -fx-standard-background;
+}
 
 .performance_bar {
     -fx-background-color: linear-gradient(to right, red, yellow, green);
-    -fx-background-radius: 10px;
+    -fx-background-radius: 11px;
     -fx-border-style: solid;
-    -fx-border-color: black;
+    -fx-border-color: -fx-logo-color;
+    -fx-border-width: 2px;
     -fx-border-radius: 10px;
     -fx-padding: 10px;
 }

@@ -3,6 +3,7 @@ package bananacore.epic;
 import bananacore.epic.interfaces.FuelInterface;
 import bananacore.epic.interfaces.OdometerInterface;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
@@ -161,7 +162,7 @@ public class FuelController implements OdometerInterface, FuelInterface {
     private Rectangle fuelLeftBar;
 
     @FXML
-    private Text kmLeftText;
+    private Label kmLeftText;
 
 
     private void updateFuelLeftRectangle() {

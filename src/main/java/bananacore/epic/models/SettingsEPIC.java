@@ -68,7 +68,7 @@ public class SettingsEPIC {
     public Boolean getGasoline() {
         return gasoline;
     }
-
+//
     public void setGasoline(Boolean gasoline) {
         this.gasoline = gasoline;
         DatabaseManager.updateSettings(this);

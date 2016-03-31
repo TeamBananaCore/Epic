@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -15,11 +16,13 @@ import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Created by fonnavn on 09.03.2016.
  */
-public class SetupController extends Application implements NumpadInterface {
+public class SetupController extends Application implements NumpadInterface, Initializable {
 
 
  
@@ -155,9 +158,15 @@ public class SetupController extends Application implements NumpadInterface {
         stage.setScene(new Scene(root));
         stage.show();
     }
+    @Override
+    public void initialize() {
 
+
+
+    }
     public static void main(String[] args) {
         Application.launch(SetupController.class, args);
     }
+
 
 }

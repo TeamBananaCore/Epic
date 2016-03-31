@@ -1,12 +1,10 @@
 package bananacore.epic;
 
-import bananacore.epic.models.BrakeSession;
-import bananacore.epic.models.FuelSession;
-import bananacore.epic.models.SpeedSession;
-import bananacore.epic.models.WrongGearSession;
+import bananacore.epic.models.*;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,6 +14,8 @@ import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+
 public class DatabaseManager {
     private static Logger logger = LoggerFactory.getLogger("DatabaseManager");
     public static SessionFactory sessionFactory;
@@ -23,6 +23,7 @@ public class DatabaseManager {
     private static ListProperty<WrongGearSession> wrongGearSessions = new SimpleListProperty<>(FXCollections.observableArrayList());
     private static ListProperty<SpeedSession> speedSessions = new SimpleListProperty<>(FXCollections.observableArrayList());
     private static ListProperty<FuelSession> fuelSessions = new SimpleListProperty<>(FXCollections.observableArrayList());
+
 
     public static void connectToDB(){
         Configuration configuration = new Configuration();
@@ -122,4 +123,36 @@ public class DatabaseManager {
     public static ListProperty<FuelSession> fuelSessionsProperty() {
         return fuelSessions;
     }
+
+
+    //setup
+    public static void  updateSettings(SettingsEPIC settingsObject) {
+        Thread sessionThread = new Thread(()->{
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.update(settingsObject);
+            session.getTransaction().commit();
+            session.close();
+        });
+        sessionThread.start();
+    }
+    public static SettingsEPIC  getSettings() {
+        final SettingsEPIC[] settingsObject2 = {null};
+
+        Thread sessionThread;
+        sessionThread = new Thread(()->{
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+//            SettingsEPIC settingsEPIC=(SettingsEPIC) session.createQuery("from Settings").getFirstResult();
+            ObservableList settingsList = FXCollections.observableArrayList(session.createQuery("from SettingsEPIC").list());
+            SettingsEPIC settingsObject=(SettingsEPIC) settingsList.get(0);
+            settingsObject2[0] =settingsObject;
+
+            session.getTransaction().commit();
+            session.close();
+        });
+        sessionThread.start();
+        return settingsObject2[0];
+    }
+
 }

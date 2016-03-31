@@ -34,8 +34,10 @@ public class App extends Application{
         }
 
         Scene scene = new Scene(root);
+       // Scene setupScene = new Scene();
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
+  //      primaryStage.setScene(setupScene);
         primaryStage.show();
         primaryStage.setOnCloseRequest(e -> {
             Platform.exit();

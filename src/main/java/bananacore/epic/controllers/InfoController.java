@@ -1,6 +1,7 @@
-package bananacore.epic;
+package bananacore.epic.controllers;
 
 
+import bananacore.epic.Constants;
 import bananacore.epic.interfaces.SpeedInterface;
 import javafx.application.Platform;
 import javafx.event.EventHandler;

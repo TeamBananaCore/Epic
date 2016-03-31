@@ -1,5 +1,6 @@
-package bananacore.epic;
+package bananacore.epic.controllers;
 
+import bananacore.epic.Constants;
 import bananacore.epic.interfaces.FuelInterface;
 import bananacore.epic.interfaces.OdometerInterface;
 import javafx.fxml.FXML;
@@ -131,7 +132,7 @@ public class FuelController implements OdometerInterface, FuelInterface {
         }
     }
 
-    private void updateEstimatedKmLeftText() {;
+    private void updateEstimatedKmLeftText() {
         kmLeftText.setText(String.valueOf(estimatedKmLeft) + " km");
     }
 

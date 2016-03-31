@@ -1,5 +1,6 @@
-package bananacore.epic;
+package bananacore.epic.controllers;
 
+import bananacore.epic.Constants;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

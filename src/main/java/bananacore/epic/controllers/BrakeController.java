@@ -1,5 +1,9 @@
-package bananacore.epic;
+package bananacore.epic.controllers;
 
+import bananacore.epic.BrakeThread;
+import bananacore.epic.Constants;
+import bananacore.epic.DatabaseManager;
+import bananacore.epic.customcontrols.PerformanceBar;
 import bananacore.epic.interfaces.BrakeInterface;
 import bananacore.epic.interfaces.SpeedInterface;
 import bananacore.epic.models.BrakeSession;

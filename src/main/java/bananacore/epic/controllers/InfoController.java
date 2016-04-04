@@ -2,22 +2,16 @@ package bananacore.epic.controllers;
 
 
 import bananacore.epic.Constants;
-import bananacore.epic.interfaces.SpeedInterface;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
+import bananacore.epic.interfaces.observers.SpeedInterface;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 public class InfoController implements SpeedInterface{
 

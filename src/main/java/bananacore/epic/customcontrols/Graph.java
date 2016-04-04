@@ -1,19 +1,11 @@
 package bananacore.epic.customcontrols;
 
 import bananacore.epic.GraphableList;
-import bananacore.epic.interfaces.Graphable;
+import bananacore.epic.interfaces.observers.Graphable;
 import javafx.beans.NamedArg;
-import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.DoubleBinding;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -23,15 +15,11 @@ import javafx.scene.shape.Polyline;
 import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class Graph extends Pane {
 

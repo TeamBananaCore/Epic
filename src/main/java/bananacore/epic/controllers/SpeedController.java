@@ -1,7 +1,7 @@
 package bananacore.epic.controllers;
 
 import bananacore.epic.Constants;
-import bananacore.epic.interfaces.SpeedInterface;
+import bananacore.epic.interfaces.observers.SpeedInterface;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;

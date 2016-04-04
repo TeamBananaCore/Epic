@@ -1,8 +1,8 @@
 package bananacore.epic.controllers;
 
 import bananacore.epic.Constants;
-import bananacore.epic.interfaces.FuelInterface;
-import bananacore.epic.interfaces.OdometerInterface;
+import bananacore.epic.interfaces.observers.FuelInterface;
+import bananacore.epic.interfaces.observers.OdometerInterface;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;

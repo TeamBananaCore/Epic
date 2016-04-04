@@ -1,5 +1,6 @@
 package bananacore.epic.controllers;
 
+import bananacore.epic.View;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,7 +27,7 @@ public class ContainerController implements Initializable {
 
     @FXML private StackPane pane;
 
-    Map<String, Node> views = new HashMap<>();
+    Map<String, View> views = new HashMap<>();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadView(MAIN, MAIN_FXML);
@@ -39,15 +40,21 @@ public class ContainerController implements Initializable {
     public void loadView(String name, String fxml){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));
-            Parent view = loader.load();
-            views.put(name, view);
+            Parent node = loader.load();
+            node.setUserData(name);
+            views.put(name, new View(node, loader.getController()));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void setView(String name){
+        for(Node node : pane.getChildren()){
+            views.get(node.getUserData()).getController().hidden();
+        }
         pane.getChildren().clear();
-        pane.getChildren().add(views.get(name));
+        View view = views.get(name);
+        pane.getChildren().add(view.getNode());
+        view.getController().shown();
     }
 }

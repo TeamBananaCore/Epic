@@ -2,13 +2,16 @@ package bananacore.epic.controllers;
 
 import bananacore.epic.Constants;
 import bananacore.epic.DatabaseManager;
+import bananacore.epic.View;
 import bananacore.epic.customcontrols.Graph;
 import bananacore.epic.GraphableList;
+import bananacore.epic.interfaces.ViewController;
+import bananacore.epic.interfaces.observers.SpeedInterface;
 import bananacore.epic.models.BrakeSession;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.slf4j.Logger;
 
 import java.net.URL;
@@ -16,7 +19,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class GraphController implements Initializable{
+public class GraphController implements Initializable, SpeedInterface, ViewController{
 
     Logger logger = org.slf4j.LoggerFactory.getLogger(getClass());
 
@@ -66,5 +69,22 @@ public class GraphController implements Initializable{
         else lastWeek.setDisable(false);
         if (!DatabaseManager.brakeDataExistsAfter(endDate)) nextWeek.setDisable(true);
         else nextWeek.setDisable(false);
+    }
+
+    @Override
+    public void updateVehicleSpeed(int value, Timestamp timestamp) {
+        if(value != 0){
+            back();
+        }
+    }
+
+    @Override
+    public void hidden() {
+        Platform.runLater(()->Constants.PARSER.removeSpeedObserver(this));
+    }
+
+    @Override
+    public void shown() {
+        Platform.runLater(()->Constants.PARSER.addToSpeedObservers(this));
     }
 }

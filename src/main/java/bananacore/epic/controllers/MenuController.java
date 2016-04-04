@@ -86,4 +86,9 @@ public class MenuController implements SpeedInterface{
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void showMain(){
+
+    }
 }

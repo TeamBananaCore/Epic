@@ -53,6 +53,11 @@ public class GraphController implements Initializable{
         setData();
     }
 
+    @FXML
+    public void back(){
+        System.out.println("back");
+    }
+
     private void setData(){
         graph.clearDataSources();
         graph.addDataSource("Brakes", new GraphableList(DatabaseManager.getBrakeSessions(),"%"));

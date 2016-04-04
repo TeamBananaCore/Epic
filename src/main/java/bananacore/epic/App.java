@@ -3,6 +3,8 @@ package bananacore.epic;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -21,13 +23,13 @@ public class App extends Application{
         DatabaseManager.connectToDB();
         Platform.setImplicitExit(true);
 
-        BorderPane root = new BorderPane();
+        Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/main.fxml"));
-            loader.setRoot(root);
-            loader.load();
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/container.fxml"));
         } catch (Exception e) {
             e.printStackTrace();
+            Platform.exit();
+            System.exit(-1);
         }
 
         Scene scene = new Scene(root, 480, 320);

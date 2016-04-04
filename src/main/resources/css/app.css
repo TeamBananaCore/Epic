@@ -49,6 +49,12 @@
     -fx-stroke-width: 2px;
 }
 
+.graph_button{
+    -fx-background-color: #bababa;
+    -fx-background-radius: 60px;
+
+}
+
 /*---------Settings---------*/
 
 .masterScrollPane{

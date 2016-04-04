@@ -39,7 +39,7 @@ public class Graph extends Pane {
     private double pixelsPerSec;
     private double xOffset = 50;
     private double yOffset = 10;
-    private double graphHeight = 250-yOffset;
+    private double graphHeight = 200-yOffset;
     private double graphOffset = 5;
 
     HashMap<String, GraphableList> dataSources = new HashMap<>();
@@ -84,8 +84,8 @@ public class Graph extends Pane {
         int offset = 360/dataSources.size();
         Timestamp firstDate = Timestamp.valueOf(LocalDateTime.now());
         HBox legends = new HBox(10);
-        legends.setLayoutX(10);
-        legends.setLayoutY(280);
+        legends.setLayoutX(xOffset);
+        legends.setLayoutY(graphHeight+yOffset+20);
         this.getChildren().add(legends);
 
         VBox valueLabels = new VBox();

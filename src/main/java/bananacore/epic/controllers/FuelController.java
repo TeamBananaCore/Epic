@@ -33,7 +33,7 @@ public class FuelController implements OdometerInterface, FuelInterface {
 
 
     public void initialize(){
-        Constants.PARSER.addToFuelObserver(this);
+        Constants.PARSER.addToFuelObservers(this);
         Constants.PARSER.addToOdometerObservers(this);
     }
 

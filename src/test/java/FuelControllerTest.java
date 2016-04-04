@@ -1,5 +1,5 @@
 
-import bananacore.epic.FuelController;
+import bananacore.epic.controllers.FuelController;
 import org.junit.Test;
 
 import java.sql.Timestamp;

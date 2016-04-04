@@ -8,80 +8,90 @@ import javafx.scene.control.TextArea;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class OurParser implements Runnable {
 
+    private Logger logger = LoggerFactory.getLogger(getClass());
+    private volatile  ArrayList<BrakeInterface> brakeObervers = new ArrayList<>();
+    private volatile ArrayList<RPMInterface> rpmObservers = new ArrayList<>();
+    private volatile ArrayList<GearInterface> gearObservers = new ArrayList<>();
+    private volatile ArrayList<SpeedInterface> speedObervers = new ArrayList<>();
+    private volatile ArrayList<FuelInterface> fuelObervers = new ArrayList<>();
+    private volatile ArrayList<OdometerInterface> odometerObservers = new ArrayList<>();
 
+    //List of data we are interested in
+    private final List<String> dataTypes = Arrays.asList("engine_speed", "fuel_consumed_since_restart", "vehicle_speed", "brake_pedal_status", "transmission_gear_position", "odometer");
 
+    //Data: The last data that was sent of that type. Diff: The difference from last data required to send new update
+    int lastRPMData = 0;
+    int RPMDataDiff = 50;
 
-    // input example http://openxcplatform.com.s3.amazonaws.com/traces/nyc/downtown-west.json
+    int lastSpeedData = 0;
+    int speedDataDiff = 1;
 
-        volatile  ArrayList<BrakeInterface> brakeObervers = new ArrayList<BrakeInterface>();
-    volatile ArrayList<RPMInterface> rpmObservers = new ArrayList<RPMInterface>();
-    volatile ArrayList<GearInterface> gearObservers = new ArrayList<GearInterface>();
-    volatile ArrayList<SpeedInterface> speedObervers = new ArrayList<SpeedInterface>();
-    volatile ArrayList<FuelInterface> fuelObervers = new ArrayList<FuelInterface>();
-    volatile ArrayList<OdometerInterface> odometerObservers = new ArrayList<OdometerInterface>();
+    double lastFuelData = 0;
+    double fuelDataDiff = 0.01;
 
-    private void updateFuelLevelObservers(double value, Timestamp timestamp) {
-        /* for (FuelInterface carController : fuelObervers) {
-            carController.updateFuelLevel(value, timestamp);
-        }
-        So we do not need this on either :)
-        */
-    }
+    boolean lastBrakeData = false;
+
+    int lastGearData = -1;
+
+    double lastOdometerData = 0;
+    double odometerDataDiff = 1;
+
     private void updateOdometerObservers(double value, Timestamp timestamp){
-        for (OdometerInterface carController : odometerObservers) {
-            carController.updateOdometer(value, timestamp);
+        logger.debug(timestamp + " - updating odometer: " + value);
+        for (OdometerInterface odometerObserver : odometerObservers) {
+            odometerObserver.updateOdometer(value, timestamp);
         }
     }
 
-    private void updateFuelSinceRestartObservers(double value, Timestamp timestamp) {
-        for (FuelInterface carController : fuelObervers) {
-            carController.updateFuelConsumedSinceRestart(value, timestamp);
+    private void updateFuelObservers(double value, Timestamp timestamp) {
+        logger.debug(timestamp + " - updating fuel: " + value);
+        for (FuelInterface fuelObserver : fuelObervers) {
+            fuelObserver.updateFuelConsumedSinceRestart(value, timestamp);
         }
     }
 
-    private void updateSpeedObservers(int vehiclespeed, Timestamp timestamp) {
-        for (SpeedInterface carController : speedObervers) {
-            carController.updateVehicleSpeed(vehiclespeed, timestamp);
+    private void updateSpeedObservers(int value, Timestamp timestamp) {
+        logger.debug(timestamp + " - updating speed: " + value);
+        for (SpeedInterface speedObserver : speedObervers) {
+            speedObserver.updateVehicleSpeed(value, timestamp);
         }
     }
 
     private void updateGearObservers(int value, Timestamp timestamp) {
-        for (GearInterface carController : gearObservers) {
-            carController.updateGear(value, timestamp);
+        logger.debug(timestamp + " - updating gear: " + value);
+        for (GearInterface gearObserver : gearObservers) {
+            gearObserver.updateGear(value, timestamp);
         }
     }
 
     private void updateRPMObservers(int value, Timestamp timestamp) {
-        for (RPMInterface carController : rpmObservers) {
-            carController.updateRPM(value, timestamp);
+        logger.debug(timestamp + " - updating rpm: " + value);
+        for (RPMInterface rpmObserver : rpmObservers) {
+            rpmObserver.updateRPM(value, timestamp);
         }
     }
 
     private void updateBrakeObservers(Boolean value, Timestamp timestamp) {
-        for (BrakeInterface carController : brakeObervers) {
-            carController.updateBrakePedalStatus(value, timestamp);
+        logger.debug(timestamp + " - updating brake: " + value);
+        for (BrakeInterface brakeObserver : brakeObervers) {
+            brakeObserver.updateBrakePedalStatus(value, timestamp);
         }
     }
-
-//can be used in App to add observers
-    public void addObserver(ArrayList observer, Object carController) {
-        observer.add(carController);
-    }
-  //these are used by the Consoles to add themself.
+    //these are used by the Controllers to add themselves.
     public void addToBrakeObserver(BrakeInterface controller){
         brakeObervers.add(controller);
     }
-
     public void addToFuelObserver (FuelInterface controller){
         fuelObervers.add(controller);
     }
@@ -102,76 +112,110 @@ public class OurParser implements Runnable {
     public void updateFromFile(String filepath) {
         JSONParser parser = new JSONParser();
         try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(filepath)));
 
-            InputStreamReader fileReader = new InputStreamReader(getClass().getClassLoader().getResourceAsStream(filepath));
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            JSONObject jsonObject = (JSONObject) new JSONParser().parse(bufferedReader.readLine());
-            Long diffTime = ( System.currentTimeMillis())- new Double((Double)jsonObject.get("timestamp")*1000).longValue();
-            while (bufferedReader.ready()) {
-                JSONObject jsonObject2 = (JSONObject) new JSONParser().parse(bufferedReader.readLine());
-                Long milliseconds = new Double((Double) jsonObject2.get("timestamp") * 1000).longValue();
-                Long currentTime = System.currentTimeMillis();
-                Long compareTime = milliseconds- (currentTime-diffTime);
-                while ( compareTime>0){
-                    currentTime=System.currentTimeMillis();
-                    compareTime=milliseconds- (currentTime-diffTime);
-                }
-
-                Platform.runLater(() -> updateControllers(jsonObject2));
+            JSONObject jsonObject = (JSONObject) parser.parse(bufferedReader.readLine());
+            Timestamp time = new Timestamp(new Double((Double) jsonObject.get("timestamp")*1000).longValue());
+            while (bufferedReader.ready() && time != null) {
+                time = findNext(bufferedReader,parser,time);
             }
-        } catch (ParseException pe) {
-            System.err.println("Parse exception");
-        } catch (IOException ieo) {
-            System.err.println("IO exception");
+        } catch (ParseException | InterruptedException | IOException e) {
+            e.printStackTrace();
         }
     }
 
-    private void updateControllers(JSONObject jsonObject) {
-        String name = (String) jsonObject.get("name");
-        Double milliseconds = (Double) jsonObject.get("timestamp") * 1000;
-
-        Long time = milliseconds.longValue();
-
-        Timestamp timestamp = new Timestamp(time);
-
-
-
-        if (name.equals("engine_speed")) {
-            updateRPMObservers(Integer.parseInt(jsonObject.get("value").toString()), timestamp);
-        }else if(name.equals("fuel_level"))    {
-            updateFuelLevelObservers((Double) jsonObject.get("value"), timestamp);
-        }else if (name.equals("fuel_consumed_since_restart")){
-            updateFuelSinceRestartObservers((Double) jsonObject.get("value"),timestamp);
-        }else if (name.equals("vehicle_speed")){
-            updateSpeedObservers((int) Double.parseDouble(jsonObject.get("value").toString()),timestamp);
-        }else if (name.equals("brake_pedal_status")){
-            updateBrakeObservers((Boolean)jsonObject.get("value"),timestamp);
-        }else if (name.equals("transmission_gear_position")){
-            updateGearObservers(numericToInt((String) jsonObject.get("value")),timestamp);
-        }else if (name.equals("odometer")){
-            updateOdometerObservers( Double.parseDouble(jsonObject.get("value").toString()),timestamp);
+    private Timestamp findNext(BufferedReader reader, JSONParser parser, Timestamp current) throws IOException, ParseException, InterruptedException {
+        while(reader.ready()){
+            JSONObject json = (JSONObject) parser.parse(reader.readLine());
+            String dataType = json.get("name").toString();
+            if(dataTypes.contains(dataType)){
+                Timestamp time = new Timestamp(new Double((Double) json.get("timestamp")*1000).longValue());
+                String value = json.get("value").toString();
+                switch (dataType){
+                    case "engine_speed":
+                        int rpm = Integer.parseInt(value);
+                        if(Math.abs(lastRPMData-rpm)>RPMDataDiff){
+                            if(time.getTime()>current.getTime()){
+                                Thread.sleep(time.getTime()-current.getTime());
+                            }
+                            lastRPMData = rpm;
+                            Platform.runLater(()->updateRPMObservers(rpm, time));
+                            return time;
+                        }
+                        break;
+                    case "fuel_consumed_since_restart":
+                        double fuel = Double.parseDouble(value);
+                        if(Math.abs(lastFuelData-fuel)>fuelDataDiff){
+                            if(time.getTime()>current.getTime()){
+                                Thread.sleep(time.getTime()-current.getTime());
+                            }
+                            lastFuelData = fuel;
+                            Platform.runLater(()->updateFuelObservers(fuel,time));
+                            return time;
+                        }
+                        break;
+                    case "vehicle_speed":
+                        int speed = (int) Double.parseDouble(value);
+                        if(Math.abs(lastSpeedData-speed)>=speedDataDiff){
+                            if(time.getTime()>current.getTime()){
+                                Thread.sleep(time.getTime()-current.getTime());
+                            }
+                            lastSpeedData = speed;
+                            Platform.runLater(()->updateSpeedObservers(speed,time));
+                            return time;
+                        }
+                        break;
+                    case "brake_pedal_status":
+                        boolean braking = Boolean.parseBoolean(value);
+                        if(braking != lastBrakeData){
+                            if(time.getTime()>current.getTime()){
+                                Thread.sleep(time.getTime()-current.getTime());
+                            }
+                            lastBrakeData = braking;
+                            Platform.runLater(()->updateBrakeObservers(braking, time));
+                            return time;
+                        }
+                        break;
+                    case "transmission_gear_position":
+                        int gear = numericToInt(value);
+                        if(gear != lastGearData){
+                            if(time.getTime()>current.getTime()){
+                                Thread.sleep(time.getTime()-current.getTime());
+                            }
+                            lastGearData = gear;
+                            Platform.runLater(()->updateGearObservers(gear, time));
+                            return time;
+                        }
+                        break;
+                    case "odometer":
+                        double odo = Double.parseDouble(value);
+                        if(Math.abs(lastOdometerData-odo) > odometerDataDiff){
+                            if(time.getTime()>current.getTime()){
+                                Thread.sleep(time.getTime()-current.getTime());
+                            }
+                            lastOdometerData = odo;
+                            Platform.runLater(()->updateOdometerObservers(odo, time));
+                            return time;
+                        }
+                        break;
+                }
+            }
         }
+        return null;
     }
 
     private int numericToInt(String numeric) {
-        if (numeric.equals("first")) {
-            return 1;
-        } else if (numeric.equals("second")) {
-            return 2;
-        } else if (numeric.equals("third")) {
-            return 3;
-        } else if (numeric.equals("fourth")) {
-            return 4;
-        } else if (numeric.equals("fifth")) {
-            return 5;
-        } else if (numeric.equals("sixth")) {
-            return 6;
-        } else if (numeric.equals("neutral")) {
-            return 0;
-        } else if (numeric.equals("reverse")) {
-            return 7;
-        } else {return -1;}
+        switch (numeric) {
+            case "first": return 1;
+            case "second": return 2;
+            case "third": return 3;
+            case "fourth": return 4;
+            case "fifth": return 5;
+            case "sixth": return 6;
+            case "neutral": return 0;
+            case "reverse": return 7;
+            default: return -1;
+        }
     }
 
     @Override

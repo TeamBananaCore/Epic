@@ -17,10 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/**
- * Created by fonnavn on 09.03.2016.
- */
-public class SetupController extends Application implements NumpadInterface, Initializable {
+public class SetupController extends Application implements NumpadInterface {
 
 
  
@@ -49,10 +46,7 @@ public class SetupController extends Application implements NumpadInterface, Ini
     private Numpad numpad;
     private boolean toggleNumpad; //true means tankSize, false means carWeight
 
-    public void initialize() {
-
-    }
-
+  
 
     @FXML
     private void handleManualButton() {
@@ -127,26 +121,27 @@ public class SetupController extends Application implements NumpadInterface, Ini
         toggleNumpad = false;
         numpad("Weight");
     }
-
-    public void setGear(Boolean auto) {Constants.auto = auto; }
+//skal slettes
+    public void setGear(Boolean auto) {Constants.settingsEPIC.setAuto(auto); }
 
     public void setAuto(Boolean auto) {
-        Constants.auto = auto;
+        Constants.settingsEPIC.setAuto(auto);
+
     }
 
     public void setWeight(int weight) {
-        Constants.weight = weight;
+        Constants.settingsEPIC.setWeight(weight);
     }
 
     public void setNumberOfGears(int numberOfGears) {
-        Constants.numberOfGears = numberOfGears;
+        Constants.settingsEPIC.setGetNumberOfGears(numberOfGears);
     }
-    public void setGasoline(Boolean gasoline) { Constants.gasoline = gasoline;    }
+    public void setGasoline(Boolean gasoline) { Constants.settingsEPIC.setGasoline(gasoline);    }
 
     
 
     public void setFuelsize(int fuelsize) {
-        Constants.fuelsize = fuelsize;
+        Constants.settingsEPIC.setFuelsize(fuelsize);
     }
 
     public void numpad(String title) {
@@ -190,8 +185,4 @@ public class SetupController extends Application implements NumpadInterface, Ini
     }
 
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
 }

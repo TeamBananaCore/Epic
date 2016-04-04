@@ -5,7 +5,7 @@ import bananacore.epic.DatabaseManager;
 
 import javax.persistence.*;
 
-@Entity(name="BrakeSession")
+@Entity(name="SettingsEPIC")
 
 public class SettingsEPIC {
 

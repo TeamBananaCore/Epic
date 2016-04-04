@@ -20,7 +20,7 @@ public class GearController implements GearInterface, RPMInterface{
     @FXML
     private Rectangle rectangle;
 
-    private int thresholdRpmGas = 2700;
+    private int thresholdRpmGas = 2500;
     private int thresholdRpmDiesel = 2000;
 
     private int lowerThresholdRpmGas = 1500;

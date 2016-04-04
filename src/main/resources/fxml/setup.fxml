@@ -11,8 +11,8 @@
 <AnchorPane id="fuelSize" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.SetupController">
    <children>
       <SplitPane dividerPositions="0.5" layoutX="66.0" layoutY="9.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="190.0" prefWidth="597.0">
+         <items>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="190.0" prefWidth="597.0">
                <children>
                   <Separator layoutX="250.0" layoutY="10.0" orientation="VERTICAL" prefHeight="194.0" prefWidth="0.0" />
                   <Label fx:id="tanksizeLabel" layoutX="492.0" layoutY="48.0" prefHeight="27.0" prefWidth="34.0" text="0 L">
@@ -40,7 +40,7 @@
                         <Font size="25.0" />
                      </font>
                   </RadioButton>
-                  <RadioButton fx:id="disel" layoutX="36.0" layoutY="87.0" mnemonicParsing="false" onAction="#handleDieselButton" prefHeight="36.0" prefWidth="139.0" text="Disel">
+                  <RadioButton fx:id="diesel" layoutX="36.0" layoutY="87.0" mnemonicParsing="false" onAction="#handleDieselButton" prefHeight="36.0" prefWidth="139.0" text="Diesel">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -52,7 +52,7 @@
                   </Label>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
                   <Separator layoutX="251.0" layoutY="-35.0" orientation="VERTICAL" prefHeight="271.0" prefWidth="4.0" />
                   <Button fx:id="save" layoutX="451.0" layoutY="141.0" mnemonicParsing="false" prefHeight="14.0" prefWidth="130.0" style="-fx-background-color: lightblue;" styleClass="bananacore.resources.css.app.css" stylesheets="@../css/app.css" text="Save" underline="true">
@@ -80,7 +80,7 @@
                         <Font size="37.0" />
                      </font>
                   </Label>
-                  <RadioButton fx:id="maual" layoutX="20.0" layoutY="103.0" mnemonicParsing="false" onAction="#handleManualButton" prefHeight="72.0" prefWidth="206.0" text="Manual gears">
+                  <RadioButton fx:id="manual" layoutX="20.0" layoutY="103.0" mnemonicParsing="false" onAction="#handleManualButton" prefHeight="72.0" prefWidth="206.0" text="Manual gears">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -97,7 +97,7 @@
                   </Label>
                </children>
             </AnchorPane>
-        </items>
+         </items>
       </SplitPane>
    </children>
 </AnchorPane>

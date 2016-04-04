@@ -10,7 +10,7 @@ import javafx.scene.layout.BorderPane;
 
 import java.sql.Timestamp;
 
-public class SettingsController implements SpeedInterface {
+public class SettingsController extends SetupController implements SpeedInterface {
 
     @FXML private CheckBox displayFuelCheckbox;
     @FXML private CheckBox displaySpeedCheckbox;

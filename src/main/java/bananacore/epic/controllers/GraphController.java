@@ -2,7 +2,7 @@ package bananacore.epic.controllers;
 
 import bananacore.epic.Constants;
 import bananacore.epic.DatabaseManager;
-import bananacore.epic.Graph;
+import bananacore.epic.customcontrols.Graph;
 import bananacore.epic.GraphableList;
 import bananacore.epic.models.BrakeSession;
 import javafx.fxml.FXML;

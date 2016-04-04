@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200" minWidth="340" prefHeight="200.0" prefWidth="340.0" style="-fx-background-color: lightgrey" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.FuelController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200" minWidth="340" prefHeight="200.0" prefWidth="340.0" style="-fx-background-color: lightgrey" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.controllers.FuelController">
    <top>
       <Pane fx:id="fuelLeftPane" minWidth="340.0" prefHeight="90.0" prefWidth="48.0" style="-fx-background-color: lightgrey;" BorderPane.alignment="CENTER">
          <children>

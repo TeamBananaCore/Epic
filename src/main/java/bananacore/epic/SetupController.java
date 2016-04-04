@@ -174,7 +174,10 @@ public class SetupController extends Application implements NumpadInterface {
     }
 
     public static void main(String[] args) {
-        System.out.println(Constants.settingsEPIC.toString());
+
+        DatabaseManager.connectToDB();
+        int tall = Constants.settingsEPIC.getFuelsize();
+        System.out.println(tall);
 
         Application.launch(SetupController.class, args);
     }

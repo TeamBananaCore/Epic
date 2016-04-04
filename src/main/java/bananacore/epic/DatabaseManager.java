@@ -24,6 +24,8 @@ public class DatabaseManager {
     private static ListProperty<SpeedSession> speedSessions = new SimpleListProperty<>(FXCollections.observableArrayList());
     private static ListProperty<FuelSession> fuelSessions = new SimpleListProperty<>(FXCollections.observableArrayList());
 
+    private static ListProperty<SettingsEPIC> Settings = new SimpleListProperty<>(FXCollections.observableArrayList());
+
 
     public static void connectToDB(){
         Configuration configuration = new Configuration();
@@ -137,22 +139,20 @@ public class DatabaseManager {
         sessionThread.start();
     }
     public static SettingsEPIC  getSettings() {
-        final SettingsEPIC[] settingsObject2 = {null};
-
-        Thread sessionThread = new Thread(()->{
-            System.out.println("test");
+//        Thread sessionThread;
+//        sessionThread = new Thread(()->{
             Session session = sessionFactory.openSession();
             session.beginTransaction();
-//            SettingsEPIC settingsEPIC=(SettingsEPIC) session.createQuery("from Settings").getFirstResult();
-            ObservableList settingsList = FXCollections.observableArrayList(session.createQuery("from SettingsEPIC").list());
+//            SettingsEPIC settingsObject =(SettingsEPIC) session.createQuery("from Settings").getFirstResult();
+            ObservableList settingsList = FXCollections.observableArrayList(session.createQuery("from Settings").list());
             SettingsEPIC settingsObject=(SettingsEPIC) settingsList.get(0);
-            settingsObject2[0] =settingsObject;
 
             session.getTransaction().commit();
             session.close();
-        });
-        sessionThread.start();
-        return settingsObject2[0];//
+//        });
+//        sessionThread.start();
+
+        return settingsObject;//
     }
 
 }

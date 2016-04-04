@@ -5,7 +5,7 @@ import bananacore.epic.DatabaseManager;
 
 import javax.persistence.*;
 
-@Entity(name="SettingsEPIC")
+@Entity(name="Settings")
 
 public class SettingsEPIC {
 
@@ -18,7 +18,7 @@ public class SettingsEPIC {
     @Column(name = "auto")
     private Boolean auto;
 
-    @Column(name = "numberOfGears")
+    @Column(name = "numberofgears")
     private int getNumberOfGears;
 
     @Column(name = "weight")
@@ -29,6 +29,15 @@ public class SettingsEPIC {
 
     @Column(name = "fuelsize")
     private int fuelsize;
+
+    @Column(name = "fueldisplay")
+    private int fueldisplay;
+
+    @Column(name = "speeddisplay")
+    private int speeddisplay;
+
+    @Column(name = "interval")
+    private int intervall;
 
     public int getId() {
         return id;

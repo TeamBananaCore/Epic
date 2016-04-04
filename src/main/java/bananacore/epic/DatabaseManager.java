@@ -130,7 +130,7 @@ public class DatabaseManager {
         Thread sessionThread = new Thread(()->{
             Session session = sessionFactory.openSession();
             session.beginTransaction();
-            session.update(settingsObject);
+            session.saveOrUpdate(settingsObject);
             session.getTransaction().commit();
             session.close();
         });
@@ -139,8 +139,8 @@ public class DatabaseManager {
     public static SettingsEPIC  getSettings() {
         final SettingsEPIC[] settingsObject2 = {null};
 
-        Thread sessionThread;
-        sessionThread = new Thread(()->{
+        Thread sessionThread = new Thread(()->{
+            System.out.println("test");
             Session session = sessionFactory.openSession();
             session.beginTransaction();
 //            SettingsEPIC settingsEPIC=(SettingsEPIC) session.createQuery("from Settings").getFirstResult();

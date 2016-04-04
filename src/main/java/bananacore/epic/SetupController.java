@@ -109,7 +109,7 @@ public class SetupController extends Application implements NumpadInterface {
     }
     @FXML
     private void setWeightLabel(String value) {
-        weightLabel.setText(value +" kg");
+        weightLabel.setText(value + " kg");
     }
     @FXML
     private void handleTankButton()  {
@@ -181,6 +181,8 @@ public class SetupController extends Application implements NumpadInterface {
     }
 
     public static void main(String[] args) {
+        System.out.println(Constants.settingsEPIC.toString());
+
         Application.launch(SetupController.class, args);
     }
 

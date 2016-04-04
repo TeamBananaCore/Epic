@@ -40,7 +40,7 @@
                         <Font size="25.0" />
                      </font>
                   </RadioButton>
-                  <RadioButton fx:id="disel" layoutX="36.0" layoutY="87.0" mnemonicParsing="false" onAction="#handleDieselButton" prefHeight="36.0" prefWidth="139.0" text="Disel">
+                  <RadioButton fx:id="diesel" layoutX="36.0" layoutY="87.0" mnemonicParsing="false" onAction="#handleDieselButton" prefHeight="36.0" prefWidth="139.0" text="Diesel">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -80,7 +80,7 @@
                         <Font size="37.0" />
                      </font>
                   </Label>
-                  <RadioButton fx:id="maual" layoutX="20.0" layoutY="103.0" mnemonicParsing="false" onAction="#handleManualButton" prefHeight="72.0" prefWidth="206.0" text="Manual gears">
+                  <RadioButton fx:id="manual" layoutX="20.0" layoutY="103.0" mnemonicParsing="false" onAction="#handleManualButton" prefHeight="72.0" prefWidth="206.0" text="Manual gears">
                      <font>
                         <Font size="25.0" />
                      </font>

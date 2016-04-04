@@ -2,8 +2,6 @@ package bananacore.epic;
 
 import bananacore.epic.interfaces.NumpadInterface;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,9 +28,9 @@ public class SetupController extends Application implements NumpadInterface, Ini
     @FXML
     RadioButton auto;
     @FXML
-    RadioButton maual;
+    RadioButton manual;
     @FXML
-    RadioButton disel;
+    RadioButton diesel;
     @FXML
     RadioButton gasoline;
     @FXML
@@ -48,10 +46,17 @@ public class SetupController extends Application implements NumpadInterface, Ini
     @FXML
     Label gearTitel;
 
-   
+    private Numpad numpad;
+    private boolean toggleNumpad; //true means tankSize, false means carWeight
+
+    public void initialize() {
+
+    }
+
+
     @FXML
     private void handleManualButton() {
-        maual.setSelected(true);
+        manual.setSelected(true);
         auto.setSelected(false);
         setAuto(false);
         gear4.setVisible(true);
@@ -61,14 +66,13 @@ public class SetupController extends Application implements NumpadInterface, Ini
     }
     @FXML
     private void handleAutoButton() {
-        maual.setSelected(false);
+        manual.setSelected(false);
         auto.setSelected(true);
         setAuto(true);
         gear4.setVisible(false);
         gear5.setVisible(false);
         gear6.setVisible(false);
         gearTitel.setVisible(false);
-
     }
 
     @FXML
@@ -95,13 +99,13 @@ public class SetupController extends Application implements NumpadInterface, Ini
 //lower canvas
     @FXML
     private void handleDieselButton() {
-        disel.setSelected(true);
+        diesel.setSelected(true);
         gasoline.setSelected(false);
         setGasoline(false);
 }
     @FXML
     private void handleGasolineButton() {
-        disel.setSelected(false);
+        diesel.setSelected(false);
         gasoline.setSelected(true);
         setGasoline(true);
     }
@@ -115,18 +119,19 @@ public class SetupController extends Application implements NumpadInterface, Ini
     }
     @FXML
     private void handleTankButton()  {
-        //inntasting
+        toggleNumpad = true;
+        numpad("Tank Size");
     }
     @FXML
     private void handleWeightButton() {
-
+        toggleNumpad = false;
+        numpad("Weight");
     }
 
     public void setGear(Boolean auto) {Constants.auto = auto; }
 
     public void setAuto(Boolean auto) {
         Constants.auto = auto;
-
     }
 
     public void setWeight(int weight) {
@@ -144,9 +149,30 @@ public class SetupController extends Application implements NumpadInterface, Ini
         Constants.fuelsize = fuelsize;
     }
 
+    public void numpad(String title) {
+        //numpad = new Numpad(title, this);
+        try {
+            Stage stage = (Stage) auto.getScene().getWindow();
+            Parent root = (Parent) FXMLLoader.load(getClass().getClassLoader().getResource("fxml/numpad.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle(title);
+            stage.show();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public String getNumber() {
-        return null;
+        String text = numpad.getNumber();
+        if (toggleNumpad) {
+            tankSizeLabel.setText(text);
+        } else {
+            weightLabel.setText(text);
+        }
+        System.out.println(text);
+        return text;
     }
 
 
@@ -158,15 +184,14 @@ public class SetupController extends Application implements NumpadInterface, Ini
         stage.setScene(new Scene(root));
         stage.show();
     }
-    @Override
-    public void initialize() {
 
-
-
-    }
     public static void main(String[] args) {
         Application.launch(SetupController.class, args);
     }
 
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
 }

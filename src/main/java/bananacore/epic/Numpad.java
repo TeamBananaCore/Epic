@@ -32,9 +32,13 @@ public class Numpad extends Application {
     private Stage prevstage;
     NumpadInterface user;
 
-    public Numpad(String title, NumpadInterface user) {
+    /*public Numpad(String title, NumpadInterface user) {
         this.title.setText(title);
         this.user = user;
+    }*/
+
+    public void initialize() {
+
     }
 
     @FXML

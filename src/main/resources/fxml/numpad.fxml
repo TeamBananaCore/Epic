@@ -12,7 +12,7 @@
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
-            <Text fx:id="numberview" layoutX="15.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-background-color: whitesmoke;" text="0" textAlignment="RIGHT" wrappingWidth="265.0">
+            <Text fx:id="numberview" layoutX="15.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-background-color: white;" text="0" textAlignment="RIGHT" wrappingWidth="265.0">
                <font>
                   <Font size="64.0" />
                </font>

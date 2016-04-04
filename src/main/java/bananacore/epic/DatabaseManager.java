@@ -152,7 +152,7 @@ public class DatabaseManager {
             session.close();
         });
         sessionThread.start();
-        return settingsObject2[0];
+        return settingsObject2[0];//
     }
 
 }

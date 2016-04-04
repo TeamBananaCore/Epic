@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.Numpad">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <Text fx:id="numberview" layoutX="15.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-background-color: white;" text="0" textAlignment="RIGHT" wrappingWidth="265.0">
+               <font>
+                  <Font size="64.0" />
+               </font>
+            </Text>
+            <Text fx:id="title" layoutX="14.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Text>
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <GridPane gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Text fx:id="seven" onMouseClicked="#sevenPressed" strokeType="OUTSIDE" strokeWidth="0.0" text="7" textAlignment="CENTER" wrappingWidth="100.0" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="64.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="eight" onMouseClicked="#eightPressed" strokeType="OUTSIDE" strokeWidth="0.0" text="8" textAlignment="CENTER" wrappingWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="64.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="nine" onMouseClicked="#ninePressed" strokeType="OUTSIDE" strokeWidth="0.0" text="9" textAlignment="CENTER" wrappingWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="64.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="four" onMouseClicked="#fourPressed" strokeType="OUTSIDE" strokeWidth="0.0" text="4" textAlignment="CENTER" wrappingWidth="100.0" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="64.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="five" onMouseClicked="#fivePressed" strokeType="OUTSIDE" strokeWidth="0.0" text="5" textAlignment="CENTER" wrappingWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="64.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="six" onMouseClicked="#sixPressed" strokeType="OUTSIDE" strokeWidth="0.0" text="6" textAlignment="CENTER" wrappingWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="64.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="one" onMouseClicked="#onePressed" strokeType="OUTSIDE" strokeWidth="0.0" text="1" textAlignment="CENTER" wrappingWidth="100.0" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="64.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="two" onMouseClicked="#twoPressed" strokeType="OUTSIDE" strokeWidth="0.0" text="2" textAlignment="CENTER" wrappingWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="64.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="three" onMouseClicked="#threePressed" strokeType="OUTSIDE" strokeWidth="0.0" text="3" textAlignment="CENTER" wrappingWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="64.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="backspace" onMouseClicked="#backspacePressed" strokeType="OUTSIDE" strokeWidth="0.0" text="⌫" textAlignment="CENTER" wrappingWidth="100.0" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="64.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="zero" onMouseClicked="#zeroPressed" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="64.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="ok" onMouseClicked="#okPressed" strokeType="OUTSIDE" strokeWidth="0.0" text="OK" textAlignment="CENTER" wrappingWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="64.0" />
+                     </font>
+                  </Text>
+               </children>
+            </GridPane>
+         </children></AnchorPane>
+  </items>
+</SplitPane>

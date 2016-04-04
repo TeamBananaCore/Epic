@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml" prefHeight="320" prefWidth="480" maxHeight="320" minHeight="320" maxWidth="480" minWidth="480" fx:controller="bananacore.epic.controllers.ContainerController">
-    <fx:include fx:id="main" source="main.fxml" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"/>
-    <fx:include fx:id="graph" source="graphView.fxml" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"/>
-    <fx:include fx:id="settings" source="settings.fxml" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"/>
-</AnchorPane>
+<?import javafx.scene.layout.StackPane?>
+<StackPane fx:id="pane" xmlns:fx="http://javafx.com/fxml" prefHeight="320" prefWidth="480" maxHeight="320" minHeight="320" maxWidth="480" minWidth="480" fx:controller="bananacore.epic.controllers.ContainerController">
+
+</StackPane>

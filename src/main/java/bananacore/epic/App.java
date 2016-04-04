@@ -1,5 +1,6 @@
 package bananacore.epic;
 
+import bananacore.epic.controllers.ContainerController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +26,10 @@ public class App extends Application{
 
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/container.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/container.fxml"));
+            root = loader.load();
+            Constants.CONTAINER = loader.getController();
+
         } catch (Exception e) {
             e.printStackTrace();
             Platform.exit();

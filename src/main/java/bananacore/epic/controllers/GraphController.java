@@ -55,7 +55,7 @@ public class GraphController implements Initializable{
 
     @FXML
     public void back(){
-        System.out.println("back");
+        Constants.CONTAINER.setView(ContainerController.MAIN);
     }
 
     private void setData(){

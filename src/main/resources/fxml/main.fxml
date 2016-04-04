@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import java.net.URL?>
-<BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="320" prefWidth="480" maxHeight="320" minHeight="320" maxWidth="480" minWidth="480" fx:controller="bananacore.epic.controllers.MainController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="320" prefWidth="480" maxHeight="320" minHeight="320" maxWidth="480" minWidth="480">
     <left>
         <fx:include fx:id="gear" source="gear.fxml"/>
     </left>

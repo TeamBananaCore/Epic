@@ -60,35 +60,20 @@ public class MenuController implements SpeedInterface{
             timeline.play();
             animationDown = true;
         }
-
     }
 
     @FXML
     public void showGraph(){
-        try {
-            BorderPane root = new BorderPane();
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/graphView.fxml"));
-            loader.setController(new GraphController());
-            loader.setRoot(root);
-            loader.load();
-            Constants.SCENE.setRoot(root);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+        Constants.CONTAINER.setView(ContainerController.GRAPH);
     }
 
     @FXML
     public void showSettings(){
-        try {
-            Parent root = (Parent) FXMLLoader.load(getClass().getClassLoader().getResource("fxml/settings.fxml"));
-            Constants.SCENE.setRoot(root);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+        Constants.CONTAINER.setView(ContainerController.SETTINGS);
     }
 
     @FXML
     public void showMain(){
-
+        Constants.CONTAINER.setView(ContainerController.MAIN);
     }
 }

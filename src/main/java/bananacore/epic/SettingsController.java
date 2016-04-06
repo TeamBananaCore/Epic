@@ -2,6 +2,7 @@ package bananacore.epic;
 
 import bananacore.epic.interfaces.OdometerInterface;
 import bananacore.epic.interfaces.SpeedInterface;
+import bananacore.epic.models.SettingsEPIC;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -54,10 +55,11 @@ public class SettingsController extends SetupController implements SpeedInterfac
     public void save(){
         fuelDisplay = displayFuelCheckbox.isSelected();
         speedDisplay = displaySpeedCheckbox.isSelected();
+        Constants.settingsEPIC.setSpeeddisplay();
         interval = Integer.parseInt(intervalLabel.getText().trim());
         showMain();
 
-        
+        DatabaseManager.updateSettings(Constants.settingsEPIC);
     }
 
     @FXML

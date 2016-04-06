@@ -61,6 +61,7 @@ public class BrakeController implements Initializable, BrakeInterface, SpeedInte
     }
 
     public void updateView(int startSpeed, int endSpeed, long duration){
+
         brakeBar.setValue(Constants.calculateBrakePerformance(startSpeed,endSpeed,duration));
         brakeLight.getStyleClass().setAll("brake_light_off");
         BrakeSession session = new BrakeSession(startSpeed, endSpeed, timestamp, (int) duration);

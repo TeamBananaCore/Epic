@@ -1,5 +1,6 @@
 package bananacore.epic;
 
+import bananacore.epic.models.SettingsEPIC;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 

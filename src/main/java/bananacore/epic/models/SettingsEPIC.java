@@ -107,6 +107,30 @@ public class SettingsEPIC {
 
     }
 
+    public int getFueldisplay() {
+        return fueldisplay;
+    }
+
+    public void setFueldisplay(int fueldisplay) {
+        this.fueldisplay = fueldisplay;
+    }
+
+    public int getSpeeddisplay() {
+        return speeddisplay;
+    }
+
+    public void setSpeeddisplay(int speeddisplay) {
+        this.speeddisplay = speeddisplay;
+    }
+
+    public int getScreeninterval() {
+        return screeninterval;
+    }
+
+    public void setScreeninterval(int screeninterval) {
+        this.screeninterval = screeninterval;
+    }
+
     @Override
     public String toString() {
         return "SettingsEPIC{" +

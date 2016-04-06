@@ -68,7 +68,6 @@ public class FuelController implements OdometerInterface, FuelInterface {
     }
 
     private void updateFuelLevel(double fuelConsumed) {
-        // this part is probably wrong, the rest is ok.
         totalFuelConsumed = tankSize-(tankSize/100*startFuelLevelPercentage) + fuelConsumed;
         this.fuelLevelPercentage = ((startFuelLevelPercentage*tankSize/100)-totalFuelConsumed)*(100/tankSize);
         updateFuelLeftRectangle();
@@ -91,7 +90,6 @@ public class FuelController implements OdometerInterface, FuelInterface {
     }
 
     private void updateEstimatedKmLeft(Timestamp endOfInterval) {
-        System.out.println("fuelLeft: " + String.valueOf(tankSize-totalFuelConsumed) + " fuelUsageInterval: " + String.valueOf(fuelUsageInterval));
         estimatedKmLeft = round((tankSize - totalFuelConsumed) / fuelUsageInterval, 2);
 
         if (startOfInterval != null){

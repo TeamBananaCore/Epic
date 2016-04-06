@@ -37,7 +37,7 @@ public class FuelController implements OdometerInterface, FuelInterface {
 
 
     public void initialize(){
-        Constants.PARSER.addToFuelObserver(this);
+        Constants.PARSER.addToFuelObservers(this);
         Constants.PARSER.addToOdometerObservers(this);
     }
 
@@ -68,7 +68,6 @@ public class FuelController implements OdometerInterface, FuelInterface {
     }
 
     private void updateFuelLevel(double fuelConsumed) {
-        // this part is probably wrong, the rest is ok.
         totalFuelConsumed = tankSize-(tankSize/100*startFuelLevelPercentage) + fuelConsumed;
         this.fuelLevelPercentage = ((startFuelLevelPercentage*tankSize/100)-totalFuelConsumed)*(100/tankSize);
         updateFuelLeftRectangle();
@@ -91,13 +90,11 @@ public class FuelController implements OdometerInterface, FuelInterface {
     }
 
     private void updateEstimatedKmLeft(Timestamp endOfInterval) {
-        System.out.println("fuelLeft: " + String.valueOf(tankSize-totalFuelConsumed) + " fuelUsageInterval: " + String.valueOf(fuelUsageInterval));
         estimatedKmLeft = round((tankSize - totalFuelConsumed) / fuelUsageInterval, 2);
 
         if (startOfInterval != null){
             FuelSession session = new FuelSession((float) fuelUsageInterval, startOfInterval, (int)(endOfInterval.getTime()-startOfInterval.getTime())/1000);
             DatabaseManager.insertFuelSession(session);
-            DatabaseManager.update();
         }
 
         startOfInterval = endOfInterval;
@@ -115,18 +112,6 @@ public class FuelController implements OdometerInterface, FuelInterface {
 
     private boolean validDistanceValue(double startDistance) {
         return startDistance >= 0.0 && startDistance <= MAX_ODOMETER_VALUE;
-    }
-
-    public double getFuelLevelPercentage() {
-        return fuelLevelPercentage;
-    }
-
-    public double getFuelUsageInterval() {
-        return fuelUsageInterval;
-    }
-
-    public double getEstimatedKmLeft() {
-        return estimatedKmLeft;
     }
 
     @FXML

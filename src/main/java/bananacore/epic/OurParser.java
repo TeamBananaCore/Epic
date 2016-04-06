@@ -11,9 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class OurParser implements Runnable {
@@ -117,16 +115,14 @@ public class OurParser implements Runnable {
         speedObservers.add(controller);
     }
 
-    private void updateFromFile(String filepath) {
-    public void removeFuelObserver(FuelInterface controller){fuelObervers.remove(controller);}
+    public void removeFuelObserver(FuelInterface controller){fuelObservers.remove(controller);}
     public void removeGearObserver(GearInterface controller){gearObservers.remove(controller);}
     public void removeOdometerObserver(OdometerInterface controller){odometerObservers.remove(controller);}
     public void removeRPMObserver(RPMInterface controller){rpmObservers.remove(controller);}
-    public void removeSpeedObserver(SpeedInterface controller){speedObervers.remove(controller);}
+    public void removeSpeedObserver(SpeedInterface controller){speedObservers.remove(controller);}
 
 
     public void updateFromFile(String filepath) {
-        JSONParser parser = new JSONParser();
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(filepath)));
 

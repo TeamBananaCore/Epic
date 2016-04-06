@@ -1,4 +1,4 @@
-package bananacore.epic;
+package bananacore.epic.customcontrols;
 
 import javafx.animation.*;
 import javafx.beans.NamedArg;

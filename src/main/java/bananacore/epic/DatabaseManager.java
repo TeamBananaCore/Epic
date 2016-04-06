@@ -1,9 +1,6 @@
 package bananacore.epic;
 
-import bananacore.epic.models.BrakeSession;
-import bananacore.epic.models.FuelSession;
-import bananacore.epic.models.SpeedSession;
-import bananacore.epic.models.WrongGearSession;
+import bananacore.epic.models.*;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -28,6 +25,7 @@ public class DatabaseManager {
     private static ListProperty<WrongGearSession> wrongGearSessions = new SimpleListProperty<>(FXCollections.observableArrayList());
     private static ListProperty<SpeedSession> speedSessions = new SimpleListProperty<>(FXCollections.observableArrayList());
     private static ListProperty<FuelSession> fuelSessions = new SimpleListProperty<>(FXCollections.observableArrayList());
+
 
     public static void connectToDB(){
         Configuration configuration = new Configuration();
@@ -187,4 +185,39 @@ public class DatabaseManager {
     public static ListProperty<FuelSession> fuelSessionsProperty() {
         return fuelSessions;
     }
+
+
+    //setup
+    public static void  updateSettings(SettingsEPIC settingsObject) {
+        Thread sessionThread = new Thread(()->{
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+            try{
+                getSettings();
+                session.update(settingsObject);
+            } catch (IndexOutOfBoundsException e){
+                session.save(settingsObject);
+            }
+            session.getTransaction().commit();
+            session.close();
+        });
+        sessionThread.start();
+    }
+    public static SettingsEPIC  getSettings() {
+//        Thread sessionThread;
+//        sessionThread = new Thread(()->{
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+//            SettingsEPIC settingsObject =(SettingsEPIC) session.createQuery("from Settings").getFirstResult();
+            ObservableList settingsList = FXCollections.observableArrayList(session.createQuery("from Settings").list());
+            SettingsEPIC settingsObject=(SettingsEPIC) settingsList.get(0);
+
+            session.getTransaction().commit();
+            session.close();
+//        });
+//        sessionThread.start();
+
+        return settingsObject;//
+    }
+
 }

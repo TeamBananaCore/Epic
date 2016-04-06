@@ -1,10 +1,15 @@
-package bananacore.epic;
+package bananacore.epic.controllers;
 
 
+import bananacore.epic.Constants;
 import bananacore.epic.interfaces.SpeedInterface;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+<<<<<<< HEAD:src/main/java/bananacore/epic/InfoController.java
+=======
+import javafx.scene.input.KeyEvent;
+>>>>>>> 4fc9516bf2217680869ae0188d1e54026f717a76:src/main/java/bananacore/epic/controllers/InfoController.java
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -17,7 +22,7 @@ public class InfoController implements SpeedInterface{
     private Timestamp lastTime;
     private boolean displayFuel = true;
     private boolean displaySpeed = false;
-    private int switchDelay = 2000;
+    private int switchDelay = Integer.MAX_VALUE;
 
     @FXML
     BorderPane fuel;
@@ -107,7 +112,7 @@ public class InfoController implements SpeedInterface{
         if(lastTime == null){
             lastTime = timestamp;
         } else {
-            if((timestamp.getTime()-lastTime.getTime())/1000 > switchDelay){
+            if((int)(timestamp.getTime()-lastTime.getTime())/1000 > switchDelay){
                 if(speed.visibleProperty().get() && displayFuel){
                     speed.visibleProperty().set(false);
                     fuel.visibleProperty().set(true);

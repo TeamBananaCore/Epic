@@ -1,5 +1,6 @@
-package bananacore.epic;
+package bananacore.epic.controllers;
 
+import bananacore.epic.Constants;
 import bananacore.epic.interfaces.SpeedInterface;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;

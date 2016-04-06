@@ -1,5 +1,6 @@
 package bananacore.epic;
 
+import bananacore.epic.controllers.BrakeController;
 import javafx.application.Platform;
 
 import java.sql.Timestamp;

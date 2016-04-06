@@ -53,14 +53,20 @@
 
 .masterScrollPane{
     -fx-background-color: #636363;
+    -fx-stroke: #636363;
 }
 
 .scrollContentPane{
-    -fx-background-color: red;
+    -fx-background-color: #bababa;
     -fx-background-radius: 20px;
     -fx-effect: dropshadow(three-pass-box, #4b4b4b, 10, 0, 0, 0);
 }
 
 .scrollPane{
-    -fx-background-color: red;
+    -fx-background-insets: 10;
+}
+
+.settingsButton{
+      -fx-background-radius: 100px;
+      -fx-effect: dropshadow(three-pass-box, #4b4b4b, 3, 0, 0, 0);
 }

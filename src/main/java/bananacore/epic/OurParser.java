@@ -13,6 +13,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 
 
 public class OurParser implements Runnable {
@@ -101,7 +102,8 @@ public class OurParser implements Runnable {
     public void updateFromFile(String filepath) {
         JSONParser parser = new JSONParser();
         try {
-            FileReader fileReader = new FileReader(filepath);
+
+            InputStreamReader fileReader = new InputStreamReader(getClass().getClassLoader().getResourceAsStream(filepath));
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             JSONObject jsonObject = (JSONObject) new JSONParser().parse(bufferedReader.readLine());
@@ -174,9 +176,6 @@ public class OurParser implements Runnable {
 
     @Override
     public void run() {
-
-        updateFromFile(getClass().getClassLoader().getResource("downtown-west.txt").getPath());
-
-
+        updateFromFile("data/downtown-west.txt");
     }
 }

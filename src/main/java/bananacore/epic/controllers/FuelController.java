@@ -116,18 +116,6 @@ public class FuelController implements OdometerInterface, FuelInterface {
         return startDistance >= 0.0 && startDistance <= MAX_ODOMETER_VALUE;
     }
 
-    public double getFuelLevelPercentage() {
-        return fuelLevelPercentage;
-    }
-
-    public double getFuelUsageInterval() {
-        return fuelUsageInterval;
-    }
-
-    public double getEstimatedKmLeft() {
-        return estimatedKmLeft;
-    }
-
     @FXML
     private Pane fuelLeftPane;
 

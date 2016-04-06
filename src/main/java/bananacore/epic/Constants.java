@@ -1,5 +1,7 @@
 package bananacore.epic;
 
+import com.pi4j.io.gpio.GpioController;
+import com.pi4j.io.gpio.GpioFactory;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -13,6 +15,7 @@ public class Constants {
 
     public static Stage PRIMARY_STAGE;
     public static Scene SCENE;
+    public static final GpioController GPIO = GpioFactory.getInstance();
 
     static {
         PARSER = new OurParser();

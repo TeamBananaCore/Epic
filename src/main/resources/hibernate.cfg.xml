@@ -22,5 +22,6 @@
         <mapping class="bananacore.epic.models.FuelSession"/>
         <mapping class="bananacore.epic.models.SpeedSession"/>
         <mapping class="bananacore.epic.models.WrongGearSession"/>
+        <mapping class="bananacore.epic.models.SettingsEPIC"/>
     </session-factory>
 </hibernate-configuration>

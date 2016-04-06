@@ -5,20 +5,19 @@ import bananacore.epic.DatabaseManager;
 
 import javax.persistence.*;
 
-@Entity(name="BrakeSession")
+@Entity(name="Settings")
 
 public class SettingsEPIC {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(name = "id")
     private int id;
 
     @Column(name = "auto")
     private Boolean auto;
 
-    @Column(name = "numberOfGears")
+    @Column(name = "numberofgears")
     private int getNumberOfGears;
 
     @Column(name = "weight")
@@ -29,6 +28,29 @@ public class SettingsEPIC {
 
     @Column(name = "fuelsize")
     private int fuelsize;
+
+    @Column(name = "fueldisplay")
+    private int fueldisplay;
+
+    @Column(name = "speeddisplay")
+    private int speeddisplay;
+
+    @Column(name = "screeninterval")
+    private int screeninterval;
+
+    public SettingsEPIC() {
+    }
+
+    public SettingsEPIC(Boolean auto, int getNumberOfGears, int weight, Boolean gasoline, int fuelsize, int fueldisplay, int speeddisplay, int screeninterval) {
+        this.auto = auto;
+        this.getNumberOfGears = getNumberOfGears;
+        this.weight = weight;
+        this.gasoline = gasoline;
+        this.fuelsize = fuelsize;
+        this.fueldisplay = fueldisplay;
+        this.speeddisplay = speeddisplay;
+        this.screeninterval = screeninterval;
+    }
 
     public int getId() {
         return id;

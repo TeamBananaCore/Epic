@@ -95,7 +95,6 @@ public class FuelController implements OdometerInterface, FuelInterface {
         if (startOfInterval != null){
             FuelSession session = new FuelSession((float) fuelUsageInterval, startOfInterval, (int)(endOfInterval.getTime()-startOfInterval.getTime())/1000);
             DatabaseManager.insertFuelSession(session);
-            DatabaseManager.update();
         }
 
         startOfInterval = endOfInterval;

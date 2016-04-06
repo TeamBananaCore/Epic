@@ -48,7 +48,6 @@ public class SpeedController implements SpeedInterface {
                 avgSpeed = totalSpeedForComputation / amountOfReadingsForComputation;
                 SpeedSession session = new SpeedSession(avgSpeed, startOfSpeedSession, duration);
                 DatabaseManager.insertSpeedSession(session);
-                DatabaseManager.update();
                 startOfSpeedSession = timestamp;
                 totalSpeedForComputation = 0;
                 amountOfReadingsForComputation = 0;

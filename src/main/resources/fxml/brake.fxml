@@ -3,6 +3,7 @@
 <?import bananacore.epic.customcontrols.PerformanceBar?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.control.Separator?>
 <StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="bananacore.epic.controllers.BrakeController" prefWidth="480" prefHeight="130" style="-fx-background-color: lightgrey;">
     <AnchorPane StackPane.alignment="CENTER_LEFT">
             <Circle fx:id="brakeLight" radius="10" styleClass="brake_light_off" AnchorPane.topAnchor="55" AnchorPane.leftAnchor="10"/>

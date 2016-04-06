@@ -57,7 +57,7 @@ public class SettingsController extends SetupController implements SpeedInterfac
         interval = Integer.parseInt(intervalLabel.getText().trim());
         showMain();
 
-
+        
     }
 
     @FXML

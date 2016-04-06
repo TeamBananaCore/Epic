@@ -12,5 +12,6 @@
       <ImageView fx:id="gearImageView" fitHeight="135.0" fitWidth="135.0" layoutX="8.0" layoutY="32.5" pickOnBounds="true" preserveRatio="true">
          <image>
          </image></ImageView>
+      <Separator layoutX="147.0" orientation="VERTICAL" prefHeight="200.0" />
    </children>
 </AnchorPane>

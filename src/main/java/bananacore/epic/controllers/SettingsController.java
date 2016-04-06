@@ -1,23 +1,102 @@
 package bananacore.epic.controllers;
 
 import bananacore.epic.Constants;
-import bananacore.epic.Numpad;
-import bananacore.epic.interfaces.NumpadInterface;
+import bananacore.epic.DatabaseManager;
+import bananacore.epic.controllers.ContainerController;
+import bananacore.epic.controllers.NumpadController;
 import bananacore.epic.interfaces.ViewController;
-import bananacore.epic.models.SettingsEPIC;
-import javafx.application.Application;
+import bananacore.epic.interfaces.observers.SpeedInterface;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class SetupController extends Application implements NumpadInterface, ViewController {
+import java.sql.Timestamp;
+
+public class SettingsController implements SpeedInterface, ViewController {
+
+    static String weightString="asfd";
+
+    @FXML private CheckBox displayFuelCheckbox;
+    @FXML private CheckBox displaySpeedCheckbox;
+    @FXML private Button decreaseIntervalButton;
+    @FXML private Button increaseIntervalButton;
+    @FXML private Label intervalLabel;
+    @FXML private ScrollPane scrollPane;
+
+    @FXML private NumpadController numpadController;
+
+    @FXML private AnchorPane numpadPane;
+
+    private int interval = 2;
+    private boolean fuelDisplay = false;
+    private boolean speedDisplay = false;
+
+    public void initialize(){
+        //numpadController.getNumber();
+        intervalLabel.setText(addSpace(interval));
+        scrollPane.setFitToWidth(true);
+        Constants.PARSER.addToSpeedObservers(this);
+    }
+
+    public String addSpace(int x){
+        if(x < 10) {
+            return " " + x;
+        }
+        return "" + x;
+    }
+
+    @FXML
+    public void increaseInterval(){
+        interval++;
+        intervalLabel.setText(addSpace(interval));
+    }
+
+    @FXML
+    public void decreaseInterval() {
+        if(interval - 1 > 1){
+            interval--;
+        }
+        intervalLabel.setText(addSpace(interval));
+    }
+
+    @FXML
+    public void save(){
+        fuelDisplay = displayFuelCheckbox.isSelected();
+        speedDisplay = displaySpeedCheckbox.isSelected();
+        interval = Integer.parseInt(intervalLabel.getText().trim());
+
+        //updates local version. (the rest is updated on press.)
+        Constants.settingsEPIC.setFueldisplay(fuelDisplay);
+        Constants.settingsEPIC.setSpeeddisplay(speedDisplay);
+        Constants.settingsEPIC.setScreeninterval(interval);
+
+        //local to db
+        DatabaseManager.updateSettings(Constants.settingsEPIC);
+        showMain();
 
 
- 
+    }
+
+    @FXML
+    public void cancel() {
+        showMain();
+    }
+
+    private void showMain() {
+        Constants.CONTAINER.setView(ContainerController.MAIN);
+    }
+
+    @Override
+    public void updateVehicleSpeed(int value, Timestamp timestamp) {
+        if(value != 0){
+            showMain();
+        }
+    }
 
     @FXML
     RadioButton auto;
@@ -40,7 +119,7 @@ public class SetupController extends Application implements NumpadInterface, Vie
     @FXML
     Label gearTitel;
 
-    private Numpad numpad;
+    private NumpadController numpad;
     private boolean toggleNumpad; //true means tankSize, false means carWeight
 
 
@@ -87,13 +166,13 @@ public class SetupController extends Application implements NumpadInterface, Vie
         gear6.setSelected(true);
         setNumberOfGears(6);
     }
-//lower canvas
+    //lower canvas
     @FXML
     private void handleDieselButton() {
         diesel.setSelected(true);
         gasoline.setSelected(false);
         setGasoline(false);
-}
+    }
     @FXML
     private void handleGasolineButton() {
         diesel.setSelected(false);
@@ -108,17 +187,19 @@ public class SetupController extends Application implements NumpadInterface, Vie
     private void setWeightLabel(String value) {
         weightLabel.setText(value + " kg");
     }
+
     @FXML
     private void handleTankButton()  {
         toggleNumpad = true;
-        numpad("Tank Size");
+        numpadPane.setVisible(true);
     }
     @FXML
     private void handleWeightButton() {
         toggleNumpad = false;
-        numpad("Weight");
+        numpadPane.setVisible(true);
+
     }
-//skal slettes
+    //skal slettes
     public void setGear(Boolean auto) {
         Constants.settingsEPIC.setAuto(auto); }
 
@@ -136,27 +217,14 @@ public class SetupController extends Application implements NumpadInterface, Vie
     }
     public void setGasoline(Boolean gasoline) { Constants.settingsEPIC.setGasoline(gasoline);    }
 
-    
+
 
     public void setFuelsize(int fuelsize) {
         Constants.settingsEPIC.setFuelsize(fuelsize);
     }
 
-    public void numpad(String title) {
-        //numpad = new Numpad(title, this);
-        try {
-            Stage stage = (Stage) auto.getScene().getWindow();
-            Parent root = (Parent) FXMLLoader.load(getClass().getClassLoader().getResource("fxml/numpad.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle(title);
-            stage.show();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-    @Override
+
     public String getNumber() {
         String text = numpad.getNumber();
         if (toggleNumpad) {
@@ -167,17 +235,6 @@ public class SetupController extends Application implements NumpadInterface, Vie
         System.out.println(text);
         return text;
     }
-
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/setup.fxml"));
-
-        stage.setTitle("test");
-        stage.setScene(new Scene(root));
-        stage.show();
-    }
-
 
     @Override
     public void hidden() {

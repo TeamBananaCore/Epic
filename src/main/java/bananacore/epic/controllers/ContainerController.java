@@ -24,7 +24,7 @@ public class ContainerController implements Initializable {
 
     // TODO Change to settings when ready
     public static final String SETTINGS = "setup";
-    public static final String SETTINGS_FXML = "fxml/setup.fxml";
+    public static final String SETTINGS_FXML = "fxml/settings.fxml";
 
     @FXML private StackPane pane;
 

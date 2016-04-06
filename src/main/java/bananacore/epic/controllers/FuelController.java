@@ -1,8 +1,10 @@
 package bananacore.epic.controllers;
 
 import bananacore.epic.Constants;
+import bananacore.epic.DatabaseManager;
 import bananacore.epic.interfaces.FuelInterface;
 import bananacore.epic.interfaces.OdometerInterface;
+import bananacore.epic.models.FuelSession;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
@@ -29,6 +31,8 @@ public class FuelController implements OdometerInterface, FuelInterface {
     private double totalFuelConsumed = 0.0;
     private double startFuelLevelPercentage = 100.0;
 
+    private Timestamp startOfInterval = null;
+
     private boolean odoUpdated = false;
 
 
@@ -42,14 +46,14 @@ public class FuelController implements OdometerInterface, FuelInterface {
         updateFuelConsumed(value);
         updateFuelLevel(value);
         if (odoUpdated){
-            updateEstimatedKmLeft();
+            updateEstimatedKmLeft(timestamp);
             odoUpdated = false;
         }
     }
 
     private void updateFuelConsumed(double fuelConsumed) {
         if (validFuelConsumedValue(fuelConsumed)) {
-            this.fuelConsumedInterval = fuelConsumed- fuelIntervalStart;
+            this.fuelConsumedInterval = fuelConsumed-fuelIntervalStart;
             if(odoUpdated){
                 fuelIntervalStart = fuelConsumed;
                 updateFuelUsage();
@@ -64,7 +68,6 @@ public class FuelController implements OdometerInterface, FuelInterface {
     }
 
     private void updateFuelLevel(double fuelConsumed) {
-        // this part is probably wrong, the rest is ok.
         totalFuelConsumed = tankSize-(tankSize/100*startFuelLevelPercentage) + fuelConsumed;
         this.fuelLevelPercentage = ((startFuelLevelPercentage*tankSize/100)-totalFuelConsumed)*(100/tankSize);
         updateFuelLeftRectangle();
@@ -86,9 +89,18 @@ public class FuelController implements OdometerInterface, FuelInterface {
 
     }
 
-    private void updateEstimatedKmLeft() {
+    private void updateEstimatedKmLeft(Timestamp endOfInterval) {
         System.out.println("fuelLeft: " + String.valueOf(tankSize-totalFuelConsumed) + " fuelUsageInterval: " + String.valueOf(fuelUsageInterval));
         estimatedKmLeft = round((tankSize - totalFuelConsumed) / fuelUsageInterval, 2);
+
+        if (startOfInterval != null){
+            FuelSession session = new FuelSession((float) fuelUsageInterval, startOfInterval, (int)(endOfInterval.getTime()-startOfInterval.getTime())/1000);
+            DatabaseManager.insertFuelSession(session);
+            DatabaseManager.update();
+        }
+
+        startOfInterval = endOfInterval;
+
         updateEstimatedKmLeftText();
     }
 

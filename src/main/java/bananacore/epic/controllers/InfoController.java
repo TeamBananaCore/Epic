@@ -22,7 +22,7 @@ public class InfoController implements SpeedInterface{
     private Timestamp lastTime;
     private boolean displayFuel = true;
     private boolean displaySpeed = false;
-    private int switchDelay = 2000;
+    private int switchDelay = Integer.MAX_VALUE;
 
     @FXML
     BorderPane fuel;
@@ -112,7 +112,7 @@ public class InfoController implements SpeedInterface{
         if(lastTime == null){
             lastTime = timestamp;
         } else {
-            if((timestamp.getTime()-lastTime.getTime())/1000 > switchDelay){
+            if((int)(timestamp.getTime()-lastTime.getTime())/1000 > switchDelay){
                 if(speed.visibleProperty().get() && displayFuel){
                     speed.visibleProperty().set(false);
                     fuel.visibleProperty().set(true);

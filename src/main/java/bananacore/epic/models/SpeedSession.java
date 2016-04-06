@@ -49,6 +49,14 @@ public class SpeedSession implements Graphable{
         this.duration = duration;
     }
 
+    public SpeedSession(){}
+
+    public SpeedSession(int avgSpeed, Timestamp startTime, int duration){
+        this.avgSpeed = avgSpeed;
+        this.startTime = startTime;
+        this.duration = duration;
+    }
+
     @Override
     public String toString() {
         return "SpeedSession{" +

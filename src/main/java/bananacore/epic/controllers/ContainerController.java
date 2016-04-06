@@ -22,8 +22,9 @@ public class ContainerController implements Initializable {
     public static final String GRAPH = "graph";
     public static final String GRAPH_FXML = "fxml/graphView.fxml";
 
-    public static final String SETTINGS = "settings";
-    public static final String SETTINGS_FXML = "fxml/settings.fxml";
+    // TODO Change to settings when ready
+    public static final String SETTINGS = "setup";
+    public static final String SETTINGS_FXML = "fxml/setup.fxml";
 
     @FXML private StackPane pane;
 

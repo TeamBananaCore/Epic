@@ -1,7 +1,7 @@
 package bananacore.epic.customcontrols;
 
 import bananacore.epic.GraphableList;
-import bananacore.epic.interfaces.observers.Graphable;
+import bananacore.epic.interfaces.Graphable;
 import javafx.beans.NamedArg;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;

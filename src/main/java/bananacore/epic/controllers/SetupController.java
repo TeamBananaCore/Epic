@@ -1,6 +1,9 @@
-package bananacore.epic;
+package bananacore.epic.controllers;
 
+import bananacore.epic.Constants;
+import bananacore.epic.Numpad;
 import bananacore.epic.interfaces.NumpadInterface;
+import bananacore.epic.interfaces.ViewController;
 import bananacore.epic.models.SettingsEPIC;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -11,7 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
 
-public class SetupController extends Application implements NumpadInterface {
+public class SetupController extends Application implements NumpadInterface, ViewController {
 
 
  
@@ -116,7 +119,8 @@ public class SetupController extends Application implements NumpadInterface {
         numpad("Weight");
     }
 //skal slettes
-    public void setGear(Boolean auto) {Constants.settingsEPIC.setAuto(auto); }
+    public void setGear(Boolean auto) {
+        Constants.settingsEPIC.setAuto(auto); }
 
     public void setAuto(Boolean auto) {
         Constants.settingsEPIC.setAuto(auto);
@@ -175,5 +179,13 @@ public class SetupController extends Application implements NumpadInterface {
     }
 
 
+    @Override
+    public void hidden() {
 
+    }
+
+    @Override
+    public void shown() {
+
+    }
 }

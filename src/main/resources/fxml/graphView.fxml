@@ -3,13 +3,14 @@
 <?import javafx.scene.layout.*?>
 
 <?import java.net.URL?>
-<?import bananacore.epic.Graph?>
+<?import bananacore.epic.customcontrols.Graph?>
 <?import javafx.scene.control.Button?>
-<fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml" prefHeight="320" prefWidth="480" maxHeight="320" minHeight="320" maxWidth="480" minWidth="480">
+<BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="320" prefWidth="480" maxHeight="320" minHeight="320" maxWidth="480" minWidth="480" fx:controller="bananacore.epic.controllers.GraphController">
     <top>
         <HBox prefWidth="480" spacing="10">
-            <Button fx:id="lastWeek" onAction="#lastWeek" text="-" />
-            <Button fx:id="nextWeek" onAction="#nextWeek" text="+" />
+            <Button fx:id="lastWeek" onAction="#lastWeek" text="-" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" styleClass="graph_button"/>
+            <Button fx:id="nextWeek" onAction="#nextWeek" text="+" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" styleClass="graph_button" />
+            <Button fx:id="back" onAction="#back" text="B" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" styleClass="graph_button" />
         </HBox>
     </top>
     <center>
@@ -18,4 +19,4 @@
     <stylesheets>
         <URL value="@../css/app.css" />
     </stylesheets>
-</fx:root>
+</BorderPane>

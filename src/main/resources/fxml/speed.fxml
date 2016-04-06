@@ -7,12 +7,12 @@
 
 <AnchorPane fx:id="speedPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="340.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.controllers.SpeedController">
    <children>
-      <Text fx:id="speedText" fill="WHITE" layoutX="7.0" layoutY="177.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="5.0" text="0" textAlignment="RIGHT" wrappingWidth="173.791015625">
+      <Text fx:id="speedText" fill="WHITE" layoutY="78.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="5.0" text="0" textAlignment="RIGHT" wrappingWidth="173.791015625">
          <font>
             <Font size="85.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="191.0" layoutY="184.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="5.0" text="km/h">
+      <Text fill="WHITE" layoutX="181.0" layoutY="79.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="5.0" text="km/h">
          <font>
             <Font size="60.0" />
          </font>

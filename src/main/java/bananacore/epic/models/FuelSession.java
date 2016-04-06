@@ -1,6 +1,7 @@
 package bananacore.epic.models;
 
 import bananacore.epic.interfaces.Graphable;
+import bananacore.epic.interfaces.observers.SpeedInterface;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -20,6 +21,14 @@ public class FuelSession implements Graphable {
 
     @Column(name = "duration")
     private int duration;
+
+    public FuelSession(){}
+
+    public FuelSession(float fuelUsage, Timestamp startTime, int duration){
+        this.fuelUsage = fuelUsage;
+        this.startTime = startTime;
+        this.duration = duration;
+    }
 
     public int getId() {
         return id;

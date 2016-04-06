@@ -7,8 +7,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import bananacore.epic.interfaces.GearInterface;
-import bananacore.epic.interfaces.RPMInterface;
+import bananacore.epic.interfaces.observers.GearInterface;
+import bananacore.epic.interfaces.observers.RPMInterface;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;

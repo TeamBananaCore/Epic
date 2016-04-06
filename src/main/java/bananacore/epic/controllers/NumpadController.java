@@ -1,4 +1,4 @@
-package bananacore.epic;
+package bananacore.epic.controllers;
 
 import bananacore.epic.interfaces.NumpadInterface;
 import javafx.application.Application;
@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -13,9 +14,9 @@ import javafx.stage.Stage;
  * Created by marton on 16/03/16.
  */
 
-public class Numpad extends Application {
+public class NumpadController  {
 
-    @FXML private Text numberview;
+    private Text numberview;
     @FXML private Text title;
     @FXML private Text seven;
     @FXML private Text eight;
@@ -29,8 +30,8 @@ public class Numpad extends Application {
     @FXML private Text backspace;
     @FXML private Text zero;
     @FXML private Text ok;
-    private Stage prevstage;
     NumpadInterface user;
+    @FXML private AnchorPane numberpane;
 
     /*public Numpad(String title, NumpadInterface user) {
         this.title.setText(title);
@@ -133,27 +134,15 @@ public class Numpad extends Application {
 
     @FXML
     public void okPressed() {
-        user.getNumber();
+//        user.getNumber();
+        numberpane.setVisible(false);
+
     }
 
     public String getNumber() {
         return numberview.getText();
     }
 
-    @Override
-    public void start(Stage primaryStage) {
-        try {
-            Parent root = (Parent) new FXMLLoader().load(this.getClass().getClassLoader().getResourceAsStream("fxml/numpad.fxml"));
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-    public static void main(String[] args) {
 
-        launch(Numpad.class, args);
-    }
 }

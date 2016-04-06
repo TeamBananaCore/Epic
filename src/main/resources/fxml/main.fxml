@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.layout.*?>
-
 <?import java.net.URL?>
+
 <?import javafx.scene.control.Separator?>
-<fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml" prefHeight="320" prefWidth="480" maxHeight="320" minHeight="320" maxWidth="480" minWidth="480">
+<BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="320" prefWidth="480" maxHeight="320" minHeight="320" maxWidth="480" minWidth="480" fx:controller="bananacore.epic.controllers.MainController">
     <left>
         <fx:include fx:id="gear" source="gear.fxml"/>
     </left>
@@ -19,6 +18,6 @@
         <URL value="@../css/app.css" />
     </stylesheets>
     <HBox layoutY="-135">
-        <fx:include source="menu.fxml"/>
+        <fx:include source="menu.fxml" fx:id="menu"/>
     </HBox>
-</fx:root>
+</BorderPane>

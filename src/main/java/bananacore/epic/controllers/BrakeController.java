@@ -4,27 +4,17 @@ import bananacore.epic.BrakeThread;
 import bananacore.epic.Constants;
 import bananacore.epic.DatabaseManager;
 import bananacore.epic.customcontrols.PerformanceBar;
-import bananacore.epic.interfaces.BrakeInterface;
-import bananacore.epic.interfaces.SpeedInterface;
+import bananacore.epic.interfaces.observers.BrakeInterface;
+import bananacore.epic.interfaces.observers.SpeedInterface;
 import bananacore.epic.models.BrakeSession;
-import javafx.animation.Timeline;
-import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 //import javafx.scene.control.Spinner;
-import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 
 import java.net.URL;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class BrakeController implements Initializable, BrakeInterface, SpeedInterface {
 

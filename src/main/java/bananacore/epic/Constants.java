@@ -1,5 +1,6 @@
 package bananacore.epic;
 
+import bananacore.epic.controllers.ContainerController;
 import bananacore.epic.models.SettingsEPIC;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -13,9 +14,10 @@ public class Constants {
     public static double OPTIMAL_SPEED_REDUCTION = 10.0 / (50.0 * Constants.WEIGHT);
     public static final long SECONDS_PER_WEEK = 604800;
 
+    public static ContainerController CONTAINER;
+
     public static Stage PRIMARY_STAGE;
     public static Scene SCENE;
-
 
     static {
         PARSER = new OurParser();

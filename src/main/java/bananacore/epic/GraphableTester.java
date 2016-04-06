@@ -1,6 +1,6 @@
 package bananacore.epic;
 
-import bananacore.epic.interfaces.Graphable;
+import bananacore.epic.interfaces.observers.Graphable;
 
 import java.sql.Timestamp;
 

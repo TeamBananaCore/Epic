@@ -1,7 +1,5 @@
 package bananacore.epic.models;
 
-import bananacore.epic.interfaces.Graphable;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 

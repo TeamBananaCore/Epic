@@ -2,7 +2,7 @@ package bananacore.epic.controllers;
 
 import bananacore.epic.Constants;
 import bananacore.epic.DatabaseManager;
-import bananacore.epic.interfaces.SpeedInterface;
+import bananacore.epic.interfaces.observers.SpeedInterface;
 import bananacore.epic.models.SpeedSession;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;

@@ -25,3 +25,48 @@
     -fx-stroke: black 1px;
     -fx-padding: 10px;
 }
+ /*---------Menubar---------*/
+.menubar{
+    -fx-fill: #747474;
+    -fx-stroke: #747474;
+    -fx-effect: dropshadow(three-pass-box, #4b4b4b, 10, 0, 0, 0);
+}
+
+.menubutton{
+    -fx-background-color: #bababa;
+    -fx-background-radius: 100px;
+    -fx-effect: dropshadow(three-pass-box, #4b4b4b, 10, 0, 0, 0);
+}
+
+/*---------Graph---------*/
+
+.graph_label{
+    -fx-font-size: 1.2em;
+}
+
+.axis{
+    -fx-stroke: #636363;
+    -fx-stroke-width: 2px;
+}
+
+/*---------Settings---------*/
+
+.masterScrollPane{
+    -fx-background-color: #636363;
+    -fx-stroke: #636363;
+}
+
+.scrollContentPane{
+    -fx-background-color: #bababa;
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow(three-pass-box, #4b4b4b, 10, 0, 0, 0);
+}
+
+.scrollPane{
+    -fx-background-insets: 10;
+}
+
+.settingsButton{
+      -fx-background-radius: 100px;
+      -fx-effect: dropshadow(three-pass-box, #4b4b4b, 3, 0, 0, 0);
+}

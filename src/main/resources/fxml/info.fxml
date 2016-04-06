@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
@@ -8,25 +9,30 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="200" minWidth="340" prefHeight="200" prefWidth="340" style="-fx-background-color: lightgrey" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.InfoController">
+<BorderPane minHeight="200" minWidth="340" prefHeight="200" prefWidth="340" style="-fx-background-color: lightgrey" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.controllers.InfoController">
     <fx:include fx:id="fuel" source="fuel.fxml" />
     <fx:include fx:id="speed" source="speed.fxml" />
     <center>
-        <GridPane fx:id="infoSettingsPane" BorderPane.alignment="CENTER">
+        <GridPane fx:id="infoSettingsPane" prefHeight="192.0" prefWidth="343.0" BorderPane.alignment="CENTER">
             <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="179.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="102.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="189.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="65.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="44.0" minHeight="0.0" prefHeight="41.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="79.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="59.0" minHeight="0.0" prefHeight="45.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <CheckBox fx:id="displayFuelCheckbox" mnemonicParsing="false" GridPane.columnIndex="1" />
-                <CheckBox fx:id="displaySpeedCheckbox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Button fx:id="saveSettingsButton" mnemonicParsing="false" onAction="#saveSettings" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <CheckBox fx:id="displayFuelCheckbox" mnemonicParsing="false" GridPane.columnIndex="1">
+               <font>
+                  <Font size="30.0" />
+               </font></CheckBox>
+                <CheckBox fx:id="displaySpeedCheckbox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </CheckBox>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Display Speed" GridPane.rowIndex="1">
                     <font>
                         <Font size="25.0" />
@@ -63,6 +69,19 @@
         </GridPane>
     </center>
    <top>
-      <Button fx:id="infoSettingsButton" mnemonicParsing="false" onAction="#infoSettings" text="Settings" BorderPane.alignment="TOP_RIGHT" />
+      <Button fx:id="infoSettingsButton" mnemonicParsing="false" onAction="#infoSettings" text="Settings" BorderPane.alignment="TOP_RIGHT">
+         <font>
+            <Font size="25.0" />
+         </font></Button>
    </top>
+   <right>
+          <Button fx:id="saveSettingsButton" mnemonicParsing="false" onAction="#saveSettings" text="Save" BorderPane.alignment="TOP_LEFT">
+         <font>
+            <Font size="25.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </Button>
+   </right>
 </BorderPane>

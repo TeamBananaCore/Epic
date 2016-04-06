@@ -5,12 +5,9 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 public class App extends Application{
 
@@ -33,17 +30,18 @@ public class App extends Application{
             e.printStackTrace();
         }
 
-        Scene scene = new Scene(root);
-       // Scene setupScene = new Scene();
+        Scene scene = new Scene(root, 480, 320);
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
-  //      primaryStage.setScene(setupScene);
         primaryStage.show();
         primaryStage.setOnCloseRequest(e -> {
             Platform.exit();
             System.exit(0);
         });
+
+        Constants.SCENE = scene;
         logger.debug("App started");
-        Constants.PARSER.fileToArrayList(getClass().getClassLoader().getResource("downtown-west.txt").getPath());
+        new Thread(Constants.PARSER, "parserThread").start();
+
     }
 }

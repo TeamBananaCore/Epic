@@ -1,5 +1,5 @@
 
-import bananacore.epic.FuelController;
+import bananacore.epic.controllers.FuelController;
 import org.junit.Test;
 
 import java.sql.Timestamp;
@@ -18,8 +18,8 @@ public class FuelControllerTest {
     public void testUpdateOnStart(){
         initController();
         controller.updateFuel(100.0, 0.0);
-        assertEquals(100.0, controller.getFuelLevel(), 0);
-        assertEquals(1.0, controller.getFuelUsage(), 0);
+        assertEquals(100.0, controller.getFuelLevelPercentage(), 0);
+        assertEquals(1.0, controller.getFuelUsageInterval(), 0);
     }
 
     @Test
@@ -59,7 +59,7 @@ public class FuelControllerTest {
         for (int i = 0; i < 10; i++){
             controller.updateFuel(10, 10);
         }
-        assertEquals(1.0, controller.getFuelUsage(), 0);
+        assertEquals(1.0, controller.getFuelUsageInterval(), 0);
     }
 
     @Test
@@ -69,6 +69,6 @@ public class FuelControllerTest {
         for (int i = 0; i < 10; i++){
             controller.updateFuel(10, 10);
         }
-        assertEquals(2.0, controller.getFuelUsage(), 0);
+        assertEquals(2.0, controller.getFuelUsageInterval(), 0);
     }*/
 }

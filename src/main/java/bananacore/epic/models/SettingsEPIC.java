@@ -66,7 +66,7 @@ public class SettingsEPIC {
 
     public void setAuto(Boolean auto) {
         this.auto = auto;
-        DatabaseManager.updateSettings(this);
+        //DatabaseManager.updateSettings(this);
     }
 
     public int getGetNumberOfGears() {
@@ -83,7 +83,7 @@ public class SettingsEPIC {
 
     public void setWeight(int weight) {
         this.weight = weight;
-        DatabaseManager.updateSettings(this);
+       // DatabaseManager.updateSettings(this);
 
     }
 
@@ -93,7 +93,7 @@ public class SettingsEPIC {
 //
     public void setGasoline(Boolean gasoline) {
         this.gasoline = gasoline;
-        DatabaseManager.updateSettings(this);
+        //DatabaseManager.updateSettings(this);
 
     }
 
@@ -103,7 +103,7 @@ public class SettingsEPIC {
 
     public void setFuelsize(int fuelsize) {
         this.fuelsize = fuelsize;
-        DatabaseManager.updateSettings(this);
+       // DatabaseManager.updateSettings(this);
 
     }
 

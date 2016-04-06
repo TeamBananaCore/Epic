@@ -1,5 +1,6 @@
 package bananacore.epic;
 
+import bananacore.epic.controllers.BrakeController;
 import javafx.application.Platform;
 
 import java.sql.Timestamp;
@@ -17,9 +18,10 @@ public class BrakeThread extends Thread{
     }
 
     public void setValues(Timestamp startTime, int startSpeed, BrakeController brakeController){
-        this.startTime = startTime;
+        this.startTime = Timestamp.valueOf(LocalDateTime.now());
         this.startSpeed = startSpeed;
         this.brakeController = brakeController;
+
     }
 
     public void run(){

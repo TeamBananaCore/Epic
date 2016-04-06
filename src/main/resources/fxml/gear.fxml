@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="pane" maxHeight="200.0" maxWidth="150.0" minHeight="200.0" minWidth="150.0" prefHeight="200.0" prefWidth="150" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.GearController">
+<AnchorPane fx:id="pane" maxHeight="200.0" maxWidth="150.0" minHeight="200.0" minWidth="150.0" prefHeight="200.0" prefWidth="150" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.controllers.GearController">
    <children>
       <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="205.0" layoutX="-3.0" layoutY="-3.0" stroke="#FFFFFF" strokeType="INSIDE" width="155.0" />
       <ImageView fx:id="gearImageView" fitHeight="135.0" fitWidth="135.0" layoutX="8.0" layoutY="32.5" pickOnBounds="true" preserveRatio="true">

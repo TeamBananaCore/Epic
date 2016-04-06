@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
@@ -8,83 +9,170 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane maxHeight="320.0" maxWidth="480.0" minHeight="320.0" minWidth="480.0" prefHeight="320.0" prefWidth="480.0" styleClass="scrollPane" stylesheets="@../css/app.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
-     <content>
-       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="544.0" prefWidth="479.0" styleClass="masterScrollPane" stylesheets="@../css/app.css">
-            <children>
-               <AnchorPane layoutX="14.0" layoutY="14.0" minWidth="438.0" prefHeight="272.0" prefWidth="400.0" styleClass="scrollContentPane">
-                  <children>
-                  <GridPane fx:id="infoSettingsPane" layoutX="-14.0" layoutY="44.0" prefHeight="192.0" prefWidth="480.0">
-                  <columnConstraints>
-                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="189.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="65.0" />
-                  </columnConstraints>
-                  <rowConstraints>
-                      <RowConstraints maxHeight="56.0" minHeight="0.0" prefHeight="56.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="79.0" minHeight="10.0" prefHeight="67.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="59.0" minHeight="0.0" prefHeight="45.0" vgrow="SOMETIMES" />
-                  </rowConstraints>
-                  <children>
-                      <CheckBox fx:id="displayFuelCheckbox" maxHeight="76.0" maxWidth="64.0" minHeight="76.0" minWidth="64.0" mnemonicParsing="false" prefHeight="76.0" prefWidth="64.0" GridPane.columnIndex="1">
-                          <font>
-                              <Font size="30.0" />
-                          </font>
-                              <GridPane.margin>
-                                 <Insets left="65.0" />
-                              </GridPane.margin>
-                           </CheckBox>
-                      <CheckBox fx:id="displaySpeedCheckbox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                          <font>
-                              <Font size="30.0" />
-                          </font>
-                              <GridPane.margin>
-                                 <Insets left="65.0" />
-                              </GridPane.margin>
-                      </CheckBox>
-                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Display Speed" GridPane.rowIndex="1">
-                          <font>
+<AnchorPane maxHeight="320.0" maxWidth="480.0" minHeight="320.0" minWidth="480.0" prefHeight="320.0" prefWidth="480.0" styleClass="masterScrollPane" stylesheets="@../css/app.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.SettingsController">
+   <children>
+   <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" maxHeight="320.0" maxWidth="480.0" minHeight="292.0" minWidth="480.0" prefHeight="320.0" prefWidth="480.0" styleClass="scrollPane" stylesheets="@../css/app.css" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="779.0" prefWidth="479.0" styleClass="masterScrollPane" stylesheets="@../css/app.css">
+               <children>
+                  <AnchorPane layoutX="14.0" layoutY="6.0" minWidth="442.0" prefHeight="255.0" prefWidth="400.0" styleClass="scrollContentPane">
+                     <children>
+                     <GridPane fx:id="infoSettingsPane" layoutX="-14.0" layoutY="44.0" prefHeight="192.0" prefWidth="480.0">
+                     <columnConstraints>
+                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="189.0" />
+                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="65.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                         <RowConstraints maxHeight="56.0" minHeight="0.0" prefHeight="56.0" vgrow="SOMETIMES" />
+                         <RowConstraints maxHeight="79.0" minHeight="10.0" prefHeight="67.0" vgrow="SOMETIMES" />
+                         <RowConstraints maxHeight="59.0" minHeight="0.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                         <CheckBox fx:id="displayFuelCheckbox" maxHeight="76.0" maxWidth="64.0" minHeight="76.0" minWidth="64.0" mnemonicParsing="false" prefHeight="76.0" prefWidth="64.0" GridPane.columnIndex="1">
+                             <font>
+                                 <Font size="30.0" />
+                             </font>
+                                 <GridPane.margin>
+                                    <Insets left="65.0" />
+                                 </GridPane.margin>
+                              </CheckBox>
+                         <CheckBox fx:id="displaySpeedCheckbox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                             <font>
+                                 <Font size="30.0" />
+                             </font>
+                                 <GridPane.margin>
+                                    <Insets left="65.0" />
+                                 </GridPane.margin>
+                         </CheckBox>
+                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                             <children>
+                                 <Button fx:id="decreaseIntervalButton" mnemonicParsing="false" onAction="#decreaseInterval" prefHeight="63.0" prefWidth="60.0" styleClass="settingsButton" text="-">
+                                     <font>
+                                         <Font size="20.0" />
+                                     </font>
+                                    </Button>
+                                 <Label fx:id="intervalLabel" prefHeight="46.0" prefWidth="38.0" text="2" wrapText="true">
+                                    <font>
+                                       <Font size="31.0" />
+                                    </font>
+                                 </Label>
+                                 <Button fx:id="increaseIntervalButton" mnemonicParsing="false" onAction="#increaseInterval" prefHeight="63.0" prefWidth="60.0" styleClass="settingsButton" text="+">
+                                     <font>
+                                         <Font size="20.0" />
+                                     </font>
+                                    </Button>
+                             </children>
+                         </HBox>
+                           <Label text="Display fuel">
+                              <font>
+                                 <Font size="22.0" />
+                              </font>
+                           </Label>
+                           <Label text="Display speed" GridPane.rowIndex="1">
+                              <font>
+                                 <Font size="22.0" />
+                              </font>
+                           </Label>
+                           <Label text="Transition interval" GridPane.rowIndex="2">
+                              <font>
+                                 <Font size="22.0" />
+                              </font>
+                           </Label>
+                     </children>
+                     </GridPane>
+                        <Label layoutX="14.0" layoutY="7.0" text="Information screen">
+                           <font>
+                              <Font name="System Bold" size="25.0" />
+                           </font>
+                        </Label>
+                     <Line endX="300.0" layoutX="115.0" layoutY="43.0" startX="-100.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="14.0" layoutY="275.0" minHeight="0.0" minWidth="442.0" prefHeight="260.0" prefWidth="442.0" styleClass="scrollContentPane">
+                     <children>
+                        <Label fx:id="tanksizeLabel" layoutX="274.0" layoutY="121.0" prefHeight="27.0" prefWidth="34.0" text="0 L">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="tankButton" layoutX="32.0" layoutY="114.0" mnemonicParsing="false" onAction="#handleTankButton" text="Tank Size">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="carButton" layoutX="32.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleWeightButton" text="Car weight">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="weightLabel" layoutX="264.0" layoutY="195.0" prefHeight="32.0" prefWidth="54.0" text="0 kg">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                        </Label>
+                        <RadioButton fx:id="gasoline" layoutX="32.0" layoutY="58.0" mnemonicParsing="false" onAction="#handleGasolineButton" prefHeight="36.0" prefWidth="173.0" text="Gasoline">
+                           <font>
                               <Font size="25.0" />
-                          </font>
-                      </Text>
-                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Display Fuel">
-                          <font>
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="diesel" layoutX="222.0" layoutY="58.0" mnemonicParsing="false" onAction="#handleDieselButton" prefHeight="36.0" prefWidth="139.0" text="Diesel">
+                           <font>
                               <Font size="25.0" />
-                          </font>
-                      </Text>
-                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Switch Interval" GridPane.rowIndex="2">
-                          <font>
+                           </font>
+                        </RadioButton>
+                        <Label layoutX="16.0" layoutY="8.0" text="Fuel system">
+                           <font>
+                              <Font name="System Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Line endX="300.0" layoutX="121.0" layoutY="44.0" startX="-100.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="16.0" layoutY="550.0" minHeight="0.0" minWidth="0.0" prefHeight="215.0" prefWidth="442.0" styleClass="scrollContentPane">
+                     <children>
+                        <Label fx:id="gearTitel" layoutX="28.0" layoutY="107.0" prefHeight="54.0" prefWidth="321.0" text="Number of Gears" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <RadioButton fx:id="gear4" layoutX="28.0" layoutY="161.0" mnemonicParsing="false" onAction="#handleGearfour" prefHeight="27.0" prefWidth="91.0" text="4">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="gear5" layoutX="131.0" layoutY="161.0" mnemonicParsing="false" onAction="#handleGearfive" prefHeight="27.0" prefWidth="91.0" text="5">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="gear6" layoutX="234.0" layoutY="161.0" mnemonicParsing="false" onAction="#handleGearsix" prefHeight="27.0" prefWidth="91.0" text="6">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="manual" layoutX="28.0" layoutY="47.0" mnemonicParsing="false" onAction="#handleManualButton" prefHeight="72.0" prefWidth="206.0" text="Manual ">
+                           <font>
                               <Font size="25.0" />
-                          </font>
-                      </Text>
-                      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                          <children>
-                              <Button fx:id="decreaseIntervalButton" mnemonicParsing="false" onAction="#decreaseInterval" prefHeight="63.0" prefWidth="60.0" text="-">
-                                  <font>
-                                      <Font size="20.0" />
-                                  </font>
-                                 </Button>
-                              <Text fx:id="intervalText" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
-                                  <font>
-                                      <Font size="25.0" />
-                                  </font>
-                              </Text>
-                              <Button fx:id="increaseIntervalButton" mnemonicParsing="false" onAction="#increaseInterval" prefHeight="63.0" prefWidth="60.0" text="+">
-                                  <font>
-                                      <Font size="20.0" />
-                                  </font>
-                                 </Button>
-                          </children>
-                      </HBox>
-                  </children>
-                  </GridPane>
-                     <Label layoutX="14.0" layoutY="14.0" text="Information screen">
-                        <font>
-                           <Font name="System Bold" size="20.0" />
-                        </font>
-                     </Label>
-                  </children>
-               </AnchorPane>
-            </children>
-         </AnchorPane>
-     </content>
-   </ScrollPane>
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="auto" layoutX="220.0" layoutY="51.0" mnemonicParsing="false" onAction="#handleAutoButton" prefHeight="64.0" prefWidth="245.0" text="Automatic">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </RadioButton>
+                        <Label layoutX="20.0" layoutY="9.0" text="Gearsystem">
+                           <font>
+                              <Font name="System Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Line endX="300.0" layoutX="120.0" layoutY="45.0" startX="-100.0" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <Button layoutX="250.0" layoutY="272.0" mnemonicParsing="false" onAction="#save" prefHeight="39.0" prefWidth="84.0" text="Save" />
+      <Button layoutX="350.0" layoutY="272.0" mnemonicParsing="false" onAction="#cancel" prefHeight="39.0" prefWidth="84.0" text="Cancel" />
+   </children>
+</AnchorPane>

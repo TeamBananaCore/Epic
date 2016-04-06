@@ -12,6 +12,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.slf4j.Logger;
 
 import java.net.URL;

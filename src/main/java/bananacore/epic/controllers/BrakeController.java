@@ -27,7 +27,7 @@ public class BrakeController implements Initializable, BrakeInterface, SpeedInte
     @FXML private Circle brakeLight;
 
     public void initialize(URL location, ResourceBundle resources) {
-        Constants.PARSER.addToBrakeObserver(this);
+        Constants.PARSER.addToBrakeObservers(this);
         Constants.PARSER.addToSpeedObservers(this);
     }
 

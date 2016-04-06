@@ -14,11 +14,11 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="320.0" maxWidth="480.0" minHeight="320.0" minWidth="480.0" prefHeight="320.0" prefWidth="480.0" styleClass="masterScrollPane" stylesheets="@../css/app.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.controllers.SettingsController">
+<AnchorPane maxHeight="320.0" maxWidth="480.0" minHeight="320.0" minWidth="480.0" prefHeight="320.0" prefWidth="480.0" styleClass="masterScrollPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.controllers.SettingsController">
    <children>
-   <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" maxHeight="320.0" maxWidth="480.0" minHeight="292.0" minWidth="480.0" prefHeight="320.0" prefWidth="480.0" styleClass="scrollPane" stylesheets="@../css/app.css" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+   <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" maxHeight="320.0" maxWidth="480.0" minHeight="292.0" minWidth="480.0" prefHeight="320.0" prefWidth="480.0" styleClass="scrollPane" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="779.0" prefWidth="479.0" styleClass="masterScrollPane" stylesheets="@../css/app.css">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="779.0" prefWidth="479.0" styleClass="masterScrollPane">
                <children>
                   <AnchorPane layoutX="14.0" layoutY="6.0" minWidth="442.0" prefHeight="255.0" prefWidth="400.0" styleClass="scrollContentPane">
                      <children>

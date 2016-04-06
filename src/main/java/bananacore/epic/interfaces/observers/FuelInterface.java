@@ -1,4 +1,4 @@
-package bananacore.epic.interfaces;
+package bananacore.epic.interfaces.observers;
 
 
 import java.sql.Timestamp;

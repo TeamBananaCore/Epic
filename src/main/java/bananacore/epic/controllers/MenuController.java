@@ -1,18 +1,15 @@
 package bananacore.epic.controllers;
 
 import bananacore.epic.Constants;
-import bananacore.epic.interfaces.SpeedInterface;
+import bananacore.epic.interfaces.observers.SpeedInterface;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 
 import java.sql.Timestamp;
@@ -60,30 +57,20 @@ public class MenuController implements SpeedInterface{
             timeline.play();
             animationDown = true;
         }
-
     }
 
     @FXML
     public void showGraph(){
-        try {
-            BorderPane root = new BorderPane();
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/graphView.fxml"));
-            loader.setController(new GraphController());
-            loader.setRoot(root);
-            loader.load();
-            Constants.SCENE.setRoot(root);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+        Constants.CONTAINER.setView(ContainerController.GRAPH);
     }
 
     @FXML
     public void showSettings(){
-        try {
-            Parent root = (Parent) FXMLLoader.load(getClass().getClassLoader().getResource("fxml/settings.fxml"));
-            Constants.SCENE.setRoot(root);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+        Constants.CONTAINER.setView(ContainerController.SETTINGS);
+    }
+
+    @FXML
+    public void showMain(){
+        Constants.CONTAINER.setView(ContainerController.MAIN);
     }
 }

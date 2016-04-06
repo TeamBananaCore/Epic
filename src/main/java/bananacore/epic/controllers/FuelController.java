@@ -1,9 +1,9 @@
 package bananacore.epic.controllers;
 
 import bananacore.epic.Constants;
+import bananacore.epic.interfaces.observers.FuelInterface;
+import bananacore.epic.interfaces.observers.OdometerInterface;
 import bananacore.epic.DatabaseManager;
-import bananacore.epic.interfaces.FuelInterface;
-import bananacore.epic.interfaces.OdometerInterface;
 import bananacore.epic.models.FuelSession;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
@@ -37,7 +37,7 @@ public class FuelController implements OdometerInterface, FuelInterface {
 
 
     public void initialize(){
-        Constants.PARSER.addToFuelObserver(this);
+        Constants.PARSER.addToFuelObservers(this);
         Constants.PARSER.addToOdometerObservers(this);
     }
 
@@ -68,6 +68,7 @@ public class FuelController implements OdometerInterface, FuelInterface {
     }
 
     private void updateFuelLevel(double fuelConsumed) {
+        // this part is probably wrong, the rest is ok.
         totalFuelConsumed = tankSize-(tankSize/100*startFuelLevelPercentage) + fuelConsumed;
         this.fuelLevelPercentage = ((startFuelLevelPercentage*tankSize/100)-totalFuelConsumed)*(100/tankSize);
         updateFuelLeftRectangle();

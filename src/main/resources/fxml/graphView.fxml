@@ -5,7 +5,7 @@
 <?import java.net.URL?>
 <?import bananacore.epic.customcontrols.Graph?>
 <?import javafx.scene.control.Button?>
-<BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="320" prefWidth="480" maxHeight="320" minHeight="320" maxWidth="480" minWidth="480" fx:controller="bananacore.epic.controllers.GraphController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="320" prefWidth="480" maxHeight="320" minHeight="320" maxWidth="480" minWidth="480" fx:controller="bananacore.epic.controllers.GraphController" styleClass="root">
     <top>
         <HBox prefWidth="480" spacing="10">
             <Button fx:id="lastWeek" onAction="#lastWeek" text="-" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" styleClass="graph_button"/>
@@ -14,9 +14,9 @@
         </HBox>
     </top>
     <center>
-            <Graph fx:id="graph" prefHeight="290" prefWidth="480"/>
+            <Graph fx:id="graph" prefHeight="270" prefWidth="480"/>
     </center>
     <stylesheets>
-        <URL value="@../css/app.css" />
+        <URL value="@../css/night.css" />
     </stylesheets>
 </BorderPane>

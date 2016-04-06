@@ -1,0 +1,98 @@
+* {
+    -fx-logo-color: #49caf5;
+    -fx-standard-background: #333;
+    -fx-label-color: white;
+}
+
+.root {
+    -fx-background-color: -fx-standard-background;
+    -fx-text-fill: -fx-label-color;
+}
+
+.label{
+    -fx-text-fill: -fx-label-color;
+}
+
+/* Performance bar styles */
+
+.performance_bar {
+    -fx-background-color: linear-gradient(to right, red, yellow, green);
+    -fx-background-radius: 11px;
+    -fx-border-style: solid;
+    -fx-border-color: -fx-logo-color;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-padding: 10px;
+}
+
+.performance_overlay {
+    -fx-background-color: rgba(100,100,100,.5);
+    -fx-background-radius: 10px;
+}
+
+.brake_light_on {
+    -fx-fill: red;
+    -fx-effect: dropshadow(gaussian, red, 10, .2, 0, 0);
+    -fx-stroke: black 1px;
+    -fx-padding: 10px;
+}
+
+.brake_light_off{
+    -fx-fill: #643026;
+    -fx-stroke: black 1px;
+    -fx-padding: 10px;
+}
+
+/* Fuel bar style */
+
+.fuelBar{
+    -fx-fill: linear-gradient(to right, #cf1919 0%, #ffca0f 25%, #0fff13 50%, #0f3cff 75%, #8c10a3 100%);
+}
+
+/* Menu styles */
+
+.menubar{
+    -fx-fill: #AAAAAA;
+    -fx-stroke: #747474;
+    -fx-effect: dropshadow(three-pass-box, #4b4b4b, 10, 0, 0, 0);
+}
+
+.menubutton{
+    -fx-background-color: #bababa;
+    -fx-background-radius: 100px;
+    -fx-effect: dropshadow(three-pass-box, #4b4b4b, 10, 0, 0, 0);
+}
+
+/* Graph styles */
+
+.graph_label{
+    -fx-font-size: 1.2em;
+}
+
+.axis{
+    -fx-stroke: #636363;
+    -fx-stroke-width: 2px;
+}
+
+.graph_button {
+    -fx-background-radius: 50px;
+    -fx-background-size: 100px;
+    -fx-font-size: 20px;
+}
+
+/* Misc */
+
+.settingsLabel {
+    -fx-font-size: 25px;
+    -fx-text-fill: white;
+}
+
+.speedText{
+    -fx-font-size: 85px;
+    -fx-font-weight: bold;
+}
+
+.fuelText{
+    -fx-font-size: 70px;
+    -fx-font-weight: bold;
+}

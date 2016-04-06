@@ -7,30 +7,16 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200" minWidth="340" prefHeight="200.0" prefWidth="340.0" style="-fx-background-color: lightgrey" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.controllers.FuelController">
-   <left>
-      <Pane fx:id="fuelLeftPane" minWidth="340.0" prefHeight="90.0" prefWidth="48.0" style="-fx-background-color: lightgrey;" BorderPane.alignment="CENTER">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200" minWidth="340" prefHeight="200.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.controllers.FuelController">
+   <top>
+      <Pane fx:id="fuelLeftPane" minWidth="340" prefHeight="90.0" prefWidth="340.0" BorderPane.alignment="CENTER">
          <children>
-            <Rectangle fx:id="fuelLeftBar1" arcHeight="50.0" arcWidth="50.0" fill="LIGHTGRAY" height="86.0" layoutX="10.0" layoutY="101.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="5.0" width="320.0" />
-            <Rectangle fx:id="fuelLeftBar" arcHeight="50.0" arcWidth="50.0" height="86.0" layoutX="10.0" layoutY="101.0" stroke="TRANSPARENT" strokeType="INSIDE" width="320.0">
-               <fill>
-                  <LinearGradient endX="1.0" endY="1.0" startY="1.0">
-                     <stops>
-                        <Stop color="#cf1919" />
-                        <Stop color="#ffca0f" offset="0.24359126278785" />
-                        <Stop color="#0fff13" offset="0.5083145712367183" />
-                        <Stop color="#0f3cff" offset="0.780621716633092" />
-                        <Stop color="#8c10a3" offset="1.0" />
-                     </stops>
-                  </LinearGradient>
-               </fill>
+            <Rectangle fx:id="fuelLeftBar" arcHeight="50.0" arcWidth="50.0" height="86.0" layoutX="10.0" layoutY="14.0" stroke="TRANSPARENT" strokeType="INSIDE" width="320.0" styleClass="fuelBar">
             </Rectangle>
-            <Text fx:id="kmLeftText" fill="WHITE" layoutX="10.0" layoutY="165.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="4.0" text="0 km" textAlignment="RIGHT" wrappingWidth="308.0">
-               <font>
-                  <Font size="60.0" />
-               </font>
-            </Text>
          </children>
       </Pane>
-   </left>
+   </top>
+   <bottom>
+      <Label fx:id="kmLeftText" text="0 km " textAlignment="RIGHT" BorderPane.alignment="CENTER_RIGHT" styleClass="fuelText"/>
+   </bottom>
 </BorderPane>

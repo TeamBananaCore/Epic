@@ -132,7 +132,12 @@ public class DatabaseManager {
         Thread sessionThread = new Thread(()->{
             Session session = sessionFactory.openSession();
             session.beginTransaction();
-            session.saveOrUpdate(settingsObject);
+            try{
+                getSettings();
+                session.update(settingsObject);
+            } catch (IndexOutOfBoundsException e){
+                session.save(settingsObject);
+            }
             session.getTransaction().commit();
             session.close();
         });

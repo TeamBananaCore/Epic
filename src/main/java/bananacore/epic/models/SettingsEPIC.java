@@ -11,7 +11,6 @@ public class SettingsEPIC {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(name = "id")
     private int id;
 
@@ -36,8 +35,22 @@ public class SettingsEPIC {
     @Column(name = "speeddisplay")
     private int speeddisplay;
 
-    @Column(name = "interval")
-    private int intervall;
+    @Column(name = "screeninterval")
+    private int screeninterval;
+
+    public SettingsEPIC() {
+    }
+
+    public SettingsEPIC(Boolean auto, int getNumberOfGears, int weight, Boolean gasoline, int fuelsize, int fueldisplay, int speeddisplay, int screeninterval) {
+        this.auto = auto;
+        this.getNumberOfGears = getNumberOfGears;
+        this.weight = weight;
+        this.gasoline = gasoline;
+        this.fuelsize = fuelsize;
+        this.fueldisplay = fueldisplay;
+        this.speeddisplay = speeddisplay;
+        this.screeninterval = screeninterval;
+    }
 
     public int getId() {
         return id;

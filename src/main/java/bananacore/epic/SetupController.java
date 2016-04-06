@@ -1,6 +1,7 @@
 package bananacore.epic;
 
 import bananacore.epic.interfaces.NumpadInterface;
+import bananacore.epic.models.SettingsEPIC;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -173,14 +174,6 @@ public class SetupController extends Application implements NumpadInterface {
         stage.show();
     }
 
-    public static void main(String[] args) {
-
-        DatabaseManager.connectToDB();
-        int tall = Constants.settingsEPIC.getFuelsize();
-        System.out.println(tall);
-
-        Application.launch(SetupController.class, args);
-    }
 
 
 }

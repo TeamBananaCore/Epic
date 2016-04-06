@@ -12,7 +12,11 @@ public class Constants {
 
     static {
         PARSER = new OurParser();
-        settingsEPIC = DatabaseManager.getSettings();
+        try{
+            settingsEPIC = DatabaseManager.getSettings();
+        } catch (IndexOutOfBoundsException e){
+            settingsEPIC = new SettingsEPIC(false,6,900,true,50,1,1,30);
+        }
     }
 
 }

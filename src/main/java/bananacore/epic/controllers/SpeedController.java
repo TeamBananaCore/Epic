@@ -23,35 +23,36 @@ public class SpeedController implements SpeedInterface {
     public int totalSpeedForComputation = 0;
     public int amountOfReadingsForComputation = 0;
     public int avgSpeed;
-    public int logInterval = 60;
+    public final int logInterval = 60;
+    public int lastSpeed = 0;
 
     public void initialize(){
         Constants.PARSER.addToSpeedObservers(this);
     }
 
     public void updateVehicleSpeed(int value, Timestamp timestamp) {
+        if(lastSpeed != value) {
+            speedText.setText(String.valueOf(value));
+            lastSpeed = value;
+            totalSpeedForComputation += value;
+            amountOfReadingsForComputation++;
 
-        speedText.setText(String.valueOf(value));
-        totalSpeedForComputation += value;
-        amountOfReadingsForComputation++;
+            if (startOfSpeedSession == null) {
+                startOfSpeedSession = timestamp;
+                return;
+            }
 
-        if (startOfSpeedSession == null){
-            startOfSpeedSession = timestamp;
-            return;
+            int duration = (int) (timestamp.getTime() - startOfSpeedSession.getTime()) / 1000;
+
+            if (duration > logInterval) {
+                avgSpeed = totalSpeedForComputation / amountOfReadingsForComputation;
+                SpeedSession session = new SpeedSession(avgSpeed, startOfSpeedSession, duration);
+                DatabaseManager.insertSpeedSession(session);
+                DatabaseManager.update();
+                startOfSpeedSession = timestamp;
+                totalSpeedForComputation = 0;
+                amountOfReadingsForComputation = 0;
+            }
         }
-
-        int duration = (int)(timestamp.getTime()-startOfSpeedSession.getTime())/1000;
-
-        if (duration > logInterval) {
-            avgSpeed = totalSpeedForComputation/amountOfReadingsForComputation;
-
-            SpeedSession session = new SpeedSession(avgSpeed, startOfSpeedSession, duration);
-            DatabaseManager.insertSpeedSession(session);
-            DatabaseManager.update();
-            startOfSpeedSession = timestamp;
-            totalSpeedForComputation = 0;
-            amountOfReadingsForComputation = 0;
-        }
-
     }
 }

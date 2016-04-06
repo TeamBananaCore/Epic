@@ -1,5 +1,6 @@
 package bananacore.epic;
 
+import bananacore.epic.models.SettingsEPIC;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -23,6 +24,10 @@ public class Constants {
         } catch (IndexOutOfBoundsException e){
             settingsEPIC = new SettingsEPIC(false,6,900,true,50,1,1,30);
         }
+    }
+
+    public static double calculateBrakePerformance(int startSpeed, int endSpeed, long duration){
+        return 100*(duration / ((double)(startSpeed - endSpeed) * WEIGHT))/OPTIMAL_SPEED_REDUCTION;
     }
 
 }

@@ -1,9 +1,6 @@
 package bananacore.epic;
 
-import bananacore.epic.models.BrakeSession;
-import bananacore.epic.models.FuelSession;
-import bananacore.epic.models.SpeedSession;
-import bananacore.epic.models.WrongGearSession;
+import bananacore.epic.models.*;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;

@@ -2,7 +2,7 @@ package bananacore.epic.controllers;
 
 
 import bananacore.epic.Constants;
-import bananacore.epic.interfaces.SpeedInterface;
+import bananacore.epic.interfaces.observers.SpeedInterface;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

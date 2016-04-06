@@ -1,8 +1,11 @@
 package bananacore.epic;
 
+import bananacore.epic.controllers.ContainerController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -21,13 +24,16 @@ public class App extends Application{
         DatabaseManager.connectToDB();
         Platform.setImplicitExit(true);
 
-        BorderPane root = new BorderPane();
+        Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/main.fxml"));
-            loader.setRoot(root);
-            loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/container.fxml"));
+            root = loader.load();
+            Constants.CONTAINER = loader.getController();
+
         } catch (Exception e) {
             e.printStackTrace();
+            Platform.exit();
+            System.exit(-1);
         }
 
         Scene scene = new Scene(root, 480, 320);

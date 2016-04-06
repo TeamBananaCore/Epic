@@ -1,19 +1,15 @@
 package bananacore.epic;
 
 
-import bananacore.epic.interfaces.*;
+import bananacore.epic.interfaces.observers.*;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import java.io.*;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.ListIterator;
 
 
 public class OurParser implements Runnable {
@@ -97,6 +93,12 @@ public class OurParser implements Runnable {
     public void addToSpeedObservers (SpeedInterface controller){
         speedObervers.add(controller);
     }
+
+    public void removeFuelObserver(FuelInterface controller){fuelObervers.remove(controller);}
+    public void removeGearObserver(GearInterface controller){gearObservers.remove(controller);}
+    public void removeOdometerObserver(OdometerInterface controller){odometerObservers.remove(controller);}
+    public void removeRPMObserver(RPMInterface controller){rpmObservers.remove(controller);}
+    public void removeSpeedObserver(SpeedInterface controller){speedObervers.remove(controller);}
 
 
     public void updateFromFile(String filepath) {

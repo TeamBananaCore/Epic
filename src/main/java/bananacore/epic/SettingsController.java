@@ -1,10 +1,10 @@
 package bananacore.epic;
 
-import bananacore.epic.interfaces.OdometerInterface;
-import bananacore.epic.interfaces.SpeedInterface;
+import bananacore.epic.controllers.ContainerController;
+import bananacore.epic.controllers.SetupController;
+import bananacore.epic.interfaces.observers.SpeedInterface;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 
@@ -74,21 +74,13 @@ public class SettingsController extends SetupController implements SpeedInterfac
     }
 
     private void showMain() {
-        try {
-            BorderPane root = new BorderPane();
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/main.fxml"));
-            loader.setRoot(root);
-            loader.load();
-            Constants.SCENE.setRoot(root);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+        Constants.CONTAINER.setView(ContainerController.MAIN);
     }
 
     @Override
     public void updateVehicleSpeed(int value, Timestamp timestamp) {
         if(value != 0){
-            //showMain();
+            showMain();
         }
     }
 }

@@ -30,10 +30,10 @@ public class SettingsEPIC {
     private int fuelsize;
 
     @Column(name = "fueldisplay")
-    private int fueldisplay;
+    private boolean fueldisplay;
 
     @Column(name = "speeddisplay")
-    private int speeddisplay;
+    private boolean speeddisplay;
 
     @Column(name = "screeninterval")
     private int screeninterval;
@@ -41,7 +41,7 @@ public class SettingsEPIC {
     public SettingsEPIC() {
     }
 
-    public SettingsEPIC(Boolean auto, int getNumberOfGears, int weight, Boolean gasoline, int fuelsize, int fueldisplay, int speeddisplay, int screeninterval) {
+    public SettingsEPIC(Boolean auto, int getNumberOfGears, int weight, Boolean gasoline, int fuelsize, boolean fueldisplay, boolean speeddisplay, int screeninterval) {
         this.auto = auto;
         this.getNumberOfGears = getNumberOfGears;
         this.weight = weight;
@@ -105,6 +105,30 @@ public class SettingsEPIC {
         this.fuelsize = fuelsize;
        // DatabaseManager.updateSettings(this);
 
+    }
+
+    public boolean getFueldisplay() {
+        return fueldisplay;
+    }
+
+    public void setFueldisplay(boolean fueldisplay) {
+        this.fueldisplay = fueldisplay;
+    }
+
+    public boolean getSpeeddisplay() {
+        return speeddisplay;
+    }
+
+    public void setSpeeddisplay(boolean speeddisplay) {
+        this.speeddisplay = speeddisplay;
+    }
+
+    public int getScreeninterval() {
+        return screeninterval;
+    }
+
+    public void setScreeninterval(int screeninterval) {
+        this.screeninterval = screeninterval;
     }
 
     @Override

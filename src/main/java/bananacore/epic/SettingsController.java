@@ -55,6 +55,14 @@ public class SettingsController extends SetupController implements SpeedInterfac
         fuelDisplay = displayFuelCheckbox.isSelected();
         speedDisplay = displaySpeedCheckbox.isSelected();
         interval = Integer.parseInt(intervalLabel.getText().trim());
+
+        //updates local version. (the rest is updated on press.)
+        Constants.settingsEPIC.setFueldisplay(fuelDisplay);
+        Constants.settingsEPIC.setSpeeddisplay(speedDisplay);
+        Constants.settingsEPIC.setScreeninterval(interval);
+
+        //local to db
+        DatabaseManager.updateSettings(Constants.settingsEPIC);
         showMain();
 
 

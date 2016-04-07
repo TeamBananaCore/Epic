@@ -2,18 +2,11 @@ package bananacore.epic.controllers;
 
 import bananacore.epic.Constants;
 import bananacore.epic.DatabaseManager;
-import bananacore.epic.controllers.ContainerController;
-import bananacore.epic.controllers.NumpadController;
 import bananacore.epic.interfaces.ViewController;
 import bananacore.epic.interfaces.observers.SpeedInterface;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
 import java.sql.Timestamp;
 
@@ -41,6 +34,26 @@ public class SettingsController implements SpeedInterface, ViewController {
         intervalLabel.setText(addSpace(interval));
         scrollPane.setFitToWidth(true);
         Constants.PARSER.addToSpeedObservers(this);
+        numpadController=Constants.numpadController;
+        numpadController.addSettingsController(this);
+        tanksizeLabel.setText(Integer.toString(Constants.settingsEPIC.getFuelsize()));
+        weightLabel.setText(Integer.toString(Constants.settingsEPIC.getWeight()));
+    }
+
+    //updates Tank or wightlabel. is called from th eNumpadcontrolller.
+    public void setWeightOrSize(String value){
+        if (toggleNumpad) {
+            tanksizeLabel.setText(value);
+            Constants.settingsEPIC.setFuelsize(Integer.valueOf(value));
+        } else {
+            weightLabel.setText(value);
+            Constants.settingsEPIC.setWeight(Integer.valueOf(value));
+
+        }
+    }
+
+    public AnchorPane getNumpadPane() {
+        return numpadPane;
     }
 
     public String addSpace(int x){
@@ -113,13 +126,12 @@ public class SettingsController implements SpeedInterface, ViewController {
     @FXML
     RadioButton gear4;
     @FXML
-    Label tankSizeLabel;
+    Label tanksizeLabel;
     @FXML
     Label weightLabel;
     @FXML
     Label gearTitel;
 
-    private NumpadController numpad;
     private boolean toggleNumpad; //true means tankSize, false means carWeight
 
 
@@ -180,8 +192,8 @@ public class SettingsController implements SpeedInterface, ViewController {
         setGasoline(true);
     }
     @FXML
-    private void setTankSizeLabel(String value) {
-        tankSizeLabel.setText(value + " L");
+    private void setTanksizeLabel(String value) {
+        tanksizeLabel.setText(value + " L");
     }
     @FXML
     private void setWeightLabel(String value) {
@@ -192,11 +204,14 @@ public class SettingsController implements SpeedInterface, ViewController {
     private void handleTankButton()  {
         toggleNumpad = true;
         numpadPane.setVisible(true);
+        numpadController.setNumberview(Integer.toString(Constants.settingsEPIC.getFuelsize()));
+
     }
     @FXML
     private void handleWeightButton() {
         toggleNumpad = false;
         numpadPane.setVisible(true);
+        numpadController.setNumberview(Integer.toString(Constants.settingsEPIC.getWeight()));
 
     }
     //skal slettes
@@ -223,18 +238,6 @@ public class SettingsController implements SpeedInterface, ViewController {
         Constants.settingsEPIC.setFuelsize(fuelsize);
     }
 
-
-
-    public String getNumber() {
-        String text = numpad.getNumber();
-        if (toggleNumpad) {
-            tankSizeLabel.setText(text);
-        } else {
-            weightLabel.setText(text);
-        }
-        System.out.println(text);
-        return text;
-    }
 
     @Override
     public void hidden() {

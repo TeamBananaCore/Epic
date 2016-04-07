@@ -1,6 +1,8 @@
 package bananacore.epic.controllers;
 
+import bananacore.epic.Constants;
 import bananacore.epic.interfaces.NumpadInterface;
+import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +18,8 @@ import javafx.stage.Stage;
 
 public class NumpadController  {
 
-    private Text numberview;
+    private String numberview;
+    // private Text numberview;
     @FXML private Text title;
     @FXML private Text seven;
     @FXML private Text eight;
@@ -37,110 +40,144 @@ public class NumpadController  {
         this.title.setText(title);
         this.user = user;
     }*/
-
+//connects numpad and settings controllers
+    SettingsController settingsController;
     public void initialize() {
+        Constants.numpadController=this;
+        numberview="0";
+    }
 
+    public void addSettingsController(SettingsController settingsController){
+        this.settingsController=settingsController;
+    }
+
+    public void changeSettingsControllerText(){
+        settingsController.setWeightOrSize(numberview);
+    }
+
+    public String getNumberview() {
+        return numberview;
+    }
+
+    public void setNumberview(String numberview) {
+        this.numberview = numberview;
     }
 
     @FXML
     public void onePressed() {
-        if (numberview.getText().equals("0")) {
-            numberview.setText("1");
+        if (numberview.equals("0")) {
+            numberview="1";
         } else {
-            numberview.setText(numberview.getText() + 1);
+            numberview=(numberview + 1);
         }
+        changeSettingsControllerText();
     }
     @FXML
     public void twoPressed() {
-        if (numberview.getText().equals("0")) {
-            numberview.setText("2");
+        if (numberview.equals("0")) {
+            numberview=("2");
         } else {
-            numberview.setText(numberview.getText() + 2);
+            numberview=(numberview + 2);
         }
+        changeSettingsControllerText();
     }
     @FXML
     public void threePressed() {
-        if (numberview.getText().equals("0")) {
-            numberview.setText("3");
+        if (numberview.equals("0")) {
+            numberview=("3");
         } else {
-            numberview.setText(numberview.getText() + 3);
+            numberview=(numberview + 3);
         }
+        changeSettingsControllerText();
+
     }
     @FXML
     public void fourPressed() {
-        if (numberview.getText().equals("0")) {
-            numberview.setText("4");
+        if (numberview.equals("0")) {
+            numberview=("4");
         } else {
-            numberview.setText(numberview.getText() + 4);
+            numberview=(numberview + 4);
         }
+        changeSettingsControllerText();
+
     }
     @FXML
     public void fivePressed() {
-        if (numberview.getText().equals("0")) {
-            numberview.setText("5");
+        if (numberview.equals("0")) {
+            numberview=("5");
         } else {
-            numberview.setText(numberview.getText() + 5);
+            numberview=(numberview + 5);
         }
+        changeSettingsControllerText();
+
     }
     @FXML
     public void sixPressed() {
-        if (numberview.getText().equals("0")) {
-            numberview.setText("6");
+        if (numberview.equals("0")) {
+            numberview=("6");
         } else {
-            numberview.setText(numberview.getText() + 6);
+            numberview=(numberview + 6);
         }
     }
     @FXML
     public void sevenPressed() {
-        if (numberview.getText().equals("0")) {
-            numberview.setText("7");
+        if (numberview.equals("0")) {
+            numberview=("7");
         } else {
-            numberview.setText(numberview.getText() + 7);
+            numberview=(numberview + 7);
         }
+        changeSettingsControllerText();
+
     }
     @FXML
     public void eightPressed() {
-        if (numberview.getText().equals("0")) {
-            numberview.setText("8");
+        if (numberview.equals("0")) {
+            numberview=("8");
         } else {
-            numberview.setText(numberview.getText() + 8);
+            numberview=(numberview + 8);
         }
+        changeSettingsControllerText();
+
     }
     @FXML
     public void ninePressed() {
-        if (numberview.getText().equals("0")) {
-            numberview.setText("9");
+        if (numberview.equals("0")) {
+            numberview=("9");
         } else {
-            numberview.setText(numberview.getText() + 9);
+            numberview=(numberview + 9);
         }
     }
     @FXML
     public void zeroPressed() {
-        if (numberview.getText().equals("0")) {
-            numberview.setText("0");
+        if (numberview.equals("0")) {
+            numberview=("0");
         } else {
-            numberview.setText(numberview.getText() + 0);
+            numberview=(numberview + 0);
         }
+        changeSettingsControllerText();
+
     }
     @FXML
     public void backspacePressed() {
-        String text = numberview.getText();
+        String text = numberview;
         if (text.length() > 1) {
-            numberview.setText(text.substring(0, text.length() - 1));
+            numberview=(text.substring(0, text.length() - 1));
         } else if (text.length() == 1) {
-            numberview.setText("0");
+            numberview=("0");
         }
+        changeSettingsControllerText();
+
     }
 
+    //this removes the numpad for the Settings
     @FXML
     public void okPressed() {
-//        user.getNumber();
-        numberpane.setVisible(false);
+        settingsController.getNumpadPane().setVisible(false);
 
     }
 
     public String getNumber() {
-        return numberview.getText();
+        return numberview;
     }
 
 

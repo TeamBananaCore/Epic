@@ -21,7 +21,7 @@ public class Constants {
 
     public static Stage PRIMARY_STAGE;
     public static Scene SCENE;
-    public static final GpioController GPIO = GpioFactory.getInstance();
+//    public static final GpioController GPIO = GpioFactory.getInstance();
 
     public static NumpadController numpadController;
 

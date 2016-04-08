@@ -6,8 +6,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Label?>
 
-<AnchorPane fx:id="speedPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.controllers.SpeedController">
+<Pane fx:id="speedPane" maxHeight="100" maxWidth="340" minHeight="100" minWidth="340" prefHeight="100.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.controllers.SpeedController">
    <children>
-      <Label fx:id="speedText" layoutX="3.0" layoutY="135.0" text="0 km/h" styleClass="speedText" AnchorPane.topAnchor="30"/>
+      <Label fx:id="speedText" text="0 km/h" styleClass="speed_text" />
    </children>
-</AnchorPane>
+</Pane>

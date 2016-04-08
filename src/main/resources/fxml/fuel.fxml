@@ -7,16 +7,23 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200" minWidth="340" prefHeight="200.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.controllers.FuelController">
+<?import javafx.geometry.Insets?>
+<BorderPane maxHeight="100" maxWidth="340" minHeight="100" minWidth="340" prefHeight="100.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.controllers.FuelController">
+   <padding>
+      <Insets top="10" bottom="10" left="10" right="10" />
+   </padding>
    <top>
-      <Pane fx:id="fuelLeftPane" minWidth="340" prefHeight="90.0" prefWidth="340.0" BorderPane.alignment="CENTER">
-         <children>
-            <Rectangle fx:id="fuelLeftBar" arcHeight="50.0" arcWidth="50.0" height="86.0" layoutX="10.0" layoutY="14.0" stroke="TRANSPARENT" strokeType="INSIDE" width="320.0" styleClass="fuelBar">
-            </Rectangle>
-         </children>
-      </Pane>
+      <HBox prefWidth="320" maxWidth="320" spacing="5" alignment="CENTER_LEFT">
+         <Pane fx:id="fuelLeftPane" prefHeight="80.0" maxHeight="80" prefWidth="280.0" minWidth="280.0" BorderPane.alignment="CENTER" styleClass="fuel_bar_container">
+            <children>
+               <Rectangle fx:id="fuelLeftBar" arcHeight="20.0" arcWidth="20.0" height="76.0" layoutX="2.0" layoutY="2.0" styleClass="fuel_bar">
+               </Rectangle>
+               <Label fx:id="kmLeftText" text="0 km " textAlignment="RIGHT" layoutX="10" layoutY="-5" />
+            </children>
+         </Pane>
+         <Label text="⛽" styleClass="big_icon"/>
+      </HBox>
    </top>
    <bottom>
-      <Label fx:id="kmLeftText" text="0 km " textAlignment="RIGHT" BorderPane.alignment="CENTER_RIGHT" styleClass="fuelText"/>
    </bottom>
 </BorderPane>

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.StackPane?>
-<StackPane fx:id="pane" xmlns:fx="http://javafx.com/fxml" prefHeight="320" prefWidth="480" maxHeight="320" minHeight="320" maxWidth="480" minWidth="480" fx:controller="bananacore.epic.controllers.ContainerController">
-
+<?import java.net.URL?>
+<StackPane fx:id="pane" xmlns:fx="http://javafx.com/fxml" prefHeight="320" prefWidth="480" maxHeight="320" minHeight="320" maxWidth="480" minWidth="480" fx:controller="bananacore.epic.controllers.ContainerController" styleClass="root">
+    <stylesheets>
+        <URL value="@../css/night.css" />
+    </stylesheets>
 </StackPane>

@@ -6,7 +6,9 @@ import bananacore.epic.interfaces.observers.SpeedInterface;
 import bananacore.epic.models.SpeedSession;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 import java.sql.Timestamp;
@@ -14,17 +16,17 @@ import java.sql.Timestamp;
 public class SpeedController implements SpeedInterface {
 
     @FXML
-    AnchorPane speedPane;
+    Pane speedPane;
 
     @FXML
-    Text speedText;
+    Label speedText;
 
-    public Timestamp startOfSpeedSession;
-    public int totalSpeedForComputation = 0;
-    public int amountOfReadingsForComputation = 0;
-    public int avgSpeed;
-    public final int logInterval = 60;
-    public int lastSpeed = 0;
+    private Timestamp startOfSpeedSession;
+    private int totalSpeedForComputation = 0;
+    private int amountOfReadingsForComputation = 0;
+    private int avgSpeed;
+    private final int logInterval = 60;
+    private int lastSpeed = 0;
 
     public void initialize(){
         Constants.PARSER.addToSpeedObservers(this);
@@ -32,7 +34,7 @@ public class SpeedController implements SpeedInterface {
 
     public void updateVehicleSpeed(int value, Timestamp timestamp) {
         if(lastSpeed != value) {
-            speedText.setText(String.valueOf(value));
+            speedText.setText(String.valueOf(value) + " km/t");
             lastSpeed = value;
             totalSpeedForComputation += value;
             amountOfReadingsForComputation++;

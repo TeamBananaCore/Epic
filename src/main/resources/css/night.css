@@ -2,6 +2,8 @@
     -fx-logo-color: #49caf5;
     -fx-standard-background: #333;
     -fx-label-color: white;
+    -fx-font-family: sans-serif;
+    -fx-font-size: 20px;
 }
 
 .root {
@@ -45,8 +47,22 @@
 
 /* Fuel bar style */
 
-.fuelBar{
+.fuel_bar {
     -fx-fill: linear-gradient(to right, #cf1919 0%, #ffca0f 25%, #0fff13 50%, #0f3cff 75%, #8c10a3 100%);
+}
+
+.fuel_bar_container {
+    -fx-border-style: solid;
+    -fx-border-color: -fx-logo-color;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+}
+
+.fuel_bar_container .label .text{
+    -fx-font-size: 60px;
+    -fx-font-weight: bold;
+    -fx-stroke: black;
+    -fx-stroke-width: 2px;
 }
 
 /* Menu styles */
@@ -80,6 +96,20 @@
     -fx-font-size: 20px;
 }
 
+/* Settings */
+.master_scroll_pane {
+    -fx-background-color: -fx-standard-background;
+    -fx-text-fill: white;
+}
+
+.scroll_content_pane {
+    -fx-background-color: darkgray;
+}
+
+.settings_final_button {
+    -fx-font-size: 15px;
+}
+
 /* Misc */
 
 .settingsLabel {
@@ -87,12 +117,18 @@
     -fx-text-fill: white;
 }
 
-.speedText{
+.speed_text .text{
     -fx-font-size: 85px;
     -fx-font-weight: bold;
+    -fx-stroke: black;
+    -fx-stroke-width: 2px;
 }
 
-.fuelText{
-    -fx-font-size: 70px;
-    -fx-font-weight: bold;
+.big_icon .text{
+    -fx-font-size: 40;
+    -fx-text-fill: white;
+}
+
+.radio-button {
+    -fx-text-fill: white;
 }

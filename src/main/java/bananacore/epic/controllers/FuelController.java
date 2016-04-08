@@ -6,6 +6,7 @@ import bananacore.epic.interfaces.observers.OdometerInterface;
 import bananacore.epic.DatabaseManager;
 import bananacore.epic.models.FuelSession;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -35,6 +36,9 @@ public class FuelController implements OdometerInterface, FuelInterface {
 
     private boolean odoUpdated = false;
 
+    @FXML private Pane fuelLeftPane;
+    @FXML private Rectangle fuelLeftBar;
+    @FXML private Label kmLeftText;
 
     public void initialize(){
         Constants.PARSER.addToFuelObservers(this);
@@ -90,7 +94,7 @@ public class FuelController implements OdometerInterface, FuelInterface {
     }
 
     private void updateEstimatedKmLeft(Timestamp endOfInterval) {
-        estimatedKmLeft = round((tankSize - totalFuelConsumed) / fuelUsageInterval, 2);
+        estimatedKmLeft = round((tankSize - totalFuelConsumed) / fuelUsageInterval, 1);
 
         if (startOfInterval != null){
             FuelSession session = new FuelSession((float) fuelUsageInterval, startOfInterval, (int)(endOfInterval.getTime()-startOfInterval.getTime())/1000);
@@ -114,19 +118,9 @@ public class FuelController implements OdometerInterface, FuelInterface {
         return startDistance >= 0.0 && startDistance <= MAX_ODOMETER_VALUE;
     }
 
-    @FXML
-    private Pane fuelLeftPane;
-
-    @FXML
-    private Rectangle fuelLeftBar;
-
-    @FXML
-    private Text kmLeftText;
-
-
     private void updateFuelLeftRectangle() {
         if (fuelLevelPercentage != 0.0){
-            fuelLeftBar.setWidth(fuelLevelPercentage * 320 / 100);
+            fuelLeftBar.setWidth(fuelLevelPercentage * 276 / 100);
         }
     }
 

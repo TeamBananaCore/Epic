@@ -2,19 +2,9 @@ package bananacore.epic.controllers;
 
 import bananacore.epic.Constants;
 import bananacore.epic.interfaces.NumpadInterface;
-import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion;
-import javafx.application.Application;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-
-/**
- * Created by marton on 16/03/16.
- */
 
 public class NumpadController  {
 

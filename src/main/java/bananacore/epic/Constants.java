@@ -1,6 +1,7 @@
 package bananacore.epic;
 
 import bananacore.epic.controllers.ContainerController;
+import bananacore.epic.controllers.NumpadController;
 import bananacore.epic.models.SettingsEPIC;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
@@ -21,6 +22,9 @@ public class Constants {
     public static Stage PRIMARY_STAGE;
     public static Scene SCENE;
     public static final GpioController GPIO = GpioFactory.getInstance();
+
+    public static NumpadController numpadController;
+
 
     static {
         PARSER = new OurParser();

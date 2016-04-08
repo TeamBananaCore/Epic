@@ -30,7 +30,7 @@ public class MenuController implements SpeedInterface{
         graphButton.setGraphic(new ImageView(graphImage));
         settingsButton.setGraphic(new ImageView(settingsImage));
         Constants.PARSER.addToSpeedObservers(this);
-        menuPane.setVisible(false);
+//        menuPane.setVisible(false);
         update();
     }
 

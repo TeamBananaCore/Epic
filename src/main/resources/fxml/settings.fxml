@@ -14,11 +14,11 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="320.0" maxWidth="480.0" minHeight="320.0" minWidth="480.0" prefHeight="320.0" prefWidth="480.0" styleClass="masterScrollPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.controllers.SettingsController">
+<AnchorPane maxHeight="320.0" maxWidth="480.0" minHeight="320.0" minWidth="480.0" prefHeight="320.0" prefWidth="480.0" styleClass="master_scroll_pane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.controllers.SettingsController">
    <children>
    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" maxHeight="320.0" maxWidth="480.0" minHeight="292.0" minWidth="480.0" prefHeight="320.0" prefWidth="480.0" styleClass="scrollPane" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="779.0" prefWidth="479.0" styleClass="masterScrollPane">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="779.0" prefWidth="479.0" styleClass="master_scroll_pane">
                <children>
                   <AnchorPane layoutX="14.0" layoutY="6.0" minWidth="442.0" prefHeight="255.0" prefWidth="400.0" styleClass="scrollContentPane">
                      <children>
@@ -180,7 +180,7 @@
       <AnchorPane fx:id="numpadPane" prefHeight="306.0" prefWidth="286.0" visible="false">
           <fx:include source="numpad.fxml" />
       </AnchorPane>
-      <Button layoutX="265.0" layoutY="285.0" mnemonicParsing="false" onAction="#save" prefHeight="39.0" prefWidth="84.0" text="Save" />
-      <Button layoutX="360.0" layoutY="285.0" mnemonicParsing="false" onAction="#cancel" prefHeight="39.0" prefWidth="84.0" text="Cancel" />
+      <Button layoutX="265.0" layoutY="285.0" mnemonicParsing="false" onAction="#save" prefHeight="39.0" prefWidth="84.0" text="Save" styleClass="settings_final_button"/>
+      <Button layoutX="360.0" layoutY="285.0" mnemonicParsing="false" onAction="#cancel" prefHeight="39.0" prefWidth="84.0" text="Cancel" styleClass="settings_final_button"/>
    </children>
 </AnchorPane>

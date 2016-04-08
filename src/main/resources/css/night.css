@@ -2,6 +2,8 @@
     -fx-logo-color: #49caf5;
     -fx-standard-background: #333;
     -fx-label-color: white;
+    -fx-font-family: sans-serif;
+    -fx-font-size: 20px;
 }
 
 .root {
@@ -94,6 +96,20 @@
     -fx-font-size: 20px;
 }
 
+/* Settings */
+.master_scroll_pane {
+    -fx-background-color: -fx-standard-background;
+    -fx-text-fill: white;
+}
+
+.scroll_content_pane {
+    -fx-background-color: darkgray;
+}
+
+.settings_final_button {
+    -fx-font-size: 15px;
+}
+
 /* Misc */
 
 .settingsLabel {
@@ -110,5 +126,9 @@
 
 .big_icon .text{
     -fx-font-size: 40;
+    -fx-text-fill: white;
+}
+
+.radio-button {
     -fx-text-fill: white;
 }

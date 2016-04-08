@@ -28,7 +28,7 @@ public class SettingsController implements SpeedInterface, ViewController {
     private int interval = 2;
     private boolean fuelDisplay = false;
     private boolean speedDisplay = false;
-
+//
     public void initialize(){
         //numpadController.getNumber();
         intervalLabel.setText(addSpace(interval));

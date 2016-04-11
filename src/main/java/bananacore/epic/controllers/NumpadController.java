@@ -3,6 +3,7 @@ package bananacore.epic.controllers;
 import bananacore.epic.Constants;
 import bananacore.epic.interfaces.NumpadInterface;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
@@ -11,18 +12,18 @@ public class NumpadController  {
     private String numberview;
     // private Text numberview;
     @FXML private Text title;
-    @FXML private Text seven;
-    @FXML private Text eight;
-    @FXML private Text nine;
-    @FXML private Text four;
-    @FXML private Text five;
-    @FXML private Text six;
-    @FXML private Text one;
-    @FXML private Text two;
-    @FXML private Text three;
-    @FXML private Text backspace;
-    @FXML private Text zero;
-    @FXML private Text ok;
+    @FXML private Button seven;
+    @FXML private Button eight;
+    @FXML private Button nine;
+    @FXML private Button four;
+    @FXML private Button five;
+    @FXML private Button six;
+    @FXML private Button one;
+    @FXML private Button two;
+    @FXML private Button three;
+    @FXML private Button backspace;
+    @FXML private Button zero;
+    @FXML private Button ok;
     NumpadInterface user;
     @FXML private AnchorPane numberpane;
 

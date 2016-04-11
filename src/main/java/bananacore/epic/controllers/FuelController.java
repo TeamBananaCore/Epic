@@ -8,6 +8,7 @@ import bananacore.epic.models.FuelSession;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
@@ -121,6 +122,15 @@ public class FuelController implements OdometerInterface, FuelInterface {
     private void updateFuelLeftRectangle() {
         if (fuelLevelPercentage != 0.0){
             fuelLeftBar.setWidth(fuelLevelPercentage * 276 / 100);
+            if (fuelLevelPercentage < 75){
+                if (fuelLevelPercentage > 50){
+                    fuelLeftBar.setFill(Color.YELLOW);
+                } else if (fuelLevelPercentage > 25){
+                    fuelLeftBar.setFill(Color.ORANGE);
+                } else {
+                    fuelLeftBar.setFill(Color.RED);
+                }
+            }
         }
     }
 

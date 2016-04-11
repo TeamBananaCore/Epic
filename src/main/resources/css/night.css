@@ -48,7 +48,7 @@
 /* Fuel bar style */
 
 .fuel_bar {
-    -fx-fill: linear-gradient(to right, #cf1919 0%, #ffca0f 25%, #0fff13 50%, #0f3cff 75%, #8c10a3 100%);
+    -fx-fill: #0fff13;
 }
 
 .fuel_bar_container {

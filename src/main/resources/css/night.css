@@ -111,8 +111,7 @@
 }
 
 .numpad_button {
-    -fx-font-size: 30px;
-    -fx-background-color: whitesmoke;
+    -fx-font-size: 32px;
 }
 
 /* Misc */

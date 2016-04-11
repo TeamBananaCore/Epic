@@ -128,6 +128,10 @@
     -fx-font-size: 32px;
 }
 
+.settings_unitLabels {
+    -fx-alignment: right;
+}
+
 /* Misc */
 
 .settingsLabel {

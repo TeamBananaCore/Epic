@@ -46,7 +46,47 @@ public class SettingsController implements SpeedInterface, ViewController {
         numpadController.addSettingsController(this);
         setTanksizeLabel(Integer.toString(Constants.settingsEPIC.getFuelsize()));
         setWeightLabel(Integer.toString(Constants.settingsEPIC.getWeight()));
+        markGear();
+        markfuel();
+        displayFuelCheckbox.setSelected(Constants.settingsEPIC.getFueldisplay());
+        displaySpeedCheckbox.setSelected(Constants.settingsEPIC.getSpeeddisplay());
     }
+
+
+
+    private void markGear(){
+        boolean autogear= Constants.settingsEPIC.getAuto();
+        if (autogear){
+            auto.setSelected(true);
+        }else{
+            manual.setSelected(true);
+            markGearNumber();
+        }
+    }
+    //
+    private void markGearNumber(){
+        int gear = Constants.settingsEPIC.getGetNumberOfGears();
+        //setts one true value in 4,5,6
+        if (gear==4){
+            gear4.setSelected(true);
+        }
+        if(gear==5){
+            gear5.setSelected(true);
+        }
+        if(gear==6){
+            gear6.setSelected(true);
+        }
+
+    }
+    private void markfuel(){
+        boolean gasolinefuel=  Constants.settingsEPIC.getGasoline();
+        if (gasolinefuel){
+            gasoline.setSelected(true);
+        }else{
+            diesel.setSelected(true);
+        }
+    }
+
 
     //updates Tank or wightlabel. is called from th eNumpadcontrolller.
     public void setWeightOrSize(String value){
@@ -223,9 +263,7 @@ public class SettingsController implements SpeedInterface, ViewController {
         numpadController.setNumberview(Integer.toString(Constants.settingsEPIC.getWeight()));
 
     }
-    //skal slettes
-    public void setGear(Boolean auto) {
-        Constants.settingsEPIC.setAuto(auto); }
+
 
     public void setAuto(Boolean auto) {
         Constants.settingsEPIC.setAuto(auto);

@@ -5,6 +5,6 @@
 
 <Pane fx:id="speedPane" maxHeight="100" maxWidth="340" minHeight="100" minWidth="340" prefHeight="100.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.controllers.SpeedController">
    <children>
-      <Label fx:id="speedText" text="0 km/h" styleClass="speed_text" />
+      <Label fx:id="speedText" text="0 km/h" styleClass="speed_text" visible="false"/>
    </children>
 </Pane>

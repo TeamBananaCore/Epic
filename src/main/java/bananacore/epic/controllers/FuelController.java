@@ -5,6 +5,7 @@ import bananacore.epic.interfaces.observers.FuelInterface;
 import bananacore.epic.interfaces.observers.OdometerInterface;
 import bananacore.epic.DatabaseManager;
 import bananacore.epic.models.FuelSession;
+import bananacore.epic.models.SettingsEPIC;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -37,7 +38,8 @@ public class FuelController implements OdometerInterface, FuelInterface {
 
     private boolean odoUpdated = false;
     private boolean displayingFuelUsage = false;
-    private boolean displayingFuel = true;
+    private boolean displayingKmLeft = true;
+    private int switchFrequency = 5;
 
     @FXML private Pane fuelLeftPane;
     @FXML private Rectangle fuelLeftBar;
@@ -47,6 +49,15 @@ public class FuelController implements OdometerInterface, FuelInterface {
     public void initialize(){
         Constants.PARSER.addToFuelObservers(this);
         Constants.PARSER.addToOdometerObservers(this);
+        SettingsEPIC settings = DatabaseManager.getSettings();
+        displayingKmLeft = settings.getFueldisplay();
+        displayingFuelUsage = false;
+        //displayingFuelUsage = settings.getFuelUsageDisplay();
+        switchFrequency = settings.getScreeninterval();
+        tankSize = settings.getFuelsize();
+
+        fuelUsageText.setVisible(displayingFuelUsage);
+        kmLeftText.setVisible(displayingKmLeft);
     }
 
     @Override
@@ -57,6 +68,22 @@ public class FuelController implements OdometerInterface, FuelInterface {
             updateEstimatedKmLeft(timestamp);
             odoUpdated = false;
         }
+    }
+
+    @Override
+    public void updateOdometer(double odometerReading, Timestamp timestamp) {
+        double distanceTravelledInterval = odometerReading-distanceIntervalStart;
+        if (validOdometerReading(odometerReading)) {
+            if(distanceTravelledInterval > 0.5){
+                odoUpdated = true;
+                this.distanceTravelledInterval = odometerReading - distanceIntervalStart;
+                distanceIntervalStart = odometerReading;
+                if(distanceTravelledInterval > 1){
+                    fuelUsageInterval = 0.112;
+                }
+            }
+        }
+
     }
 
     private void updateFuelConsumed(double fuelConsumed) {
@@ -84,32 +111,26 @@ public class FuelController implements OdometerInterface, FuelInterface {
         updateFuelLeftRectangle();
     }
 
-    @Override
-    public void updateOdometer(double odometerReading, Timestamp timestamp) {
-        double distanceTravelledInterval = odometerReading-distanceIntervalStart;
-        if (validOdometerReading(odometerReading)) {
-            if(distanceTravelledInterval > 0.5){
-                odoUpdated = true;
-                this.distanceTravelledInterval = odometerReading - distanceIntervalStart;
-                distanceIntervalStart = odometerReading;
-                if(distanceTravelledInterval > 1){
-                    fuelUsageInterval = 0.112;
-                }
-            }
-        }
-
-    }
-
     private void updateEstimatedKmLeft(Timestamp endOfInterval) {
         estimatedKmLeft = round((tankSize - totalFuelConsumed) / fuelUsageInterval, 1);
 
         if (startOfInterval != null){
             FuelSession session = new FuelSession((float) fuelUsageInterval, startOfInterval, (int)(endOfInterval.getTime()-startOfInterval.getTime())/1000);
             DatabaseManager.insertFuelSession(session);
+
+            if((int) endOfInterval.getTime()-startOfInterval.getTime() > switchFrequency*1000){
+                if (kmLeftText.isVisible() && displayingFuelUsage){
+                    kmLeftText.setVisible(false);
+                    fuelUsageText.setVisible(true);
+                } else if (fuelUsageText.isVisible() && displayingKmLeft){
+                    kmLeftText.setVisible(true);
+                    fuelUsageText.setVisible(false);
+                }
+            }
         }
 
-        startOfInterval = endOfInterval;
 
+        startOfInterval = endOfInterval;
         updateEstimatedKmLeftText();
     }
 
@@ -141,7 +162,7 @@ public class FuelController implements OdometerInterface, FuelInterface {
     }
 
     private void updateEstimatedKmLeftText() {
-        if(displayingFuel){
+        if(displayingKmLeft){
             kmLeftText.setText(String.valueOf(estimatedKmLeft) + " km");
         }
     }

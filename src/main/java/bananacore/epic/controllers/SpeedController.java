@@ -3,6 +3,7 @@ package bananacore.epic.controllers;
 import bananacore.epic.Constants;
 import bananacore.epic.DatabaseManager;
 import bananacore.epic.interfaces.observers.SpeedInterface;
+import bananacore.epic.models.SettingsEPIC;
 import bananacore.epic.models.SpeedSession;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
@@ -10,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import org.dom4j.datatype.DatatypeAttribute;
 
 import java.sql.Timestamp;
 
@@ -31,6 +33,9 @@ public class SpeedController implements SpeedInterface {
 
     public void initialize(){
         Constants.PARSER.addToSpeedObservers(this);
+        SettingsEPIC settings = DatabaseManager.getSettings();
+        displayingSpeed = settings.getSpeeddisplay();
+        speedText.setVisible(displayingSpeed);
     }
 
     public void updateVehicleSpeed(int value, Timestamp timestamp) {

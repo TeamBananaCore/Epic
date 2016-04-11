@@ -48,7 +48,7 @@
 /* Fuel bar style */
 
 .fuel_bar {
-    -fx-fill: linear-gradient(to right, #cf1919 0%, #ffca0f 25%, #0fff13 50%, #0f3cff 75%, #8c10a3 100%);
+    -fx-fill: #0fff13;
 }
 
 .fuel_bar_container {
@@ -111,6 +111,7 @@
 
 .scrollPane{
     -fx-background-insets: 10;
+    -fx-text-fill: whitesmoke;
 }
 
 .scroll_content_pane {
@@ -121,6 +122,10 @@
     -fx-font-size: 15px;
     -fx-background-radius: 100px;
     -fx-effect: dropshadow(three-pass-box, #4b4b4b, 3, 0, 0, 0);
+}
+
+.numpad_button {
+    -fx-font-size: 32px;
 }
 
 /* Misc */

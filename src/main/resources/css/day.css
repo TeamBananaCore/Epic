@@ -1,6 +1,9 @@
 * {
     -fx-logo-color: #49caf5;
     -fx-standard-background: lightgrey;
+    -fx-label-color: white;
+    -fx-font-family: sans-serif;
+    -fx-font-size: 20px;
 }
 
 .root {
@@ -67,7 +70,7 @@
 /*---------Settings---------*/
 
 .master_scroll_pane {
-    -fx-background-color: #636363;
+    -fx-background-color:  -fx-standard-background;
     -fx-stroke: #636363;
 }
 
@@ -84,4 +87,10 @@
 .settingsButton{
       -fx-background-radius: 100px;
       -fx-effect: dropshadow(three-pass-box, #4b4b4b, 3, 0, 0, 0);
+}
+
+.settings_final_button {
+    -fx-font-size: 15px;
+    -fx-background-radius: 100px;
+    -fx-effect: dropshadow(three-pass-box, #4b4b4b, 3, 0, 0, 0);
 }

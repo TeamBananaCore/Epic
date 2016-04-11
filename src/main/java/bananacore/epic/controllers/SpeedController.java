@@ -27,6 +27,7 @@ public class SpeedController implements SpeedInterface {
     private int avgSpeed;
     private final int logInterval = 60;
     private int lastSpeed = 0;
+    private boolean displayingSpeed = true;
 
     public void initialize(){
         Constants.PARSER.addToSpeedObservers(this);
@@ -34,7 +35,9 @@ public class SpeedController implements SpeedInterface {
 
     public void updateVehicleSpeed(int value, Timestamp timestamp) {
         if(lastSpeed != value) {
-            speedText.setText(String.valueOf(value) + " km/t");
+            if (displayingSpeed){
+                speedText.setText(String.valueOf(value) + " km/t");
+            }
             lastSpeed = value;
             totalSpeedForComputation += value;
             amountOfReadingsForComputation++;

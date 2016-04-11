@@ -36,10 +36,13 @@ public class FuelController implements OdometerInterface, FuelInterface {
     private Timestamp startOfInterval = null;
 
     private boolean odoUpdated = false;
+    private boolean displayingFuelUsage = false;
+    private boolean displayingFuel = true;
 
     @FXML private Pane fuelLeftPane;
     @FXML private Rectangle fuelLeftBar;
     @FXML private Label kmLeftText;
+    @FXML private Label fuelUsageText;
 
     public void initialize(){
         Constants.PARSER.addToFuelObservers(this);
@@ -69,6 +72,9 @@ public class FuelController implements OdometerInterface, FuelInterface {
     private void updateFuelUsage() {
         if(distanceTravelledInterval < 1 && distanceTravelledInterval >= 0.5){
             fuelUsageInterval = fuelConsumedInterval / distanceTravelledInterval;
+        }
+        if(displayingFuelUsage){
+            fuelUsageText.setText(String.valueOf(fuelUsageInterval).substring(0,4) + " l/km");
         }
     }
 
@@ -120,12 +126,12 @@ public class FuelController implements OdometerInterface, FuelInterface {
     }
 
     private void updateFuelLeftRectangle() {
-        if (fuelLevelPercentage != 0.0){
+        if (fuelLevelPercentage != 0.0) {
             fuelLeftBar.setWidth(fuelLevelPercentage * 276 / 100);
-            if (fuelLevelPercentage < 75){
-                if (fuelLevelPercentage > 50){
+            if (fuelLevelPercentage < 75) {
+                if (fuelLevelPercentage > 50) {
                     fuelLeftBar.setFill(Color.YELLOW);
-                } else if (fuelLevelPercentage > 25){
+                } else if (fuelLevelPercentage > 25) {
                     fuelLeftBar.setFill(Color.ORANGE);
                 } else {
                     fuelLeftBar.setFill(Color.RED);
@@ -135,7 +141,9 @@ public class FuelController implements OdometerInterface, FuelInterface {
     }
 
     private void updateEstimatedKmLeftText() {
-        kmLeftText.setText(String.valueOf(estimatedKmLeft) + " km");
+        if(displayingFuel){
+            kmLeftText.setText(String.valueOf(estimatedKmLeft) + " km");
+        }
     }
 
     public static double round(double value, int places) {

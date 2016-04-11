@@ -16,6 +16,7 @@
                <Rectangle fx:id="fuelLeftBar" arcHeight="20.0" arcWidth="20.0" height="76.0" layoutX="2.0" layoutY="2.0" styleClass="fuel_bar">
                </Rectangle>
                <Label fx:id="kmLeftText" text="0 km " textAlignment="RIGHT" layoutX="10" layoutY="-5" />
+               <Label fx:id="fuelUsageText" text="0 l/km " textAlignment="RIGHT" layoutX="10" layoutY="-5"/>
             </children>
          </Pane>
          <Label text="⛽" styleClass="big_icon"/>

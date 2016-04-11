@@ -101,7 +101,7 @@
                   </AnchorPane>
                   <AnchorPane layoutX="4.0" layoutY="275.0" minHeight="0.0" minWidth="442.0" prefHeight="260.0" prefWidth="442.0" styleClass="scrollContentPane">
                      <children>
-                        <Label fx:id="tanksizeLabel" layoutX="274.0" layoutY="121.0" prefHeight="34.0" prefWidth="75.0" text="0 L">
+                        <Label fx:id="tanksizeLabel" layoutX="274.0" layoutY="121.0" prefHeight="34.0" prefWidth="100.0" text="0 L">
                            <font>
                               <Font size="23.0" />
                            </font>
@@ -116,7 +116,7 @@
                               <Font size="22.0" />
                            </font>
                         </Button>
-                        <Label fx:id="weightLabel" layoutX="264.0" layoutY="195.0" prefHeight="32.0" prefWidth="75.0" text="0 kg">
+                        <Label fx:id="weightLabel" layoutX="264.0" layoutY="195.0" prefHeight="32.0" prefWidth="110.0" text="0 kg">
                            <font>
                               <Font size="23.0" />
                            </font>

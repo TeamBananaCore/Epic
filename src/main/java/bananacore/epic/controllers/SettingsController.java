@@ -36,17 +36,17 @@ public class SettingsController implements SpeedInterface, ViewController {
         Constants.PARSER.addToSpeedObservers(this);
         numpadController=Constants.numpadController;
         numpadController.addSettingsController(this);
-        tanksizeLabel.setText(Integer.toString(Constants.settingsEPIC.getFuelsize()));
-        weightLabel.setText(Integer.toString(Constants.settingsEPIC.getWeight()));
+        setTanksizeLabel(Integer.toString(Constants.settingsEPIC.getFuelsize()));
+        setWeightLabel(Integer.toString(Constants.settingsEPIC.getWeight()));
     }
 
     //updates Tank or wightlabel. is called from th eNumpadcontrolller.
     public void setWeightOrSize(String value){
         if (toggleNumpad) {
-            tanksizeLabel.setText(value);
+            setTanksizeLabel(value);
             Constants.settingsEPIC.setFuelsize(Integer.valueOf(value));
         } else {
-            weightLabel.setText(value);
+            setWeightLabel(value);
             Constants.settingsEPIC.setWeight(Integer.valueOf(value));
 
         }
@@ -193,7 +193,7 @@ public class SettingsController implements SpeedInterface, ViewController {
     }
     @FXML
     private void setTanksizeLabel(String value) {
-        tanksizeLabel.setText(value + " L");
+        tanksizeLabel.setText(value + " l");
     }
     @FXML
     private void setWeightLabel(String value) {

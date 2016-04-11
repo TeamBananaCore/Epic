@@ -58,7 +58,7 @@ public class NumpadController  {
     public void onePressed() {
         if (numberview.equals("0")) {
             numberview="1";
-        } else {
+        } else if (numberview.length() < 7)  {
             numberview=(numberview + 1);
         }
         changeSettingsControllerText();
@@ -67,7 +67,7 @@ public class NumpadController  {
     public void twoPressed() {
         if (numberview.equals("0")) {
             numberview=("2");
-        } else {
+        } else if (numberview.length() < 7)  {
             numberview=(numberview + 2);
         }
         changeSettingsControllerText();
@@ -76,7 +76,7 @@ public class NumpadController  {
     public void threePressed() {
         if (numberview.equals("0")) {
             numberview=("3");
-        } else {
+        } else if (numberview.length() < 7)  {
             numberview=(numberview + 3);
         }
         changeSettingsControllerText();
@@ -86,7 +86,7 @@ public class NumpadController  {
     public void fourPressed() {
         if (numberview.equals("0")) {
             numberview=("4");
-        } else {
+        } else if (numberview.length() < 7) {
             numberview=(numberview + 4);
         }
         changeSettingsControllerText();
@@ -96,7 +96,7 @@ public class NumpadController  {
     public void fivePressed() {
         if (numberview.equals("0")) {
             numberview=("5");
-        } else {
+        } else if (numberview.length() < 7)  {
             numberview=(numberview + 5);
         }
         changeSettingsControllerText();
@@ -106,15 +106,16 @@ public class NumpadController  {
     public void sixPressed() {
         if (numberview.equals("0")) {
             numberview=("6");
-        } else {
+        } else if (numberview.length() < 7)  {
             numberview=(numberview + 6);
         }
+        changeSettingsControllerText();
     }
     @FXML
     public void sevenPressed() {
         if (numberview.equals("0")) {
             numberview=("7");
-        } else {
+        } else if (numberview.length() < 7)  {
             numberview=(numberview + 7);
         }
         changeSettingsControllerText();
@@ -124,7 +125,7 @@ public class NumpadController  {
     public void eightPressed() {
         if (numberview.equals("0")) {
             numberview=("8");
-        } else {
+        } else if (numberview.length() < 7)  {
             numberview=(numberview + 8);
         }
         changeSettingsControllerText();
@@ -134,15 +135,16 @@ public class NumpadController  {
     public void ninePressed() {
         if (numberview.equals("0")) {
             numberview=("9");
-        } else {
+        } else if (numberview.length() < 7)  {
             numberview=(numberview + 9);
         }
+        changeSettingsControllerText();
     }
     @FXML
     public void zeroPressed() {
         if (numberview.equals("0")) {
             numberview=("0");
-        } else {
+        } else if (numberview.length() < 7) {
             numberview=(numberview + 0);
         }
         changeSettingsControllerText();

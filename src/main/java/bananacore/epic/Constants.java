@@ -18,6 +18,7 @@ public class Constants {
     public static final long SECONDS_PER_WEEK = 604800;
 
     public static ContainerController CONTAINER;
+    public static StyleChooser STYLER;
 
     public static Stage PRIMARY_STAGE;
     public static Scene SCENE;
@@ -31,7 +32,7 @@ public class Constants {
         try{
             settingsEPIC = DatabaseManager.getSettings();
         } catch (IndexOutOfBoundsException e){
-            settingsEPIC = new SettingsEPIC(false,6,900,true,50,true,true,30);
+            settingsEPIC = new SettingsEPIC(false,6,900,true,50,true,true,30, 0);
         }
     }
 

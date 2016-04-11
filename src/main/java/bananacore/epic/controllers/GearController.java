@@ -1,6 +1,8 @@
 package bananacore.epic.controllers;
 
 import bananacore.epic.Constants;
+import bananacore.epic.DatabaseManager;
+import bananacore.epic.models.WrongGearSession;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,7 +16,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GearController implements GearInterface, RPMInterface{
+public class GearController implements GearInterface, RPMInterface {
 
     @FXML
     private ImageView gearImageView;
@@ -39,7 +41,7 @@ public class GearController implements GearInterface, RPMInterface{
     private String carType = "gas";
     private double opacity = 1;
 
-    public void initialize(){
+    public void initialize() {
         Constants.PARSER.addToGearObservers(this);
         Constants.PARSER.addToRPMObservers(this);
         initGearImageList();
@@ -60,22 +62,31 @@ public class GearController implements GearInterface, RPMInterface{
         updateView();
     }
 
-    public void updateView(){
+    public void updateView() {
         gearImageViewUpdate();
-        if(rpmStatus == 0){
+        if (rpmStatus == 0) {
             setGearImage(1);
         }
     }
 
-    public void gearImageViewUpdate(){
+    public void gearImageViewUpdate() {
         updateBgRpm();
-        if(carType.equals("gas")){
-            if( !(gearStatus == maxGear) && rpmStatus >= thresholdRpmGas){
+        if (carType.equals("gas")) {
+            if (!(gearStatus == maxGear) && rpmStatus >= thresholdRpmGas) {
                 setGearImageUp();
-            }else if( !(gearStatus == 1) && rpmStatus > 0 && rpmStatus <= lowerThresholdRpmGas){
+                if (session == null) {
+                    startWrongGearSession();
+                }
+            } else if (!(gearStatus == 1) && rpmStatus > 0 && rpmStatus <= lowerThresholdRpmGas) {
                 setGearImageDown();
-            }else if(gearStatus >= 0 && gearStatus < 7){
+                if (session == null) {
+                    startWrongGearSession();
+                }
+            } else if (gearStatus >= 0 && gearStatus < 7) {
                 setGearImage(gearStatus);
+                if (session != null) {
+                    endWrongGearSession();
+                }
             }
         }
     }
@@ -83,18 +94,18 @@ public class GearController implements GearInterface, RPMInterface{
     private void updateBgRpm() {
         setOpacity();
         Color colorRed;
-        if(rpmStatus >= 2500){
-            colorRed = new Color(1,0,0,opacity);
-        }else{
-            colorRed = new Color(1,0,0,0);
+        if (rpmStatus >= 2500) {
+            colorRed = new Color(1, 0, 0, opacity);
+        } else {
+            colorRed = new Color(1, 0, 0, 0);
         }
         rectangle.setFill(colorRed);
     }
 
-    private void setOpacity(){
+    private void setOpacity() {
         double x = Math.pow(rpmStatus, 2.0) / 2285 / maxRpm;
-        if(x <= 0.60 && x > 0.10){
-            opacity =x;
+        if (x <= 0.60 && x > 0.10) {
+            opacity = x;
         }
     }
 
@@ -107,6 +118,7 @@ public class GearController implements GearInterface, RPMInterface{
     }
 
     private List<Image> gearImageList = new ArrayList<Image>();
+
     private void initGearImageList() {
         Image gearFree = new Image(String.valueOf(getClass().getClassLoader().getResource("image/GearFree.png")));
         Image gear1 = new Image(String.valueOf(getClass().getClassLoader().getResource("image/Gear1.png")));
@@ -127,16 +139,18 @@ public class GearController implements GearInterface, RPMInterface{
     }
 
     private Image arrowUpImage = new Image(String.valueOf(getClass().getClassLoader().getResource("image/arrow_up.png")));
-    private void setGearImageUp(){
+
+    private void setGearImageUp() {
         gearImageView.setImage(arrowUpImage);
     }
 
     private Image arrowDownImage = new Image(String.valueOf(getClass().getClassLoader().getResource("image/arrow_down.png")));
-    private void setGearImageDown(){
+
+    private void setGearImageDown() {
         gearImageView.setImage(arrowDownImage);
     }
 
-    private void setGearImage(int index){
+    private void setGearImage(int index) {
         gearImageView.setImage(gearImageList.get(index));
     }
 
@@ -151,5 +165,23 @@ public class GearController implements GearInterface, RPMInterface{
     public void setMaxGear(int maxGear) {
         this.maxGear = maxGear;
     }
-}
 
+
+    private WrongGearSession session;
+
+    private void startWrongGearSession() {
+        session = new WrongGearSession();
+        session.setStartTime(rpmTimestamp);
+        session.setGear(gearStatus);
+    }
+
+    private void endWrongGearSession() {
+        long diff = rpmTimestamp.getTime() - session.getStartTime().getTime();
+        session.setDuration((int) diff);
+        System.out.println("Diff " + diff);
+        if(diff >= 2000){
+            DatabaseManager.insertWrongGearSession(session);
+        }
+        session = null;
+    }
+}

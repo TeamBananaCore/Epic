@@ -34,7 +34,7 @@ public class SpeedController implements SpeedInterface {
     public void initialize(){
         Constants.PARSER.addToSpeedObservers(this);
         SettingsEPIC settings = DatabaseManager.getSettings();
-        displayingSpeed = settings.getSpeeddisplay();
+        //displayingSpeed = settings.getSpeeddisplay();
         speedText.setVisible(displayingSpeed);
     }
 

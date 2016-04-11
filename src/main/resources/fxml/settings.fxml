@@ -26,7 +26,7 @@
    <children>
    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" maxHeight="320.0" maxWidth="480.0" minHeight="292.0" minWidth="480.0" prefHeight="320.0" prefWidth="480.0" styleClass="scrollPane" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" styleClass="master_scroll_pane">
+          <AnchorPane minHeight="900.0" minWidth="0.0" styleClass="master_scroll_pane">
                <children>
                   <AnchorPane layoutX="4.0" layoutY="6.0" minWidth="442.0" prefHeight="255.0" prefWidth="400.0" styleClass="scrollContentPane">
                      <children>
@@ -181,7 +181,7 @@
                         <Line endX="300.0" layoutX="120.0" layoutY="45.0" startX="-100.0" />
                      </children>
                   </AnchorPane>
-                   <AnchorPane layoutX="14.0" layoutY="780.0" minHeight="0.0" minWidth="442.0" prefWidth="442.0" styleClass="scrollContentPane">
+                   <AnchorPane layoutX="4.0" layoutY="780.0" minHeight="0.0" prefHeight="100" minWidth="442.0" prefWidth="442.0" styleClass="scrollContentPane">
                        <children>
                            <Label layoutX="20.0" layoutY="9.0" text="Theme">
                                <font>

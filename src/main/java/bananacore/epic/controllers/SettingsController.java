@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 
 public class SettingsController implements SpeedInterface, ViewController {
 
@@ -25,11 +26,18 @@ public class SettingsController implements SpeedInterface, ViewController {
 
     @FXML private AnchorPane numpadPane;
 
+    @FXML private ToggleGroup themeGroup;
+    private HashMap<String, Integer> themeValues;
+
     private int interval = 2;
     private boolean fuelDisplay = false;
     private boolean speedDisplay = false;
 //
     public void initialize(){
+        themeValues = new HashMap<>();
+        themeValues.put("adaptable", 0);
+        themeValues.put("day", 1);
+        themeValues.put("night", 2);
         //numpadController.getNumber();
         intervalLabel.setText(addSpace(interval));
         scrollPane.setFitToWidth(true);
@@ -87,6 +95,7 @@ public class SettingsController implements SpeedInterface, ViewController {
         Constants.settingsEPIC.setFueldisplay(fuelDisplay);
         Constants.settingsEPIC.setSpeeddisplay(speedDisplay);
         Constants.settingsEPIC.setScreeninterval(interval);
+        Constants.settingsEPIC.setTheme(themeValues.getOrDefault(((RadioButton)themeGroup.getSelectedToggle()).getText().toLowerCase(), 0));
 
         //local to db
         DatabaseManager.updateSettings(Constants.settingsEPIC);

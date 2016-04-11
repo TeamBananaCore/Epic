@@ -29,7 +29,7 @@ public class App extends Application{
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/container.fxml"));
             root = loader.load();
             Constants.CONTAINER = loader.getController();
-
+            Constants.STYLER = new StyleChooser(Constants.CONTAINER);
         } catch (Exception e) {
             e.printStackTrace();
             Platform.exit();

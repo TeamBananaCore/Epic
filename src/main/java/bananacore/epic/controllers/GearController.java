@@ -178,7 +178,6 @@ public class GearController implements GearInterface, RPMInterface {
     private void endWrongGearSession() {
         long diff = rpmTimestamp.getTime() - session.getStartTime().getTime();
         session.setDuration((int) diff);
-        System.out.println("Diff " + diff);
         if(diff >= 2000){
             DatabaseManager.insertWrongGearSession(session);
         }

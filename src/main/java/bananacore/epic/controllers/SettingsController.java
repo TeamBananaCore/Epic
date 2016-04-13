@@ -252,7 +252,7 @@ public class SettingsController implements SpeedInterface, ViewController {
         Constants.settingsEPIC.setWeight(weightFromNumpad);
         Constants.settingsEPIC.setGetNumberOfGears(getNumberOfGearsSelected());
 
-        //local to db
+        //local settings to db
         DatabaseManager.updateSettings(Constants.settingsEPIC);
         showMain();
 

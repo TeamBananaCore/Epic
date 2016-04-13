@@ -1,12 +1,7 @@
 package bananacore.epic.models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
 import bananacore.epic.Constants;
-
-import javax.persistence.*;
 import java.util.Observable;
 
 @Entity(name="Settings")

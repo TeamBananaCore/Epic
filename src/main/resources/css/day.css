@@ -58,6 +58,26 @@
     -fx-background-size: 100px;
     -fx-font-size: 20px;
 }
+
+/* Fuel bar style */
+
+.fuel_bar {
+    -fx-fill: #0fff13;
+}
+
+.fuel_bar_container {
+    -fx-border-style: solid;
+    -fx-border-color: -fx-logo-color;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+}
+
+.fuel_bar_container .label .text{
+    -fx-font-size: 60px;
+    -fx-font-weight: bold;
+    -fx-stroke: black;
+    -fx-stroke-width: 2px;
+}
  /*---------Menubar---------*/
 .menubar{
     -fx-fill: #747474;

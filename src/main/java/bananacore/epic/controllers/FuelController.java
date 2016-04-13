@@ -16,9 +16,11 @@ import javafx.scene.text.Text;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
+import java.util.Observable;
+import java.util.Observer;
 
 
-public class FuelController implements OdometerInterface, FuelInterface {
+public class FuelController implements OdometerInterface, FuelInterface, Observer{
 
 
     public static final double MAX_FUEL_CONSUMED_VALUE = 4294967295.0;
@@ -58,6 +60,8 @@ public class FuelController implements OdometerInterface, FuelInterface {
 
         fuelUsageText.setVisible(displayingFuelUsage);
         kmLeftText.setVisible(displayingKmLeft);
+
+        Constants.settingsEPIC.addObserver(this);
     }
 
     @Override
@@ -176,4 +180,12 @@ public class FuelController implements OdometerInterface, FuelInterface {
         return 0.0;
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        //displayingFuelUsage = Constants.settingsEPIC.getFueldisplay();
+        displayingKmLeft = Constants.settingsEPIC.getFueldisplay();
+        switchFrequency = Constants.settingsEPIC.getScreeninterval();
+        tankSize = Constants.settingsEPIC.getFuelsize();
+        kmLeftText.setVisible(displayingKmLeft);
+    }
 }

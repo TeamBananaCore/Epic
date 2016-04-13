@@ -2,13 +2,13 @@
     -fx-logo-color: #49caf5;
     -fx-standard-background: #333;
     -fx-label-color: white;
-    -fx-font-family: sans-serif;
-    -fx-font-size: 20px;
 }
 
 .root {
     -fx-background-color: -fx-standard-background;
     -fx-text-fill: -fx-label-color;
+    -fx-font-family: sans-serif;
+    -fx-font-size: 20px;
 }
 
 .label{
@@ -45,6 +45,27 @@
     -fx-padding: 10px;
 }
 
+/* Graph styles */
+
+.graph > .graph_label{
+    -fx-font-size: .8em !important;
+}
+
+.graph > .graph_value_labels > .label {
+    -fx-font-size: .6em !important;
+}
+
+.axis{
+    -fx-stroke: #636363;
+    -fx-stroke-width: 2px;
+}
+
+.graph_button {
+    -fx-background-radius: 50px;
+    -fx-background-size: 100px;
+    -fx-font-size: 20px;
+}
+
 /* Fuel bar style */
 
 .fuel_bar {
@@ -79,27 +100,22 @@
     -fx-effect: dropshadow(three-pass-box, #4b4b4b, 10, 0, 0, 0);
 }
 
-/* Graph styles */
-
-.graph_label{
-    -fx-font-size: 1.2em;
-}
-
-.axis{
-    -fx-stroke: #636363;
-    -fx-stroke-width: 2px;
-}
-
-.graph_button {
-    -fx-background-radius: 50px;
-    -fx-background-size: 100px;
-    -fx-font-size: 20px;
-}
-
 /* Settings */
-.master_scroll_pane {
+
+.master_scroll_pane{
     -fx-background-color: -fx-standard-background;
-    -fx-text-fill: white;
+    -fx-stroke: #636363;
+}
+
+.scrollContentPane{
+    -fx-background-color: #747474;
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow(three-pass-box, #4b4b4b, 10, 0, 0, 0);
+}
+
+.scrollPane{
+    -fx-background-insets: 10;
+    -fx-text-fill: whitesmoke;
 }
 
 .scroll_content_pane {
@@ -108,6 +124,12 @@
 
 .settings_final_button {
     -fx-font-size: 15px;
+    -fx-background-radius: 100px;
+    -fx-effect: dropshadow(three-pass-box, #4b4b4b, 3, 0, 0, 0);
+}
+
+.numpad_button {
+    -fx-font-size: 32px;
 }
 
 /* Misc */

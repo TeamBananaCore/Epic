@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 
 public class SettingsController implements SpeedInterface, ViewController {
 
@@ -25,28 +26,35 @@ public class SettingsController implements SpeedInterface, ViewController {
 
     @FXML private AnchorPane numpadPane;
 
+    @FXML private ToggleGroup themeGroup;
+    private HashMap<String, Integer> themeValues;
+
     private int interval = 2;
     private boolean fuelDisplay = false;
     private boolean speedDisplay = false;
 //
     public void initialize(){
+        themeValues = new HashMap<>();
+        themeValues.put("adaptable", 0);
+        themeValues.put("day", 1);
+        themeValues.put("night", 2);
         //numpadController.getNumber();
         intervalLabel.setText(addSpace(interval));
         scrollPane.setFitToWidth(true);
         Constants.PARSER.addToSpeedObservers(this);
         numpadController=Constants.numpadController;
         numpadController.addSettingsController(this);
-        tanksizeLabel.setText(Integer.toString(Constants.settingsEPIC.getFuelsize()));
-        weightLabel.setText(Integer.toString(Constants.settingsEPIC.getWeight()));
+        setTanksizeLabel(Integer.toString(Constants.settingsEPIC.getFuelsize()));
+        setWeightLabel(Integer.toString(Constants.settingsEPIC.getWeight()));
     }
 
     //updates Tank or wightlabel. is called from th eNumpadcontrolller.
     public void setWeightOrSize(String value){
         if (toggleNumpad) {
-            tanksizeLabel.setText(value);
+            setTanksizeLabel(value);
             Constants.settingsEPIC.setFuelsize(Integer.valueOf(value));
         } else {
-            weightLabel.setText(value);
+            setWeightLabel(value);
             Constants.settingsEPIC.setWeight(Integer.valueOf(value));
 
         }
@@ -87,6 +95,7 @@ public class SettingsController implements SpeedInterface, ViewController {
         Constants.settingsEPIC.setFueldisplay(fuelDisplay);
         Constants.settingsEPIC.setSpeeddisplay(speedDisplay);
         Constants.settingsEPIC.setScreeninterval(interval);
+        Constants.settingsEPIC.setTheme(themeValues.getOrDefault(((RadioButton)themeGroup.getSelectedToggle()).getText().toLowerCase(), 0));
 
         //local to db
         DatabaseManager.updateSettings(Constants.settingsEPIC);
@@ -193,7 +202,7 @@ public class SettingsController implements SpeedInterface, ViewController {
     }
     @FXML
     private void setTanksizeLabel(String value) {
-        tanksizeLabel.setText(value + " L");
+        tanksizeLabel.setText(value + " l");
     }
     @FXML
     private void setWeightLabel(String value) {

@@ -29,18 +29,9 @@ package bananacore.epic;
 //
 //    public Lightsensor(){
 //        logger = LoggerFactory.getLogger(this.getClass());
-//
-//        while (true){
-//            System.out.println(readAdc());
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
 //    }
 //
-//    private int readAdc(){
+//    public int readAdc(){
 //        chipSelect.setState(PinState.HIGH);
 //        chipSelect.setState(PinState.LOW);
 //        clk.setState(PinState.LOW);
@@ -66,3 +57,36 @@ package bananacore.epic;
 //    }
 //}
 // End real code
+
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+public class Lightsensor{
+    private Slider slider;
+
+    private Stage stage;
+
+    public Lightsensor(){
+        stage = new Stage();
+        Pane pane = new Pane();
+        slider = new Slider(0, 255, 150);
+        Label label = new Label();
+        label.textProperty().bind(slider.valueProperty().asString());
+        HBox hbox = new HBox(slider, label);
+        pane.getChildren().add(hbox);
+        stage.setScene(new Scene(pane));
+        stage.show();
+    }
+
+    public Stage getStage(){
+        return stage;
+    }
+
+    public int readAdc(){
+        return (int)slider.getValue();
+    }
+}

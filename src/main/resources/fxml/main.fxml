@@ -13,7 +13,7 @@
     <bottom>
         <fx:include fx:id="break" source="brake.fxml"/>
     </bottom>
-    <HBox layoutY="-135">
+    <HBox layoutY="-140">
         <fx:include source="menu.fxml" fx:id="menu"/>
     </HBox>
 </BorderPane>

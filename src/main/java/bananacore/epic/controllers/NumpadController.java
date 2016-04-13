@@ -3,6 +3,7 @@ package bananacore.epic.controllers;
 import bananacore.epic.Constants;
 import bananacore.epic.interfaces.NumpadInterface;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
@@ -11,18 +12,18 @@ public class NumpadController  {
     private String numberview;
     // private Text numberview;
     @FXML private Text title;
-    @FXML private Text seven;
-    @FXML private Text eight;
-    @FXML private Text nine;
-    @FXML private Text four;
-    @FXML private Text five;
-    @FXML private Text six;
-    @FXML private Text one;
-    @FXML private Text two;
-    @FXML private Text three;
-    @FXML private Text backspace;
-    @FXML private Text zero;
-    @FXML private Text ok;
+    @FXML private Button seven;
+    @FXML private Button eight;
+    @FXML private Button nine;
+    @FXML private Button four;
+    @FXML private Button five;
+    @FXML private Button six;
+    @FXML private Button one;
+    @FXML private Button two;
+    @FXML private Button three;
+    @FXML private Button backspace;
+    @FXML private Button zero;
+    @FXML private Button ok;
     NumpadInterface user;
     @FXML private AnchorPane numberpane;
 
@@ -57,7 +58,7 @@ public class NumpadController  {
     public void onePressed() {
         if (numberview.equals("0")) {
             numberview="1";
-        } else {
+        } else if (numberview.length() < 7)  {
             numberview=(numberview + 1);
         }
         changeSettingsControllerText();
@@ -66,7 +67,7 @@ public class NumpadController  {
     public void twoPressed() {
         if (numberview.equals("0")) {
             numberview=("2");
-        } else {
+        } else if (numberview.length() < 7)  {
             numberview=(numberview + 2);
         }
         changeSettingsControllerText();
@@ -75,7 +76,7 @@ public class NumpadController  {
     public void threePressed() {
         if (numberview.equals("0")) {
             numberview=("3");
-        } else {
+        } else if (numberview.length() < 7)  {
             numberview=(numberview + 3);
         }
         changeSettingsControllerText();
@@ -85,7 +86,7 @@ public class NumpadController  {
     public void fourPressed() {
         if (numberview.equals("0")) {
             numberview=("4");
-        } else {
+        } else if (numberview.length() < 7) {
             numberview=(numberview + 4);
         }
         changeSettingsControllerText();
@@ -95,7 +96,7 @@ public class NumpadController  {
     public void fivePressed() {
         if (numberview.equals("0")) {
             numberview=("5");
-        } else {
+        } else if (numberview.length() < 7)  {
             numberview=(numberview + 5);
         }
         changeSettingsControllerText();
@@ -105,15 +106,16 @@ public class NumpadController  {
     public void sixPressed() {
         if (numberview.equals("0")) {
             numberview=("6");
-        } else {
+        } else if (numberview.length() < 7)  {
             numberview=(numberview + 6);
         }
+        changeSettingsControllerText();
     }
     @FXML
     public void sevenPressed() {
         if (numberview.equals("0")) {
             numberview=("7");
-        } else {
+        } else if (numberview.length() < 7)  {
             numberview=(numberview + 7);
         }
         changeSettingsControllerText();
@@ -123,7 +125,7 @@ public class NumpadController  {
     public void eightPressed() {
         if (numberview.equals("0")) {
             numberview=("8");
-        } else {
+        } else if (numberview.length() < 7)  {
             numberview=(numberview + 8);
         }
         changeSettingsControllerText();
@@ -133,15 +135,16 @@ public class NumpadController  {
     public void ninePressed() {
         if (numberview.equals("0")) {
             numberview=("9");
-        } else {
+        } else if (numberview.length() < 7)  {
             numberview=(numberview + 9);
         }
+        changeSettingsControllerText();
     }
     @FXML
     public void zeroPressed() {
         if (numberview.equals("0")) {
             numberview=("0");
-        } else {
+        } else if (numberview.length() < 7) {
             numberview=(numberview + 0);
         }
         changeSettingsControllerText();

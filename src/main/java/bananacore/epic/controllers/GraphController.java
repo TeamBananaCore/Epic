@@ -66,6 +66,7 @@ public class GraphController implements Initializable, SpeedInterface, ViewContr
         graph.clearDataSources();
         graph.addDataSource("Brakes", new GraphableList(DatabaseManager.getBrakeSessions(),"%"));
         graph.addDataSource("Fuel", new GraphableList(DatabaseManager.getFuelSessions(),"l/km"));
+        graph.addDataSource("Speed", new GraphableList(DatabaseManager.getSpeedSessions(), "km/h"));
         if (!DatabaseManager.brakeDataExistsBefore(startDate)) lastWeek.setDisable(true);
         else lastWeek.setDisable(false);
         if (!DatabaseManager.brakeDataExistsAfter(endDate)) nextWeek.setDisable(true);

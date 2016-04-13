@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -14,13 +20,15 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ToggleGroup?>
 <AnchorPane maxHeight="320.0" maxWidth="480.0" minHeight="320.0" minWidth="480.0" prefHeight="320.0" prefWidth="480.0" styleClass="master_scroll_pane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.controllers.SettingsController">
    <children>
    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" maxHeight="320.0" maxWidth="480.0" minHeight="292.0" minWidth="480.0" prefHeight="320.0" prefWidth="480.0" styleClass="scrollPane" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="779.0" prefWidth="479.0" styleClass="master_scroll_pane">
+          <AnchorPane minHeight="900.0" minWidth="0.0" styleClass="master_scroll_pane">
                <children>
-                  <AnchorPane layoutX="14.0" layoutY="6.0" minWidth="442.0" prefHeight="255.0" prefWidth="400.0" styleClass="scrollContentPane">
+                  <AnchorPane layoutX="4.0" layoutY="6.0" minWidth="442.0" prefHeight="255.0" prefWidth="400.0" styleClass="scrollContentPane">
                      <children>
                      <GridPane fx:id="infoSettingsPane" layoutX="-14.0" layoutY="44.0" prefHeight="192.0" prefWidth="480.0">
                      <columnConstraints>
@@ -51,7 +59,7 @@
                          </CheckBox>
                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                              <children>
-                                 <Button fx:id="decreaseIntervalButton" mnemonicParsing="false" onAction="#decreaseInterval" prefHeight="63.0" prefWidth="60.0" styleClass="settingsButton" text="-">
+                                 <Button fx:id="decreaseIntervalButton" mnemonicParsing="false" onAction="#decreaseInterval" prefHeight="63.0" prefWidth="60.0" styleClass="settings_final_button" text="-">
                                      <font>
                                          <Font size="20.0" />
                                      </font>
@@ -61,7 +69,7 @@
                                        <Font size="31.0" />
                                     </font>
                                  </Label>
-                                 <Button fx:id="increaseIntervalButton" mnemonicParsing="false" onAction="#increaseInterval" prefHeight="63.0" prefWidth="60.0" styleClass="settingsButton" text="+">
+                                 <Button fx:id="increaseIntervalButton" mnemonicParsing="false" onAction="#increaseInterval" prefHeight="63.0" prefWidth="60.0" styleClass="settings_final_button" text="+">
                                      <font>
                                          <Font size="20.0" />
                                      </font>
@@ -93,9 +101,9 @@
                      <Line endX="300.0" layoutX="115.0" layoutY="43.0" startX="-100.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="14.0" layoutY="275.0" minHeight="0.0" minWidth="442.0" prefHeight="260.0" prefWidth="442.0" styleClass="scrollContentPane">
+                  <AnchorPane layoutX="4.0" layoutY="275.0" minHeight="0.0" minWidth="442.0" prefHeight="260.0" prefWidth="442.0" styleClass="scrollContentPane">
                      <children>
-                        <Label fx:id="tanksizeLabel" layoutX="274.0" layoutY="121.0" prefHeight="34.0" prefWidth="75.0" text="0 L">
+                        <Label fx:id="tanksizeLabel" layoutX="274.0" layoutY="121.0" prefHeight="34.0" prefWidth="100.0" text="0 L">
                            <font>
                               <Font size="23.0" />
                            </font>
@@ -110,7 +118,7 @@
                               <Font size="22.0" />
                            </font>
                         </Button>
-                        <Label fx:id="weightLabel" layoutX="264.0" layoutY="195.0" prefHeight="32.0" prefWidth="75.0" text="0 kg">
+                        <Label fx:id="weightLabel" layoutX="264.0" layoutY="195.0" prefHeight="32.0" prefWidth="110.0" text="0 kg">
                            <font>
                               <Font size="23.0" />
                            </font>
@@ -133,7 +141,7 @@
                         <Line endX="300.0" layoutX="121.0" layoutY="44.0" startX="-100.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="16.0" layoutY="550.0" minHeight="0.0" minWidth="0.0" prefHeight="215.0" prefWidth="442.0" styleClass="scrollContentPane">
+                  <AnchorPane layoutX="4.0" layoutY="550.0" minHeight="0.0" minWidth="0.0" prefHeight="215.0" prefWidth="442.0" styleClass="scrollContentPane">
                      <children>
                         <Label fx:id="gearTitel" layoutX="28.0" layoutY="107.0" prefHeight="54.0" prefWidth="321.0" text="Number of Gears" underline="true">
                            <font>
@@ -173,14 +181,46 @@
                         <Line endX="300.0" layoutX="120.0" layoutY="45.0" startX="-100.0" />
                      </children>
                   </AnchorPane>
+                   <AnchorPane layoutX="4.0" layoutY="780.0" minHeight="0.0" prefHeight="100" minWidth="442.0" prefWidth="442.0" styleClass="scrollContentPane">
+                       <children>
+                           <Label layoutX="20.0" layoutY="9.0" text="Theme">
+                               <font>
+                                   <Font name="System Bold" size="25.0" />
+                               </font>
+                           </Label>
+                           <Line endX="300.0" layoutX="120.0" layoutY="45.0" startX="-100.0" />
+                           <HBox layoutX="28.0" layoutY="50.0" spacing="10">
+                               <fx:define>
+                                   <ToggleGroup fx:id="themeGroup" />
+                               </fx:define>
+                               <RadioButton toggleGroup="$themeGroup" text="Adaptable">
+                                   <font>
+                                       <Font size="21.0" />
+                                   </font>
+                               </RadioButton>
+                               <RadioButton toggleGroup="$themeGroup" text="Day">
+                                   <font>
+                                       <Font size="21.0" />
+                                   </font>
+                               </RadioButton>
+                               <RadioButton toggleGroup="$themeGroup" text="Night">
+                                   <font>
+                                       <Font size="21.0" />
+                                   </font>
+                               </RadioButton>
+                           </HBox>
+                       </children>
+                   </AnchorPane>
                </children>
             </AnchorPane>
          </content>
       </ScrollPane>
       <AnchorPane fx:id="numpadPane" prefHeight="306.0" prefWidth="286.0" visible="false">
-          <fx:include source="numpad.fxml" />
+         <children>
+             <fx:include source="numpad.fxml" />
+         </children>
       </AnchorPane>
-      <Button layoutX="265.0" layoutY="285.0" mnemonicParsing="false" onAction="#save" prefHeight="39.0" prefWidth="84.0" text="Save" styleClass="settings_final_button"/>
-      <Button layoutX="360.0" layoutY="285.0" mnemonicParsing="false" onAction="#cancel" prefHeight="39.0" prefWidth="84.0" text="Cancel" styleClass="settings_final_button"/>
+      <Button layoutX="265.0" layoutY="275.0" mnemonicParsing="false" onAction="#save" prefHeight="39.0" prefWidth="84.0" styleClass="settings_final_button" text="Save" />
+      <Button layoutX="360.0" layoutY="275.0" mnemonicParsing="false" onAction="#cancel" prefHeight="39.0" prefWidth="84.0" styleClass="settings_final_button" text="Cancel" />
    </children>
 </AnchorPane>

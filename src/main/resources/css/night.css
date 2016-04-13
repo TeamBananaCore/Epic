@@ -80,10 +80,16 @@
 }
 
 .fuel_bar_container .label .text{
-    -fx-font-size: 60px;
+    -fx-font-size: 50px;
     -fx-font-weight: bold;
     -fx-stroke: black;
     -fx-stroke-width: 2px;
+}
+
+.big_icon .text{
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-fill: white;
 }
 
 /* Menu styles */
@@ -143,6 +149,7 @@
     -fx-font-size: 85px;
     -fx-font-weight: bold;
     -fx-stroke: black;
+    -fx-fill: -fx-label-color;
     -fx-stroke-width: 2px;
 }
 

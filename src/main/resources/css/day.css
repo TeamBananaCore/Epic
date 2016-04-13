@@ -73,10 +73,17 @@
 }
 
 .fuel_bar_container .label .text{
-    -fx-font-size: 60px;
+    -fx-font-size: 50px;
     -fx-font-weight: bold;
     -fx-stroke: black;
+    -fx-fill: -fx-standard-background;
     -fx-stroke-width: 2px;
+}
+
+.big_icon .text{
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-fill: black;
 }
  /*---------Menubar---------*/
 .menubar{
@@ -111,6 +118,13 @@
 .settingsButton{
       -fx-background-radius: 100px;
       -fx-effect: dropshadow(three-pass-box, #4b4b4b, 3, 0, 0, 0);
+}
+
+.speed_text .text{
+    -fx-font-size: 85px;
+    -fx-font-weight: bold;
+    -fx-fill: black;
+    -fx-stroke-width: 0px;
 }
 
 .settings_final_button {

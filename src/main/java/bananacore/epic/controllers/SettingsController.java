@@ -139,7 +139,7 @@ public class SettingsController implements SpeedInterface, ViewController {
             manual.setSelected(true);
             auto.setSelected(false);
 
-            markGearNumber();
+            markAndUnmarkGear();
         }
     }
     //used when all is default set false

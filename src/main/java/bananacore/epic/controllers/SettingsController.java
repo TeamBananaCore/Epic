@@ -15,6 +15,7 @@ public class SettingsController implements SpeedInterface, ViewController {
 
     @FXML private CheckBox displayFuelCheckbox;
     @FXML private CheckBox displaySpeedCheckbox;
+    @FXML private CheckBox displayFuelUsageCheckbox;
     @FXML private Button decreaseIntervalButton;
     @FXML private Button increaseIntervalButton;
     @FXML private Label intervalLabel;
@@ -63,6 +64,7 @@ public class SettingsController implements SpeedInterface, ViewController {
 
     private int interval = 2;
     private boolean fuelDisplay = false;
+    private boolean fuelUsageDisplay = false;
     private boolean speedDisplay = false;
     private int oldTheme;
 //
@@ -86,6 +88,7 @@ public class SettingsController implements SpeedInterface, ViewController {
         markTheme();
         displayFuelCheckbox.setSelected(Constants.settingsEPIC.getFueldisplay());
         displaySpeedCheckbox.setSelected(Constants.settingsEPIC.getSpeeddisplay());
+        displayFuelUsageCheckbox.setSelected(Constants.settingsEPIC.getFuelUsagedisplay());
     }
 
     //assumes all false
@@ -236,11 +239,13 @@ public class SettingsController implements SpeedInterface, ViewController {
     @FXML
     public void save(){
         fuelDisplay = displayFuelCheckbox.isSelected();
+        fuelUsageDisplay = displayFuelUsageCheckbox.isSelected();
         speedDisplay = displaySpeedCheckbox.isSelected();
         interval = Integer.parseInt(intervalLabel.getText().trim());
 
         //updates local version. (the rest is updated on press.)
         Constants.settingsEPIC.setFueldisplay(fuelDisplay);
+        Constants.settingsEPIC.setFuelUsagedisplay(fuelUsageDisplay);
         Constants.settingsEPIC.setSpeeddisplay(speedDisplay);
         Constants.settingsEPIC.setScreeninterval(interval);
         Constants.settingsEPIC.setTheme(themeValues.getOrDefault(((RadioButton) themeGroup.getSelectedToggle()).getText().toLowerCase(), 0));

@@ -31,6 +31,9 @@ public class SettingsEPIC extends Observable{
     @Column(name = "fueldisplay")
     private boolean fueldisplay;
 
+    @Column(name = "displayfuelusage")
+    private boolean displayfuelusage;
+
     @Column(name = "speeddisplay")
     private boolean speeddisplay;
 
@@ -113,6 +116,15 @@ public class SettingsEPIC extends Observable{
         valueHasChanged();
     }
 
+    public boolean getFuelUsagedisplay() {
+        return displayfuelusage;
+    }
+
+    public void setFuelUsagedisplay(boolean fuelusagedisplay) {
+        this.displayfuelusage = fuelusagedisplay;
+        valueHasChanged();
+    }
+
     public boolean getFueldisplay() {
         return fueldisplay;
     }
@@ -172,4 +184,5 @@ public class SettingsEPIC extends Observable{
         setChanged();
         notifyObservers();
     }
+
 }

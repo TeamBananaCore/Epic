@@ -37,7 +37,7 @@ public class GearController implements GearInterface, RPMInterface, Observer {
     private Timestamp gearTimestamp;
 
     private double rpmStatus;
-    private int gearStatus = 4;
+    private int gearStatus = 1;
     private int maxGear = 6;
 
     private String carType = "gas";
@@ -81,13 +81,11 @@ public class GearController implements GearInterface, RPMInterface, Observer {
             if (!(gearStatus == maxGear) && rpmStatus >= thresholdRpmGas) {
                 setGearImageUp();
                 if (session == null && !isAuto) {
-                    System.out.println("Start");
                     startWrongGearSession();
                 }
             } else if (!(gearStatus == 1) && rpmStatus > 0 && rpmStatus <= lowerThresholdRpmGas) {
                 setGearImageDown();
                 if (session == null && !isAuto) {
-                    System.out.println("Start");
                     startWrongGearSession();
                 }
             } else if (gearStatus >= 0 && gearStatus < 7) {
@@ -196,6 +194,5 @@ public class GearController implements GearInterface, RPMInterface, Observer {
     public void update(Observable o, Object arg) {
         this.isAuto = Constants.settingsEPIC.getAuto();
         this.maxGear = Constants.settingsEPIC.getGetNumberOfGears();
-        System.out.println(isAuto);
     }
 }

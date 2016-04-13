@@ -135,7 +135,7 @@ public class SettingsController implements SpeedInterface, ViewController {
         Constants.settingsEPIC.setFueldisplay(fuelDisplay);
         Constants.settingsEPIC.setSpeeddisplay(speedDisplay);
         Constants.settingsEPIC.setScreeninterval(interval);
-        Constants.settingsEPIC.setTheme(themeValues.getOrDefault(((RadioButton)themeGroup.getSelectedToggle()).getText().toLowerCase(), 0));
+        //Constants.settingsEPIC.setTheme(themeValues.getOrDefault(((RadioButton)themeGroup.getSelectedToggle()).getText().toLowerCase(), 0));
 
         //local to db
         DatabaseManager.updateSettings(Constants.settingsEPIC);

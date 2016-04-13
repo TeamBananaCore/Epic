@@ -15,8 +15,10 @@ import bananacore.epic.interfaces.observers.RPMInterface;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-public class GearController implements GearInterface, RPMInterface {
+public class GearController implements GearInterface, RPMInterface, Observer {
 
     @FXML
     private ImageView gearImageView;
@@ -41,11 +43,15 @@ public class GearController implements GearInterface, RPMInterface {
     private String carType = "gas";
     private double opacity = 1;
 
+    private Boolean isAuto;
+
     public void initialize() {
         Constants.PARSER.addToGearObservers(this);
         Constants.PARSER.addToRPMObservers(this);
         initGearImageList();
         setGearImage(gearStatus);
+        Constants.settingsEPIC.addObserver(this);
+        this.isAuto = Constants.settingsEPIC.getAuto();
     }
 
     @Override
@@ -74,12 +80,14 @@ public class GearController implements GearInterface, RPMInterface {
         if (carType.equals("gas")) {
             if (!(gearStatus == maxGear) && rpmStatus >= thresholdRpmGas) {
                 setGearImageUp();
-                if (session == null) {
+                if (session == null && !isAuto) {
+                    System.out.println("Start");
                     startWrongGearSession();
                 }
             } else if (!(gearStatus == 1) && rpmStatus > 0 && rpmStatus <= lowerThresholdRpmGas) {
                 setGearImageDown();
-                if (session == null) {
+                if (session == null && !isAuto) {
+                    System.out.println("Start");
                     startWrongGearSession();
                 }
             } else if (gearStatus >= 0 && gearStatus < 7) {
@@ -178,10 +186,16 @@ public class GearController implements GearInterface, RPMInterface {
     private void endWrongGearSession() {
         long diff = rpmTimestamp.getTime() - session.getStartTime().getTime();
         session.setDuration((int) diff);
-        System.out.println("Diff " + diff);
         if(diff >= 2000){
             DatabaseManager.insertWrongGearSession(session);
         }
         session = null;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        this.isAuto = Constants.settingsEPIC.getAuto();
+        this.maxGear = Constants.settingsEPIC.getGetNumberOfGears();
+        System.out.println(isAuto);
     }
 }

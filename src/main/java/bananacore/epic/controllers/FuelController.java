@@ -5,6 +5,7 @@ import bananacore.epic.interfaces.observers.FuelInterface;
 import bananacore.epic.interfaces.observers.OdometerInterface;
 import bananacore.epic.DatabaseManager;
 import bananacore.epic.models.FuelSession;
+import bananacore.epic.models.SettingsEPIC;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -15,9 +16,11 @@ import javafx.scene.text.Text;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
+import java.util.Observable;
+import java.util.Observer;
 
 
-public class FuelController implements OdometerInterface, FuelInterface {
+public class FuelController implements OdometerInterface, FuelInterface, Observer{
 
 
     public static final double MAX_FUEL_CONSUMED_VALUE = 4294967295.0;
@@ -36,14 +39,29 @@ public class FuelController implements OdometerInterface, FuelInterface {
     private Timestamp startOfInterval = null;
 
     private boolean odoUpdated = false;
+    private boolean displayingFuelUsage = false;
+    private boolean displayingKmLeft = true;
+    private int switchFrequency = 5;
 
     @FXML private Pane fuelLeftPane;
     @FXML private Rectangle fuelLeftBar;
     @FXML private Label kmLeftText;
+    @FXML private Label fuelUsageText;
 
     public void initialize(){
         Constants.PARSER.addToFuelObservers(this);
         Constants.PARSER.addToOdometerObservers(this);
+        SettingsEPIC settings = DatabaseManager.getSettings();
+        displayingKmLeft = settings.getFueldisplay();
+        displayingFuelUsage = false;
+        //displayingFuelUsage = settings.getFuelUsageDisplay();
+        switchFrequency = settings.getScreeninterval();
+        tankSize = settings.getFuelsize();
+
+        fuelUsageText.setVisible(displayingFuelUsage);
+        kmLeftText.setVisible(displayingKmLeft);
+
+        Constants.settingsEPIC.addObserver(this);
     }
 
     @Override
@@ -54,28 +72,6 @@ public class FuelController implements OdometerInterface, FuelInterface {
             updateEstimatedKmLeft(timestamp);
             odoUpdated = false;
         }
-    }
-
-    private void updateFuelConsumed(double fuelConsumed) {
-        if (validFuelConsumedValue(fuelConsumed)) {
-            this.fuelConsumedInterval = fuelConsumed-fuelIntervalStart;
-            if(odoUpdated){
-                fuelIntervalStart = fuelConsumed;
-                updateFuelUsage();
-            }
-        }
-    }
-
-    private void updateFuelUsage() {
-        if(distanceTravelledInterval < 1 && distanceTravelledInterval >= 0.5){
-            fuelUsageInterval = fuelConsumedInterval / distanceTravelledInterval;
-        }
-    }
-
-    private void updateFuelLevel(double fuelConsumed) {
-        totalFuelConsumed = tankSize-(tankSize/100*startFuelLevelPercentage) + fuelConsumed;
-        this.fuelLevelPercentage = ((startFuelLevelPercentage*tankSize/100)-totalFuelConsumed)*(100/tankSize);
-        updateFuelLeftRectangle();
     }
 
     @Override
@@ -94,16 +90,51 @@ public class FuelController implements OdometerInterface, FuelInterface {
 
     }
 
+    private void updateFuelConsumed(double fuelConsumed) {
+        if (validFuelConsumedValue(fuelConsumed)) {
+            this.fuelConsumedInterval = fuelConsumed-fuelIntervalStart;
+            if(odoUpdated){
+                fuelIntervalStart = fuelConsumed;
+                updateFuelUsage();
+            }
+        }
+    }
+
+    private void updateFuelUsage() {
+        if(distanceTravelledInterval < 1 && distanceTravelledInterval >= 0.5){
+            fuelUsageInterval = fuelConsumedInterval / distanceTravelledInterval;
+        }
+        if(displayingFuelUsage){
+            fuelUsageText.setText(String.valueOf(fuelUsageInterval).substring(0,4) + " l/km");
+        }
+    }
+
+    private void updateFuelLevel(double fuelConsumed) {
+        totalFuelConsumed = tankSize-(tankSize/100*startFuelLevelPercentage) + fuelConsumed;
+        this.fuelLevelPercentage = ((startFuelLevelPercentage*tankSize/100)-totalFuelConsumed)*(100/tankSize);
+        updateFuelLeftRectangle();
+    }
+
     private void updateEstimatedKmLeft(Timestamp endOfInterval) {
         estimatedKmLeft = round((tankSize - totalFuelConsumed) / fuelUsageInterval, 1);
 
         if (startOfInterval != null){
             FuelSession session = new FuelSession((float) fuelUsageInterval, startOfInterval, (int)(endOfInterval.getTime()-startOfInterval.getTime())/1000);
             DatabaseManager.insertFuelSession(session);
+
+            if((int) endOfInterval.getTime()-startOfInterval.getTime() > switchFrequency*1000){
+                if (kmLeftText.isVisible() && displayingFuelUsage){
+                    kmLeftText.setVisible(false);
+                    fuelUsageText.setVisible(true);
+                } else if (fuelUsageText.isVisible() && displayingKmLeft){
+                    kmLeftText.setVisible(true);
+                    fuelUsageText.setVisible(false);
+                }
+            }
         }
 
-        startOfInterval = endOfInterval;
 
+        startOfInterval = endOfInterval;
         updateEstimatedKmLeftText();
     }
 
@@ -120,12 +151,12 @@ public class FuelController implements OdometerInterface, FuelInterface {
     }
 
     private void updateFuelLeftRectangle() {
-        if (fuelLevelPercentage != 0.0){
+        if (fuelLevelPercentage != 0.0) {
             fuelLeftBar.setWidth(fuelLevelPercentage * 276 / 100);
-            if (fuelLevelPercentage < 75){
-                if (fuelLevelPercentage > 50){
+            if (fuelLevelPercentage < 75) {
+                if (fuelLevelPercentage > 50) {
                     fuelLeftBar.setFill(Color.YELLOW);
-                } else if (fuelLevelPercentage > 25){
+                } else if (fuelLevelPercentage > 25) {
                     fuelLeftBar.setFill(Color.ORANGE);
                 } else {
                     fuelLeftBar.setFill(Color.RED);
@@ -135,7 +166,9 @@ public class FuelController implements OdometerInterface, FuelInterface {
     }
 
     private void updateEstimatedKmLeftText() {
-        kmLeftText.setText(String.valueOf(estimatedKmLeft) + " km");
+        if(displayingKmLeft){
+            kmLeftText.setText(String.valueOf(estimatedKmLeft) + " km");
+        }
     }
 
     public static double round(double value, int places) {
@@ -147,4 +180,12 @@ public class FuelController implements OdometerInterface, FuelInterface {
         return 0.0;
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        //displayingFuelUsage = Constants.settingsEPIC.getFueldisplay();
+        displayingKmLeft = Constants.settingsEPIC.getFueldisplay();
+        switchFrequency = Constants.settingsEPIC.getScreeninterval();
+        tankSize = Constants.settingsEPIC.getFuelsize();
+        kmLeftText.setVisible(displayingKmLeft);
+    }
 }

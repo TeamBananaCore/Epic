@@ -1,14 +1,12 @@
 package bananacore.epic.models;
 
-
-import bananacore.epic.Constants;
-import bananacore.epic.DatabaseManager;
-
 import javax.persistence.*;
+import bananacore.epic.Constants;
+import java.util.Observable;
 
 @Entity(name="Settings")
 
-public class SettingsEPIC {
+public class SettingsEPIC extends Observable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,6 +70,7 @@ public class SettingsEPIC {
     public void setAuto(Boolean auto) {
         this.auto = auto;
         //DatabaseManager.updateSettings(this);
+        valueHasChanged();
     }
 
     public int getGetNumberOfGears() {
@@ -80,6 +79,7 @@ public class SettingsEPIC {
 
     public void setGetNumberOfGears(int getNumberOfGears) {
         this.getNumberOfGears = getNumberOfGears;
+        valueHasChanged();
     }
 
     public int getWeight() {
@@ -89,6 +89,7 @@ public class SettingsEPIC {
     public void setWeight(int weight) {
         this.weight = weight;
        // DatabaseManager.updateSettings(this);
+        valueHasChanged();
 
     }
 
@@ -99,7 +100,7 @@ public class SettingsEPIC {
     public void setGasoline(Boolean gasoline) {
         this.gasoline = gasoline;
         //DatabaseManager.updateSettings(this);
-
+        valueHasChanged();
     }
 
     public int getFuelsize() {
@@ -109,7 +110,7 @@ public class SettingsEPIC {
     public void setFuelsize(int fuelsize) {
         this.fuelsize = fuelsize;
        // DatabaseManager.updateSettings(this);
-
+        valueHasChanged();
     }
 
     public boolean getFueldisplay() {
@@ -118,6 +119,7 @@ public class SettingsEPIC {
 
     public void setFueldisplay(boolean fueldisplay) {
         this.fueldisplay = fueldisplay;
+        valueHasChanged();
     }
 
     public boolean getSpeeddisplay() {
@@ -126,6 +128,7 @@ public class SettingsEPIC {
 
     public void setSpeeddisplay(boolean speeddisplay) {
         this.speeddisplay = speeddisplay;
+        valueHasChanged();
     }
 
     public int getScreeninterval() {
@@ -134,6 +137,7 @@ public class SettingsEPIC {
 
     public void setScreeninterval(int screeninterval) {
         this.screeninterval = screeninterval;
+        valueHasChanged();
     }
 
     public int getTheme() {
@@ -162,5 +166,10 @@ public class SettingsEPIC {
                 ", gasoline=" + gasoline +
                 ", fuelsize=" + fuelsize +
                 '}';
+    }
+
+    public void valueHasChanged(){
+        setChanged();
+        notifyObservers();
     }
 }

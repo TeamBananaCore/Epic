@@ -3,6 +3,7 @@ package bananacore.epic.controllers;
 import bananacore.epic.Constants;
 import bananacore.epic.DatabaseManager;
 import bananacore.epic.interfaces.observers.SpeedInterface;
+import bananacore.epic.models.SettingsEPIC;
 import bananacore.epic.models.SpeedSession;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
@@ -10,10 +11,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import org.dom4j.datatype.DatatypeAttribute;
 
 import java.sql.Timestamp;
+import java.util.Observable;
+import java.util.Observer;
 
-public class SpeedController implements SpeedInterface {
+public class SpeedController implements SpeedInterface, Observer {
 
     @FXML
     Pane speedPane;
@@ -27,14 +31,21 @@ public class SpeedController implements SpeedInterface {
     private int avgSpeed;
     private final int logInterval = 60;
     private int lastSpeed = 0;
+    private boolean displayingSpeed = true;
 
     public void initialize(){
         Constants.PARSER.addToSpeedObservers(this);
+        SettingsEPIC settings = DatabaseManager.getSettings();
+        displayingSpeed = settings.getSpeeddisplay();
+        speedText.setVisible(displayingSpeed);
+        Constants.settingsEPIC.addObserver(this);
     }
 
     public void updateVehicleSpeed(int value, Timestamp timestamp) {
         if(lastSpeed != value) {
-            speedText.setText(String.valueOf(value) + " km/t");
+            if (displayingSpeed){
+                speedText.setText(String.valueOf(value) + " km/t");
+            }
             lastSpeed = value;
             totalSpeedForComputation += value;
             amountOfReadingsForComputation++;
@@ -55,5 +66,11 @@ public class SpeedController implements SpeedInterface {
                 amountOfReadingsForComputation = 0;
             }
         }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        displayingSpeed = Constants.settingsEPIC.getSpeeddisplay();
+        speedText.setVisible(displayingSpeed);
     }
 }

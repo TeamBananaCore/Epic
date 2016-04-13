@@ -5,6 +5,7 @@ import bananacore.epic.interfaces.Graphable;
 import javafx.beans.NamedArg;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -77,6 +78,8 @@ public class Graph extends Pane {
         this.getChildren().add(legends);
 
         VBox valueLabels = new VBox();
+        valueLabels.setAlignment(Pos.CENTER_RIGHT);
+        valueLabels.getStyleClass().add("graph_value_labels");
 
         for(String sourceName : dataSources.keySet()){
             GraphableList source = dataSources.get(sourceName);
@@ -103,12 +106,12 @@ public class Graph extends Pane {
             legend.getStyleClass().add("graph_label");
             legends.getChildren().add(legend);
 
-            line.setStroke(color);
             List<Double> points = line.getPoints();
             this.getChildren().add(line);
+            line.setStyle("-fx-stroke: " + getColorRGBString(color));
 
             Label valueLabel = new Label((int) source.getMax() + " " + source.getUnit());
-            valueLabel.setTextFill(color);
+            valueLabel.setStyle("-fx-text-fill: " + getColorRGBString(color));
             valueLabels.getChildren().add(valueLabel);
         }
         valueLabels.layoutXProperty().bind(Bindings.subtract(xOffset-5, valueLabels.widthProperty()));
@@ -139,5 +142,9 @@ public class Graph extends Pane {
             date = date.plusDays(daysPerLabel);
             this.getChildren().add(label);
         }
+    }
+
+    private String getColorRGBString(Color color){
+        return "rgb(" + color.getRed()*255 + ", " + color.getGreen()*255 + ", " + color.getBlue()*255 + ")";
     }
 }

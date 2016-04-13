@@ -64,6 +64,7 @@ public class SettingsController implements SpeedInterface, ViewController {
     private int interval = 2;
     private boolean fuelDisplay = false;
     private boolean speedDisplay = false;
+    private int oldTheme;
 //
     public void initialize(){
         themeValues = new HashMap<>();
@@ -90,6 +91,7 @@ public class SettingsController implements SpeedInterface, ViewController {
     //assumes all false
     private void markTheme(){
         int theme=Constants.settingsEPIC.getTheme();
+        oldTheme = Constants.settingsEPIC.getTheme();
         if (theme==0){
             adaptableTheme.setSelected(true);
         }
@@ -101,7 +103,7 @@ public class SettingsController implements SpeedInterface, ViewController {
         }
     }
     private void markAndUnmarkTheme(){
-        int theme=Constants.settingsEPIC.getTheme();
+        int theme = oldTheme;
         dayTheme.setSelected(false);
         adaptableTheme.setSelected(false);
         nightTheme.setSelected(false);
@@ -244,11 +246,13 @@ public class SettingsController implements SpeedInterface, ViewController {
         Constants.settingsEPIC.setSpeeddisplay(speedDisplay);
         Constants.settingsEPIC.setScreeninterval(interval);
         Constants.settingsEPIC.setTheme(themeValues.getOrDefault(((RadioButton) themeGroup.getSelectedToggle()).getText().toLowerCase(), 0));
+        oldTheme = Constants.settingsEPIC.getTheme();
 
         Constants.settingsEPIC.setAuto(auto.isSelected());
         Constants.settingsEPIC.setGasoline(gasoline.isSelected());
         Constants.settingsEPIC.setFuelsize(fuelsizeFromNumpad);
         Constants.settingsEPIC.setWeight(weightFromNumpad);
+
 
         //local to db
         DatabaseManager.updateSettings(Constants.settingsEPIC);
@@ -264,6 +268,7 @@ public class SettingsController implements SpeedInterface, ViewController {
     @FXML
     public void cancel() {
         updateButtonsFromSettingsEpic();
+        Constants.settingsEPIC.setTheme(oldTheme);
         showMain();
     }
 

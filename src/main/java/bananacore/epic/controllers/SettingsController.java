@@ -250,7 +250,7 @@ public class SettingsController implements SpeedInterface, ViewController {
         Constants.settingsEPIC.setGasoline(gasoline.isSelected());
         Constants.settingsEPIC.setFuelsize(fuelsizeFromNumpad);
         Constants.settingsEPIC.setWeight(weightFromNumpad);
-
+        Constants.settingsEPIC.setGetNumberOfGears(getNumberOfGearsSelected());
 
         //local to db
         DatabaseManager.updateSettings(Constants.settingsEPIC);
@@ -258,6 +258,21 @@ public class SettingsController implements SpeedInterface, ViewController {
 
 
     }
+
+    private int getNumberOfGearsSelected(){
+        int gear = Constants.settingsEPIC.getGetNumberOfGears();
+        //setts one true value in 4,5,6
+        if ( gear4.isSelected()  ){
+            return 4;
+        }
+        if(gear5.isSelected()){
+            return 5;
+        }
+        else{
+            return 6;
+        }
+    }
+
     @FXML
     public void changeTheme(){
         Constants.settingsEPIC.setTheme(themeValues.getOrDefault(((RadioButton) themeGroup.getSelectedToggle()).getText().toLowerCase(), 0));

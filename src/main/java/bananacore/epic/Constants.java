@@ -38,7 +38,7 @@ public class Constants {
     }
 
     private static double optimalSpeedReduction(){
-        return 10.0 / (50.0 * settingsEPIC.getWeight());
+        return 30.0 / (50.0 * settingsEPIC.getWeight());
     }
 
 }

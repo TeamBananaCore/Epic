@@ -71,7 +71,7 @@ public class PerformanceBar extends Pane {
         this.current = current;
 
         double pos = barPadding + (getPrefWidth()-barPadding*2);
-        hand.xProperty().setValue(barPadding);
+        hand.xProperty().setValue(0.5 * getPrefWidth());
         activeProperty.setValue(true);
         Timeline moveHand = new Timeline();
         moveHand.setCycleCount(1);

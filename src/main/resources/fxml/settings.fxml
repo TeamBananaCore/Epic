@@ -193,17 +193,17 @@
                                <fx:define>
                                    <ToggleGroup fx:id="themeGroup" />
                                </fx:define>
-                               <RadioButton toggleGroup="$themeGroup" text="Adaptable">
+                               <RadioButton fx:id="adaptableTheme"  toggleGroup="$themeGroup" text="Adaptable">
                                    <font>
                                        <Font size="21.0" />
                                    </font>
                                </RadioButton>
-                               <RadioButton toggleGroup="$themeGroup" text="Day">
+                               <RadioButton fx:id="dayTheme" toggleGroup="$themeGroup" text="Day" >
                                    <font>
                                        <Font size="21.0" />
                                    </font>
                                </RadioButton>
-                               <RadioButton toggleGroup="$themeGroup" text="Night">
+                               <RadioButton fx:id="nightTheme" toggleGroup="$themeGroup" text="Night">
                                    <font>
                                        <Font size="21.0" />
                                    </font>

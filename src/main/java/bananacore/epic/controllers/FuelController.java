@@ -16,6 +16,7 @@ import javafx.scene.text.Text;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -41,7 +42,8 @@ public class FuelController implements OdometerInterface, FuelInterface, Observe
     private boolean odoUpdated = false;
     private boolean displayingFuelUsage = false;
     private boolean displayingKmLeft = true;
-    private int switchFrequency = 5;
+    private int switchFrequency;
+    private Timestamp startOfSwitchInterval;
 
     @FXML private Pane fuelLeftPane;
     @FXML private Rectangle fuelLeftBar;
@@ -49,23 +51,55 @@ public class FuelController implements OdometerInterface, FuelInterface, Observe
     @FXML private Label fuelUsageText;
 
     public void initialize(){
+        startOfSwitchInterval = Timestamp.valueOf(LocalDateTime.now());
         Constants.PARSER.addToFuelObservers(this);
         Constants.PARSER.addToOdometerObservers(this);
         SettingsEPIC settings = DatabaseManager.getSettings();
         displayingKmLeft = settings.getFueldisplay();
-        displayingFuelUsage = false;
-        //displayingFuelUsage = settings.getFuelUsageDisplay();
+        displayingFuelUsage = settings.getFuelUsagedisplay();
         switchFrequency = settings.getScreeninterval();
         tankSize = settings.getFuelsize();
 
-        fuelUsageText.setVisible(displayingFuelUsage);
         kmLeftText.setVisible(displayingKmLeft);
+        if(!displayingKmLeft){
+            fuelUsageText.setVisible(displayingFuelUsage);
+        }
 
         Constants.settingsEPIC.addObserver(this);
     }
 
     @Override
     public void updateFuelConsumedSinceRestart(double value, Timestamp timestamp) {
+        Timestamp now = Timestamp.valueOf(LocalDateTime.now());
+        if(now.getTime()-startOfSwitchInterval.getTime() > switchFrequency*1000L) {
+            if(displayingFuelUsage){
+                if(fuelUsageText.isVisible()){
+                    kmLeftText.setVisible(false);
+                    if(displayingKmLeft){
+                        fuelUsageText.setVisible(false);
+                        kmLeftText.setVisible(true);
+                    }
+                } else {
+                    kmLeftText.setVisible(false);
+                    fuelUsageText.setVisible(true);
+                }
+            } else if(displayingKmLeft){
+                if(kmLeftText.isVisible()){
+                    fuelUsageText.setVisible(false);
+                    if(displayingFuelUsage){
+                        fuelUsageText.setVisible(true);
+                        kmLeftText.setVisible(false);
+                    }
+                } else {
+                    kmLeftText.setVisible(true);
+                    fuelUsageText.setVisible(false);
+                }
+            } else {
+                fuelUsageText.setVisible(false);
+                kmLeftText.setVisible(false);
+            }
+            startOfSwitchInterval = now;
+        }
         updateFuelConsumed(value);
         updateFuelLevel(value);
         if (odoUpdated){
@@ -121,20 +155,12 @@ public class FuelController implements OdometerInterface, FuelInterface, Observe
         if (startOfInterval != null){
             FuelSession session = new FuelSession((float) fuelUsageInterval, startOfInterval, (int)(endOfInterval.getTime()-startOfInterval.getTime())/1000);
             DatabaseManager.insertFuelSession(session);
-
-            if((int) endOfInterval.getTime()-startOfInterval.getTime() > switchFrequency*1000){
-                if (kmLeftText.isVisible() && displayingFuelUsage){
-                    kmLeftText.setVisible(false);
-                    fuelUsageText.setVisible(true);
-                } else if (fuelUsageText.isVisible() && displayingKmLeft){
-                    kmLeftText.setVisible(true);
-                    fuelUsageText.setVisible(false);
-                }
-            }
+                startOfInterval = endOfInterval;
+        } else {
+            startOfInterval = endOfInterval;
         }
 
 
-        startOfInterval = endOfInterval;
         updateEstimatedKmLeftText();
     }
 
@@ -182,10 +208,19 @@ public class FuelController implements OdometerInterface, FuelInterface, Observe
 
     @Override
     public void update(Observable o, Object arg) {
-        //displayingFuelUsage = Constants.settingsEPIC.getFueldisplay();
+        displayingFuelUsage = Constants.settingsEPIC.getFuelUsagedisplay();
         displayingKmLeft = Constants.settingsEPIC.getFueldisplay();
         switchFrequency = Constants.settingsEPIC.getScreeninterval();
         tankSize = Constants.settingsEPIC.getFuelsize();
-        kmLeftText.setVisible(displayingKmLeft);
+        if(displayingKmLeft){
+            kmLeftText.setVisible(true);
+            fuelUsageText.setVisible(false);
+        } else if (displayingFuelUsage){
+            fuelUsageText.setVisible(true);
+            kmLeftText.setVisible(false);
+        } else {
+            fuelUsageText.setVisible(false);
+            kmLeftText.setVisible(false);
+        }
     }
 }

@@ -14,8 +14,10 @@ import javafx.scene.text.Text;
 import org.dom4j.datatype.DatatypeAttribute;
 
 import java.sql.Timestamp;
+import java.util.Observable;
+import java.util.Observer;
 
-public class SpeedController implements SpeedInterface {
+public class SpeedController implements SpeedInterface, Observer {
 
     @FXML
     Pane speedPane;
@@ -36,6 +38,7 @@ public class SpeedController implements SpeedInterface {
         SettingsEPIC settings = DatabaseManager.getSettings();
         displayingSpeed = settings.getSpeeddisplay();
         speedText.setVisible(displayingSpeed);
+        Constants.settingsEPIC.addObserver(this);
     }
 
     public void updateVehicleSpeed(int value, Timestamp timestamp) {
@@ -63,5 +66,11 @@ public class SpeedController implements SpeedInterface {
                 amountOfReadingsForComputation = 0;
             }
         }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        displayingSpeed = Constants.settingsEPIC.getSpeeddisplay();
+        speedText.setVisible(displayingSpeed);
     }
 }

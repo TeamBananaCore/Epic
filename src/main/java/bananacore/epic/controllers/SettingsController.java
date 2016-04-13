@@ -282,6 +282,7 @@ public class SettingsController implements SpeedInterface, ViewController {
     public void cancel() {
         updateButtonsFromSettingsEpic();
         Constants.settingsEPIC.setTheme(oldTheme);
+        numpadPane.setVisible(false);
         showMain();
     }
 

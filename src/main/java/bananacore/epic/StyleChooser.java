@@ -15,8 +15,7 @@ public class StyleChooser {
 
     public StyleChooser(ContainerController container){
         this.container = container;
-        adaptable = true;
-        setAdaptable(adaptable);
+        setTheme(Constants.settingsEPIC.getTheme());
     }
 
     public void setAdaptable(boolean adaptable){

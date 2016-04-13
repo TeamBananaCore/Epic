@@ -1,2 +1,3 @@
-<fx:root type="bananacore.epic.customcontrols.Graph" xmlns:fx="http://javafx.com/fxml">
+<?import java.net.URL?>
+<fx:root type="bananacore.epic.customcontrols.Graph" xmlns:fx="http://javafx.com/fxml" styleClass="graph">
 </fx:root>

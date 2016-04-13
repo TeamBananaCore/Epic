@@ -20,6 +20,8 @@ public class BrakeController implements Initializable, BrakeInterface, SpeedInte
 
     private Timestamp timestamp;
     private int speed;
+    private int startSpeed;
+    private boolean braking = false;
 
     private BrakeThread brakingThread;
 
@@ -33,20 +35,35 @@ public class BrakeController implements Initializable, BrakeInterface, SpeedInte
 
     public void updateVehicleSpeed(int speed, Timestamp timestamp){
         this.speed = speed;
-        this.timestamp = timestamp;
-
+        if(speed == 0) updateBrakePedalStatus(false, timestamp);
     }
 
+//    public void updateBrakePedalStatus(boolean isBraking, Timestamp timestamp){
+//        if (isBraking && brakingThread == null){
+//            brakingThread = new BrakeThread();
+//            brakingThread.setValues(timestamp, speed, this);
+//            brakeLight.getStyleClass().setAll("brake_light_on");
+//            brakingThread.start();
+//        } else if (isBraking){
+//            brakingThread.interrupt();
+//        } else if (brakingThread != null && !brakingThread.isActive()){
+//            brakingThread = null;
+//        }
+//    }
+
     public void updateBrakePedalStatus(boolean isBraking, Timestamp timestamp){
-        if (isBraking && brakingThread == null){
-            brakingThread = new BrakeThread();
-            brakingThread.setValues(timestamp, speed, this);
+        // Started braking
+        if (!braking && isBraking){
+            this.timestamp = timestamp;
+            braking = true;
+            startSpeed = speed;
             brakeLight.getStyleClass().setAll("brake_light_on");
-            brakingThread.start();
-        } else if (isBraking){
-            brakingThread.interrupt();
-        } else if (brakingThread != null && !brakingThread.isActive()){
-            brakingThread = null;
+        }
+        // Stopped braking
+        else if(braking && !isBraking){
+            long duration = (timestamp.getTime() - this.timestamp.getTime()) / 1000;
+            braking = false;
+            updateView(startSpeed, speed, duration);
         }
     }
 

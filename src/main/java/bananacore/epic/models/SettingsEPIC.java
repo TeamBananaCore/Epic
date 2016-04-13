@@ -4,9 +4,14 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import bananacore.epic.Constants;
+
+import javax.persistence.*;
+import java.util.Observable;
+
 @Entity(name="Settings")
 
-public class SettingsEPIC {
+public class SettingsEPIC extends Observable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,10 +42,13 @@ public class SettingsEPIC {
     @Column(name = "screeninterval")
     private int screeninterval;
 
+    @Column(name = "theme")
+    private int theme;
+
     public SettingsEPIC() {
     }
 
-    public SettingsEPIC(Boolean auto, int getNumberOfGears, int weight, Boolean gasoline, int fuelsize, boolean fueldisplay, boolean speeddisplay, int screeninterval) {
+    public SettingsEPIC(Boolean auto, int getNumberOfGears, int weight, Boolean gasoline, int fuelsize, boolean fueldisplay, boolean speeddisplay, int screeninterval, int theme) {
         this.auto = auto;
         this.getNumberOfGears = getNumberOfGears;
         this.weight = weight;
@@ -49,6 +57,7 @@ public class SettingsEPIC {
         this.fueldisplay = fueldisplay;
         this.speeddisplay = speeddisplay;
         this.screeninterval = screeninterval;
+        setTheme(theme);
     }
 
     public int getId() {
@@ -66,6 +75,7 @@ public class SettingsEPIC {
     public void setAuto(Boolean auto) {
         this.auto = auto;
         //DatabaseManager.updateSettings(this);
+        valueHasChanged();
     }
 
     public int getGetNumberOfGears() {
@@ -74,6 +84,7 @@ public class SettingsEPIC {
 
     public void setGetNumberOfGears(int getNumberOfGears) {
         this.getNumberOfGears = getNumberOfGears;
+        valueHasChanged();
     }
 
     public int getWeight() {
@@ -83,6 +94,7 @@ public class SettingsEPIC {
     public void setWeight(int weight) {
         this.weight = weight;
        // DatabaseManager.updateSettings(this);
+        valueHasChanged();
 
     }
 
@@ -93,7 +105,7 @@ public class SettingsEPIC {
     public void setGasoline(Boolean gasoline) {
         this.gasoline = gasoline;
         //DatabaseManager.updateSettings(this);
-
+        valueHasChanged();
     }
 
     public int getFuelsize() {
@@ -103,7 +115,7 @@ public class SettingsEPIC {
     public void setFuelsize(int fuelsize) {
         this.fuelsize = fuelsize;
        // DatabaseManager.updateSettings(this);
-
+        valueHasChanged();
     }
 
     public boolean getFueldisplay() {
@@ -112,6 +124,7 @@ public class SettingsEPIC {
 
     public void setFueldisplay(boolean fueldisplay) {
         this.fueldisplay = fueldisplay;
+        valueHasChanged();
     }
 
     public boolean getSpeeddisplay() {
@@ -120,6 +133,7 @@ public class SettingsEPIC {
 
     public void setSpeeddisplay(boolean speeddisplay) {
         this.speeddisplay = speeddisplay;
+        valueHasChanged();
     }
 
     public int getScreeninterval() {
@@ -128,6 +142,23 @@ public class SettingsEPIC {
 
     public void setScreeninterval(int screeninterval) {
         this.screeninterval = screeninterval;
+        valueHasChanged();
+    }
+
+    public int getTheme() {
+        return theme;
+    }
+
+    /**
+     * Set the theme:
+     * 0: adaptable
+     * 1: day
+     * 2: night
+     * @param theme
+     */
+    public void setTheme(int theme) {
+        this.theme = theme;
+        Constants.STYLER.setTheme(theme);
     }
 
     @Override
@@ -140,5 +171,10 @@ public class SettingsEPIC {
                 ", gasoline=" + gasoline +
                 ", fuelsize=" + fuelsize +
                 '}';
+    }
+
+    public void valueHasChanged(){
+        setChanged();
+        notifyObservers();
     }
 }

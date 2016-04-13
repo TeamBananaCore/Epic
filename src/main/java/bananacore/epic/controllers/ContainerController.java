@@ -1,5 +1,6 @@
 package bananacore.epic.controllers;
 
+import bananacore.epic.StyleChooser;
 import bananacore.epic.View;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,5 +58,9 @@ public class ContainerController implements Initializable {
         View view = views.get(name);
         pane.getChildren().add(view.getNode());
         view.getController().shown();
+    }
+
+    public void setStyle(String name){
+        pane.getStylesheets().setAll(getClass().getClassLoader().getResource(name).toExternalForm());
     }
 }

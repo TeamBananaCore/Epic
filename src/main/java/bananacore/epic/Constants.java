@@ -25,7 +25,6 @@ public class Constants {
 
     public static NumpadController numpadController;
 
-
     static {
         PARSER = new OurParser();
         try{

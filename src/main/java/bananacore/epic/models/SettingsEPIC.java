@@ -1,9 +1,8 @@
 package bananacore.epic.models;
 
-
-import bananacore.epic.DatabaseManager;
-
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name="Settings")
 

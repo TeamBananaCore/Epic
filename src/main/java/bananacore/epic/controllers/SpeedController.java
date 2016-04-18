@@ -21,18 +21,21 @@ public class SpeedController implements SpeedInterface, Observer {
     @FXML
     Label speedText;
 
+    public static final int LOG_INTERVAL = 60;
+
     private Timestamp startOfSpeedSession;
     private int totalSpeedForComputation = 0;
     private int amountOfReadingsForComputation = 0;
-    public static final int LOG_INTERVAL = 60;
     private int lastSpeed = 0;
     private boolean displayingSpeed = true;
 
     public void initialize(){
         Constants.PARSER.addToSpeedObservers(this);
+
         SettingsEPIC settings = DatabaseManager.getSettings();
         displayingSpeed = settings.getSpeeddisplay();
         speedText.setVisible(displayingSpeed);
+
         Constants.settingsEPIC.addObserver(this);
     }
 
@@ -41,6 +44,7 @@ public class SpeedController implements SpeedInterface, Observer {
             if (displayingSpeed){
                 speedText.setText(String.valueOf(value) + " km/t");
             }
+
             lastSpeed = value;
             totalSpeedForComputation += value;
             amountOfReadingsForComputation++;
@@ -56,6 +60,7 @@ public class SpeedController implements SpeedInterface, Observer {
                 int avgSpeed = totalSpeedForComputation / amountOfReadingsForComputation;
                 SpeedSession session = new SpeedSession(avgSpeed, startOfSpeedSession, duration);
                 DatabaseManager.insertSpeedSession(session);
+
                 startOfSpeedSession = timestamp;
                 totalSpeedForComputation = 0;
                 amountOfReadingsForComputation = 0;

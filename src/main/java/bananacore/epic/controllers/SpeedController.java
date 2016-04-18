@@ -6,12 +6,8 @@ import bananacore.epic.interfaces.observers.SpeedInterface;
 import bananacore.epic.models.SettingsEPIC;
 import bananacore.epic.models.SpeedSession;
 import javafx.fxml.FXML;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
-import org.dom4j.datatype.DatatypeAttribute;
 
 import java.sql.Timestamp;
 import java.util.Observable;
@@ -25,19 +21,21 @@ public class SpeedController implements SpeedInterface, Observer {
     @FXML
     Label speedText;
 
+    public static final int LOG_INTERVAL = 60;
+
     private Timestamp startOfSpeedSession;
     private int totalSpeedForComputation = 0;
     private int amountOfReadingsForComputation = 0;
-    private int avgSpeed;
-    private final int logInterval = 60;
     private int lastSpeed = 0;
     private boolean displayingSpeed = true;
 
     public void initialize(){
         Constants.PARSER.addToSpeedObservers(this);
+
         SettingsEPIC settings = DatabaseManager.getSettings();
         displayingSpeed = settings.getSpeeddisplay();
         speedText.setVisible(displayingSpeed);
+
         Constants.settingsEPIC.addObserver(this);
     }
 
@@ -46,6 +44,7 @@ public class SpeedController implements SpeedInterface, Observer {
             if (displayingSpeed){
                 speedText.setText(String.valueOf(value) + " km/t");
             }
+
             lastSpeed = value;
             totalSpeedForComputation += value;
             amountOfReadingsForComputation++;
@@ -57,10 +56,11 @@ public class SpeedController implements SpeedInterface, Observer {
 
             int duration = (int) (timestamp.getTime() - startOfSpeedSession.getTime()) / 1000;
 
-            if (duration > logInterval) {
-                avgSpeed = totalSpeedForComputation / amountOfReadingsForComputation;
+            if (duration > LOG_INTERVAL) {
+                int avgSpeed = totalSpeedForComputation / amountOfReadingsForComputation;
                 SpeedSession session = new SpeedSession(avgSpeed, startOfSpeedSession, duration);
                 DatabaseManager.insertSpeedSession(session);
+
                 startOfSpeedSession = timestamp;
                 totalSpeedForComputation = 0;
                 amountOfReadingsForComputation = 0;

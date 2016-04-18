@@ -20,9 +20,7 @@ public class SettingsController implements SpeedInterface, ViewController {
     @FXML private Button increaseIntervalButton;
     @FXML private Label intervalLabel;
     @FXML private ScrollPane scrollPane;
-
     @FXML private NumpadController numpadController;
-
     @FXML private AnchorPane numpadPane;
 
     @FXML private ToggleGroup themeGroup;
@@ -81,20 +79,33 @@ public class SettingsController implements SpeedInterface, ViewController {
         weightFromNumpad=Constants.settingsEPIC.getWeight();
         setWeightLabel(Integer.toString(weightFromNumpad));
         markGear();
-        markfuel();
-        initilizeTheme();
+        initializeFuel();
+        initializeTheme();
         displayFuelCheckbox.setSelected(Constants.settingsEPIC.getFueldisplay());
         displaySpeedCheckbox.setSelected(Constants.settingsEPIC.getSpeeddisplay());
         displayFuelUsageCheckbox.setSelected(Constants.settingsEPIC.getFuelUsagedisplay());
     }
 
     //assumes all false. used in initilize
-    private void initilizeTheme(){
+    private void initializeTheme(){
         int theme=Constants.settingsEPIC.getTheme();
         oldTheme = theme;
         markTheme(theme);
     }
-
+    private void initializeGearNumber(){
+        int gear = Constants.settingsEPIC.getGetNumberOfGears();
+        //setts one true value in 4,5,6
+        markGearNumber(gear);
+    }
+    private void initializeFuel(){
+        boolean gasolinefuel=  Constants.settingsEPIC.getGasoline();
+        if (gasolinefuel){
+            gasoline.setSelected(true);
+        }else{
+            diesel.setSelected(true);
+        }
+    }
+    //marks one fxml object to true
     private void markTheme(int theme){
         if (theme==0){
             adaptableTheme.setSelected(true);
@@ -107,27 +118,15 @@ public class SettingsController implements SpeedInterface, ViewController {
         }
 
     }
-    private void markfuel(){
-        boolean gasolinefuel=  Constants.settingsEPIC.getGasoline();
-        if (gasolinefuel){
-            gasoline.setSelected(true);
-        }else{
-            diesel.setSelected(true);
-        }
-    }
+
     private void markGear(){
         boolean autogear= Constants.settingsEPIC.getAuto();
         if (autogear){
             auto.setSelected(true);
         }else{
             manual.setSelected(true);
-            initilizeGearNumber();
+            initializeGearNumber();
         }
-    }
-    private void initilizeGearNumber(){
-        int gear = Constants.settingsEPIC.getGetNumberOfGears();
-        //setts one true value in 4,5,6
-        markGearNumber(gear);
     }
     private void markGearNumber(int gear){
         if (gear==4){
@@ -140,6 +139,7 @@ public class SettingsController implements SpeedInterface, ViewController {
             gear6.setSelected(true);
         }
     }
+
     //used when some is uncorrectlly marked true. aka. cancel pressed
     private void markAndUnmarkGearNumber(){
         int gear = Constants.settingsEPIC.getGetNumberOfGears();
@@ -152,7 +152,7 @@ public class SettingsController implements SpeedInterface, ViewController {
     private void markAndUnmarkFuel(){
         diesel.setSelected(false);
         gasoline.setSelected(false);
-        markfuel();
+        initializeFuel();
     }
     private void markAndUnmarkTheme(){
         int theme = oldTheme;
@@ -196,8 +196,7 @@ public class SettingsController implements SpeedInterface, ViewController {
         return "" + x;
     }
 
-    //FXML
-
+    //FXML mothods
     @FXML
     public void increaseInterval(){
         interval++;
@@ -346,7 +345,6 @@ public class SettingsController implements SpeedInterface, ViewController {
             return 6;
         }
     }
-
 
     private void showMain() {
         Constants.CONTAINER.setView(ContainerController.MAIN);

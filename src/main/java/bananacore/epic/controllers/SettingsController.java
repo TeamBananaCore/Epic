@@ -301,8 +301,8 @@ public class SettingsController implements SpeedInterface, ViewController {
         markAndUnmarkGear();
         displayFuelCheckbox.setSelected(Constants.settingsEPIC.getFueldisplay());
         displaySpeedCheckbox.setSelected(Constants.settingsEPIC.getSpeeddisplay());
+        displayFuelUsageCheckbox.setSelected(Constants.settingsEPIC.getFuelUsagedisplay());
         markAndUnmarkTheme();
-
     }
 
     private void showMain() {

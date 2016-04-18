@@ -26,10 +26,7 @@ public class GearController implements GearInterface, RPMInterface, Observer {
     private Rectangle rectangle;
 
     private int thresholdRpmGas = 2500;
-    private int thresholdRpmDiesel = 2000;
-
     private int lowerThresholdRpmGas = 1500;
-    private int lowerThresholdRpmDiesel = 1000;
 
     private double maxRpm = 14000;
 

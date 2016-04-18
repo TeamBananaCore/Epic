@@ -105,7 +105,7 @@ public class SettingsController implements SpeedInterface, ViewController {
             diesel.setSelected(true);
         }
     }
-    //marks one fxml object to true
+    //marks one fxml object to true.
     private void markTheme(int theme){
         if (theme==0){
             adaptableTheme.setSelected(true);

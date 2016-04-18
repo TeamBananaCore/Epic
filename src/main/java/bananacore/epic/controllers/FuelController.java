@@ -123,6 +123,7 @@ public class FuelController implements OdometerInterface, FuelInterface, Observe
     }
 
     private void updateFuelLevel(double fuelConsumed) {
+        //TODO: Redo the computation of estimated fuel usage / the math underneath
         totalFuelConsumed = tankSize-(tankSize/100*startFuelLevelPercentage) + fuelConsumed;
         this.fuelLevelPercentage = ((startFuelLevelPercentage*tankSize/100)-totalFuelConsumed)*(100/tankSize);
         updateFuelLeftRectangle();

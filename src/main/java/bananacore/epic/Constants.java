@@ -20,7 +20,6 @@ public class Constants {
     public static ContainerController CONTAINER;
     public static StyleChooser STYLER;
 
-    public static Stage PRIMARY_STAGE;
     public static Scene SCENE;
 //    public static final GpioController GPIO = GpioFactory.getInstance();
 

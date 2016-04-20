@@ -12,6 +12,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -29,6 +31,7 @@ public class GraphController implements Initializable, SpeedInterface, ViewContr
     @FXML private Graph graph;
     @FXML private Button lastWeek;
     @FXML private Button nextWeek;
+    @FXML private Button back;
 
     private Timestamp startDate, endDate;
 
@@ -39,6 +42,8 @@ public class GraphController implements Initializable, SpeedInterface, ViewContr
         DatabaseManager.update(startDate, endDate);
         brakeSessions = DatabaseManager.getBrakeSessions();
         setData();
+        Image homeImage = new Image(String.valueOf(getClass().getClassLoader().getResource("image/homebutton.png")), 23, 25, true, false);
+        back.setGraphic(new ImageView(homeImage));
     }
 
     @FXML

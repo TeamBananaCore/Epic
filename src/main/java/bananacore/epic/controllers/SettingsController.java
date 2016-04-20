@@ -99,11 +99,7 @@ public class SettingsController implements SpeedInterface, ViewController {
             saveButton.setText("Finish");
 
         }else{
-            Constants.firstTimeUse=true;
-                       //fjern
-            welcomeScreen.setVisible(true);   //set false
-            cancelButton.setVisible(false);
-            saveButton.setText("Finish");
+            welcomeScreen.setVisible(false);
         }
     }
 

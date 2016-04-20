@@ -4,6 +4,7 @@ import bananacore.epic.Constants;
 import bananacore.epic.DatabaseManager;
 import bananacore.epic.interfaces.ViewController;
 import bananacore.epic.interfaces.observers.SpeedInterface;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -55,7 +56,9 @@ public class SettingsController implements SpeedInterface, ViewController {
     @FXML
     AnchorPane welcomeScreen;
     @FXML
-    AnchorPane displaySettingsPane;
+    Button cancelButton;
+    @FXML
+    Button saveButton;
 
     private boolean toggleNumpad; //true means tankSize, false means carWeight
 
@@ -92,9 +95,15 @@ public class SettingsController implements SpeedInterface, ViewController {
         //welcome screen
         if (Constants.firstTimeUse){
             welcomeScreen.setVisible(true);
-            Constants.firstTimeUse=false;
+            cancelButton.setVisible(false);
+            saveButton.setText("Finish");
+
         }else{
-            welcomeScreen.setVisible(false);
+            Constants.firstTimeUse=true;
+                       //fjern
+            welcomeScreen.setVisible(true);   //set false
+            cancelButton.setVisible(false);
+            saveButton.setText("Finish");
         }
     }
 
@@ -303,10 +312,11 @@ public class SettingsController implements SpeedInterface, ViewController {
 
     @FXML
     public void cancel() {
-        updateButtonsFromSettingsEpic();
-        Constants.settingsEPIC.setTheme(oldTheme);
-        numpadPane.setVisible(false);
-        showMain();
+            updateButtonsFromSettingsEpic();
+            Constants.settingsEPIC.setTheme(oldTheme);
+            numpadPane.setVisible(false);
+            showMain();
+
     }
     @FXML
     public void save(){
@@ -331,7 +341,16 @@ public class SettingsController implements SpeedInterface, ViewController {
 
         //local settings to db
         DatabaseManager.updateSettings(Constants.settingsEPIC);
+
+
         showMain();
+
+        //after first time use
+        if (Constants.firstTimeUse){
+            Constants.firstTimeUse=false;
+            cancelButton.setVisible(true);
+            saveButton.setText("Save");
+        }
 
 
     }

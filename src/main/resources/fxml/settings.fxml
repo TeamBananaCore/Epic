@@ -229,8 +229,8 @@
              <fx:include source="numpad.fxml" />
          </children>
       </AnchorPane>
-      <Button layoutX="265.0" layoutY="275.0" mnemonicParsing="false" onAction="#save" prefHeight="39.0" prefWidth="84.0" styleClass="settings_final_button" text="Save" />
-      <Button layoutX="360.0" layoutY="275.0" mnemonicParsing="false" onAction="#cancel" prefHeight="39.0" prefWidth="84.0" styleClass="settings_final_button" text="Cancel" />
+      <Button fx:id="saveButton" layoutX="265.0" layoutY="275.0" mnemonicParsing="false" onAction="#save" prefHeight="39.0" prefWidth="84.0" styleClass="settings_final_button" text="Save" />
+      <Button fx:id="cancelButton" layoutX="360.0" layoutY="275.0" mnemonicParsing="false" onAction="#cancel" prefHeight="39.0" prefWidth="84.0" styleClass="settings_final_button" text="Cancel" />
       <AnchorPane fx:id="welcomeScreen" onMouseClicked="#removeWelcomeScreen" prefHeight="320.0" prefWidth="480.0" style="-fx-background-color: whitesmoke;" styleClass="scrollContentPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fitHeight="120.0" fitWidth="316.0" layoutX="82.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">

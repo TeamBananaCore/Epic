@@ -1,5 +1,6 @@
 package bananacore.epic.controllers;
 
+import bananacore.epic.Constants;
 import bananacore.epic.StyleChooser;
 import bananacore.epic.View;
 import javafx.fxml.FXML;
@@ -36,9 +37,13 @@ public class ContainerController implements Initializable {
         loadView(GRAPH, GRAPH_FXML);
         loadView(SETTINGS, SETTINGS_FXML);
 
-        setView(SETTINGS);
-    }
+        if (Constants.firstTimeUse) {
+            setView(SETTINGS);
+        }else {
+            setView(MAIN);
+        }
 
+    }
     public void loadView(String name, String fxml){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));

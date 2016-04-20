@@ -74,7 +74,7 @@ public class StyleChooser {
         thread.interrupt();
         thread = null;
         // TODO Only for testsensor
-        sensor.getStage().close();
+//        sensor.getStage().close();
         sensor = null;
         return true;
     }

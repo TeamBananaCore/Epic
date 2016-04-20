@@ -1,7 +1,6 @@
 package bananacore.epic.controllers;
 
 import bananacore.epic.Constants;
-import bananacore.epic.DatabaseManager;
 import bananacore.epic.interfaces.ViewController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;

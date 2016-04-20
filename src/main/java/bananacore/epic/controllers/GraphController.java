@@ -2,7 +2,6 @@ package bananacore.epic.controllers;
 
 import bananacore.epic.Constants;
 import bananacore.epic.DatabaseManager;
-import bananacore.epic.View;
 import bananacore.epic.customcontrols.Graph;
 import bananacore.epic.GraphableList;
 import bananacore.epic.interfaces.ViewController;
@@ -12,7 +11,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.slf4j.Logger;
 
 import java.net.URL;

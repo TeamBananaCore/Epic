@@ -6,12 +6,8 @@ import bananacore.epic.interfaces.observers.SpeedInterface;
 import bananacore.epic.models.SettingsEPIC;
 import bananacore.epic.models.SpeedSession;
 import javafx.fxml.FXML;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
-import org.dom4j.datatype.DatatypeAttribute;
 
 import java.sql.Timestamp;
 import java.util.Observable;

@@ -52,6 +52,10 @@ public class SettingsController implements SpeedInterface, ViewController {
     RadioButton dayTheme;
     @FXML
     RadioButton nightTheme;
+    @FXML
+    AnchorPane welcomeScreen;
+    @FXML
+    AnchorPane displaySettingsPane;
 
     private boolean toggleNumpad; //true means tankSize, false means carWeight
 
@@ -84,6 +88,14 @@ public class SettingsController implements SpeedInterface, ViewController {
         displayFuelCheckbox.setSelected(Constants.settingsEPIC.getFueldisplay());
         displaySpeedCheckbox.setSelected(Constants.settingsEPIC.getSpeeddisplay());
         displayFuelUsageCheckbox.setSelected(Constants.settingsEPIC.getFuelUsagedisplay());
+
+        //welcome screen
+        if (Constants.firstTimeUse){
+            welcomeScreen.setVisible(true);
+            Constants.firstTimeUse=false;
+        }else{
+            welcomeScreen.setVisible(false);
+        }
     }
 
     //assumes all false. used in initilize
@@ -280,6 +292,11 @@ public class SettingsController implements SpeedInterface, ViewController {
         toggleNumpad = false;
         numpadPane.setVisible(true);
         numpadController.setNumberview(Integer.toString(Constants.settingsEPIC.getWeight()));
+
+    }
+    @FXML
+    private void removeWelcomeScreen(){
+        welcomeScreen.setVisible(false);
 
     }
 

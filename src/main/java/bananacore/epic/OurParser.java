@@ -25,7 +25,7 @@ public class OurParser implements Runnable {
     private volatile ArrayList<OdometerInterface> odometerObservers = new ArrayList<>();
 
     //List of data we are interested in
-    private final List<String> dataTypes = Arrays.asList("engine_speed", "fuel_consumed_since_restart", "vehicle_speed", "brake_pedal_status", "transmission_gear_position", "odometer");
+    private final List<String> dataTypes = Arrays.asList("engine_speed", "fuel_consumed_since_restart", "vehicle_speed", "brake_pedal_status", "transmission_gear_position", "odometer", "fuel_level");
 
     //Data: The last data that was sent of that type. Diff: The difference from last data required to send new update
     private int lastRPMData = 0;
@@ -36,6 +36,8 @@ public class OurParser implements Runnable {
 
     private double lastFuelData = 0;
     private double fuelDataDiff = 0.001;
+
+    private boolean startFuelLevelParsed = false;
 
     private boolean lastBrakeData = false;
 
@@ -61,10 +63,17 @@ public class OurParser implements Runnable {
         }
     }
 
-    private void updateFuelObservers(double value, Timestamp timestamp) {
-        if(debug) logger.debug(timestamp + " - updating fuel: " + value);
-        for (FuelInterface fuelObserver : fuelObservers) {
-            fuelObserver.updateFuelConsumedSinceRestart(value, timestamp);
+    private void updateFuelObservers(double value, Timestamp timestamp, boolean startFuelLevel) {
+        if(startFuelLevel){
+            if(debug) logger.debug(timestamp + " - parsing initial fuelLevel: " + value);
+            for (FuelInterface fuelObserver : fuelObservers){
+                fuelObserver.parseInitialFuelLevel(value, timestamp);
+            }
+        } else {
+            if(debug) logger.debug(timestamp + " - updating fuel: " + value);
+            for (FuelInterface fuelObserver : fuelObservers) {
+                fuelObserver.updateFuelConsumedSinceRestart(value, timestamp);
+            }
         }
     }
 
@@ -159,7 +168,7 @@ public class OurParser implements Runnable {
                         if(Math.abs(lastFuelData-fuel)>fuelDataDiff){
                             sleep(time.getTime()-current.getTime());
                             lastFuelData = fuel;
-                            Platform.runLater(()->updateFuelObservers(fuel,time));
+                            Platform.runLater(()->updateFuelObservers(fuel,time, false));
                             return time;
                         }
                         break;
@@ -199,6 +208,15 @@ public class OurParser implements Runnable {
                             return time;
                         }
                         break;
+                    case "fuel_level":
+                        if (!startFuelLevelParsed){
+                            double fuelLevel = Double.parseDouble(value);
+                            sleep(time.getTime()-current.getTime());
+                            Platform.runLater(() -> updateFuelObservers(fuelLevel, time, true));
+                            startFuelLevelParsed = true;
+                            return time;
+                        }
+
                 }
             }
         }

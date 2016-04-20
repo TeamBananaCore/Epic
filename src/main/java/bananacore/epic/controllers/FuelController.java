@@ -23,6 +23,7 @@ public class FuelController implements OdometerInterface, FuelInterface, Observe
 
     public static final double MAX_FUEL_CONSUMED_VALUE = 4294967295.0;
     public static final double MAX_ODOMETER_VALUE = 16777214.0;
+    public static final int FUEL_BAR_WIDTH = 276;
 
     private double fuelLevelPercentage = 0.0;
     private double fuelIntervalStart = 0.0;
@@ -33,7 +34,7 @@ public class FuelController implements OdometerInterface, FuelInterface, Observe
     private double estimatedKmLeft = 0.0;
     private double tankSize = 50.0;
     private double totalFuelConsumed = 0.0;
-    private double startFuelLevelPercentage = 100.0;
+    private double startFuelLevelPercentage = 0.0;
 
     private Timestamp startOfInterval = null;
 
@@ -85,6 +86,11 @@ public class FuelController implements OdometerInterface, FuelInterface, Observe
     }
 
     @Override
+    public void parseInitialFuelLevel(double initialFuelLevel, Timestamp timestamp){
+        startFuelLevelPercentage = initialFuelLevel;
+    }
+
+    @Override
     public void updateOdometer(double odometerReading, Timestamp timestamp) {
         if (validOdometerReading(odometerReading)) {
             double distanceTravelledInterval = odometerReading-distanceIntervalStart;
@@ -123,10 +129,11 @@ public class FuelController implements OdometerInterface, FuelInterface, Observe
     }
 
     private void updateFuelLevel(double fuelConsumed) {
-        //TODO: Redo the computation of estimated fuel usage / the math underneath
-        totalFuelConsumed = tankSize-(tankSize/100*startFuelLevelPercentage) + fuelConsumed;
-        this.fuelLevelPercentage = ((startFuelLevelPercentage*tankSize/100)-totalFuelConsumed)*(100/tankSize);
-        updateFuelLeftRectangle();
+        if(startFuelLevelPercentage != 0.0){
+            totalFuelConsumed = (tankSize-tankSize/100*startFuelLevelPercentage) + fuelConsumed;
+            this.fuelLevelPercentage = ((startFuelLevelPercentage*tankSize/100)-totalFuelConsumed)*(100/tankSize);
+            updateFuelLeftRectangle();
+        }
     }
 
     private void updateEstimatedKmLeft(Timestamp endOfInterval) {
@@ -188,7 +195,11 @@ public class FuelController implements OdometerInterface, FuelInterface, Observe
 
     private void updateFuelLeftRectangle() {
         if (fuelLevelPercentage != 0.0) {
-            fuelLeftBar.setWidth(fuelLevelPercentage * 276 / 100);
+            if (fuelLevelPercentage > 100.0){
+                fuelLeftBar.setWidth(FUEL_BAR_WIDTH);
+            } else {
+                fuelLeftBar.setWidth(fuelLevelPercentage * FUEL_BAR_WIDTH / 100);
+            }
             if (fuelLevelPercentage < 75) {
                 if (fuelLevelPercentage > 50) {
                     fuelLeftBar.setFill(Color.YELLOW);

@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 
 public interface FuelInterface {
 
-    public void updateFuelConsumedSinceRestart(double value, Timestamp timestamp);
+    void parseInitialFuelLevel(double value, Timestamp timestamp);
+
+    void updateFuelConsumedSinceRestart(double value, Timestamp timestamp);
 
 }

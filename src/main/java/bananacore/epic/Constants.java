@@ -19,6 +19,7 @@ public class Constants {
 
     public static ContainerController CONTAINER;
     public static StyleChooser STYLER;
+    public static boolean firstTimeUse=false;
 
     public static Scene SCENE;
 //    public static final GpioController GPIO = GpioFactory.getInstance();
@@ -31,6 +32,7 @@ public class Constants {
             settingsEPIC = DatabaseManager.getSettings();
         } catch (IndexOutOfBoundsException e){
             settingsEPIC = new SettingsEPIC(false,6,900,true,50,true,true,30, 0);
+            firstTimeUse=true;
         }
     }
 

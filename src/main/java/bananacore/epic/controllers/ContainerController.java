@@ -36,7 +36,7 @@ public class ContainerController implements Initializable {
         loadView(GRAPH, GRAPH_FXML);
         loadView(SETTINGS, SETTINGS_FXML);
 
-        setView(MAIN);
+        setView(SETTINGS);
     }
 
     public void loadView(String name, String fxml){

@@ -16,8 +16,6 @@ public class SettingsController implements SpeedInterface, ViewController {
     @FXML private CheckBox displayFuelCheckbox;
     @FXML private CheckBox displaySpeedCheckbox;
     @FXML private CheckBox displayFuelUsageCheckbox;
-    @FXML private Button decreaseIntervalButton;
-    @FXML private Button increaseIntervalButton;
     @FXML private Label intervalLabel;
     @FXML private ScrollPane scrollPane;
     @FXML private NumpadController numpadController;
@@ -26,32 +24,19 @@ public class SettingsController implements SpeedInterface, ViewController {
     @FXML private ToggleGroup themeGroup;
     private HashMap<String, Integer> themeValues;
 
-    @FXML
-    RadioButton auto;
-    @FXML
-    RadioButton manual;
-    @FXML
-    RadioButton diesel;
-    @FXML
-    RadioButton gasoline;
-    @FXML
-    RadioButton gear6;
-    @FXML
-    RadioButton gear5;
-    @FXML
-    RadioButton gear4;
-    @FXML
-    Label tanksizeLabel;
-    @FXML
-    Label weightLabel;
-    @FXML
-    Label gearTitel;
-    @FXML
-    RadioButton adaptableTheme;
-    @FXML
-    RadioButton dayTheme;
-    @FXML
-    RadioButton nightTheme;
+    @FXML RadioButton auto;
+    @FXML RadioButton manual;
+    @FXML RadioButton diesel;
+    @FXML RadioButton gasoline;
+    @FXML RadioButton gear6;
+    @FXML RadioButton gear5;
+    @FXML RadioButton gear4;
+    @FXML Label tanksizeLabel;
+    @FXML Label weightLabel;
+    @FXML Label gearTitel;
+    @FXML RadioButton adaptableTheme;
+    @FXML RadioButton dayTheme;
+    @FXML RadioButton nightTheme;
 
     private boolean toggleNumpad; //true means tankSize, false means carWeight
 
@@ -62,7 +47,8 @@ public class SettingsController implements SpeedInterface, ViewController {
     private int interval = 2;
 
     private int oldTheme;
-//
+
+    @FXML
     public void initialize(){
         themeValues = new HashMap<>();
         themeValues.put("adaptable", 0);

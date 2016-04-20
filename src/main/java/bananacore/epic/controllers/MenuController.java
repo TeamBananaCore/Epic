@@ -18,8 +18,8 @@ public class MenuController implements SpeedInterface{
 
     @FXML private Button graphButton;
     @FXML private Button settingsButton;
-
     @FXML AnchorPane menuPane;
+
     private int speed = 0;
     private boolean animationDown = true;
     private boolean animationUp = false;
@@ -30,7 +30,6 @@ public class MenuController implements SpeedInterface{
         graphButton.setGraphic(new ImageView(graphImage));
         settingsButton.setGraphic(new ImageView(settingsImage));
         Constants.PARSER.addToSpeedObservers(this);
-//        menuPane.setVisible(false);
         update();
     }
 

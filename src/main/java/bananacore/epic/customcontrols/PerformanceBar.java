@@ -70,7 +70,7 @@ public class PerformanceBar extends Pane {
         else if (current < min) current = min;
         this.current = current;
 
-        double pos = barPadding + (getPrefWidth()-barPadding*2);
+        double pos = barPadding + current/(max-min)*(getPrefWidth()-barPadding*2);
         hand.xProperty().setValue(0.5 * getPrefWidth());
         activeProperty.setValue(true);
         Timeline moveHand = new Timeline();

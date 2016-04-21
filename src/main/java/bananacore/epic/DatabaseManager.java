@@ -194,6 +194,7 @@ public class DatabaseManager {
                 getSettings();
                 session.update(settingsObject);
             } catch (IndexOutOfBoundsException e){
+                System.out.println("IndexOBException");
                 session.save(settingsObject);
             }
             session.getTransaction().commit();

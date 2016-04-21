@@ -5,10 +5,17 @@
 <hibernate-configuration>
     <session-factory>
         <!-- DB connection -->
+
+        <!-- On Computers -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.url">jdbc:mysql://mysql.stud.ntnu.no/olemagnp_epic_database</property>
         <property name="connection.username">olemagnp_remote</property>
         <property name="connection.password">epic42</property>
+        <!-- TODO Uncomment on rpi -->
+        <!--<property name="connection.driver_class">com.mysql.jdbc.Driver</property>-->
+        <!--<property name="connection.url">jdbc:mysql://localhost/epic_database</property>-->
+        <!--<property name="connection.username">root</property>-->
+        <!--<property name="connection.password">epic42</property>-->
 
         <property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
 

@@ -55,7 +55,7 @@ public class SettingsEPIC extends Observable{
         this.fueldisplay = fueldisplay;
         this.speeddisplay = speeddisplay;
         this.screeninterval = screeninterval;
-        setTheme(theme);
+        this.theme = theme;
     }
 
     public int getId() {

@@ -6,12 +6,17 @@ import bananacore.epic.interfaces.observers.OdometerInterface;
 import bananacore.epic.DatabaseManager;
 import bananacore.epic.models.FuelSession;
 import bananacore.epic.models.SettingsEPIC;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import javax.imageio.ImageIO;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
@@ -48,16 +53,17 @@ public class FuelController implements OdometerInterface, FuelInterface, Observe
     @FXML private Rectangle fuelLeftBar;
     @FXML private Label kmLeftText;
     @FXML private Label fuelUsageText;
+    @FXML private ImageView fuelImage;
 
     public void initialize(){
+        Constants.FUEL_IMAGE = fuelImage;
         startOfSwitchInterval = Timestamp.valueOf(LocalDateTime.now());
         Constants.PARSER.addToFuelObservers(this);
         Constants.PARSER.addToOdometerObservers(this);
-        SettingsEPIC settings = DatabaseManager.getSettings();
-        displayingKmLeft = settings.getFueldisplay();
-        displayingFuelUsage = settings.getFuelUsagedisplay();
-        switchFrequency = settings.getScreeninterval();
-        tankSize = settings.getFuelsize();
+        displayingKmLeft = Constants.settingsEPIC.getFueldisplay();
+        displayingFuelUsage = Constants.settingsEPIC.getFuelUsagedisplay();
+        switchFrequency = Constants.settingsEPIC.getScreeninterval();
+        tankSize = Constants.settingsEPIC.getFuelsize();
 
         kmLeftText.setVisible(displayingKmLeft);
         if(!displayingKmLeft){
@@ -221,5 +227,9 @@ public class FuelController implements OdometerInterface, FuelInterface, Observe
             fuelUsageText.setVisible(false);
             kmLeftText.setVisible(false);
         }
+    }
+
+    public void setFuelImage(Image image){
+        fuelImage.setImage(image);
     }
 }

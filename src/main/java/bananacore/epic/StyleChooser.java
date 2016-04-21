@@ -2,6 +2,7 @@ package bananacore.epic;
 
 import bananacore.epic.controllers.ContainerController;
 import javafx.application.Platform;
+import javafx.scene.image.Image;
 
 public class StyleChooser {
     public static final String DAY = "css/day.css";
@@ -12,10 +13,15 @@ public class StyleChooser {
     private ContainerController container;
     private boolean adaptable;
     private Lightsensor sensor;
+    private Image dayImage;
+    private Image nightImage;
 
     public StyleChooser(ContainerController container){
         this.container = container;
+        dayImage = new Image(getClass().getClassLoader().getResource("image/fuelpump_day.png").toExternalForm());
+        nightImage = new Image(getClass().getClassLoader().getResource("image/fuelpump_night.png").toExternalForm());
         setTheme(Constants.settingsEPIC.getTheme());
+        System.out.println("THEME FROM START: " + Constants.settingsEPIC.getTheme());
     }
 
     public void setAdaptable(boolean adaptable){
@@ -33,10 +39,10 @@ public class StyleChooser {
             case 0: setAdaptable(true);
                 break;
             case 1: setAdaptable(false);
-                container.setStyle(StyleChooser.DAY);
+                setDay();
                 break;
             case 2: setAdaptable(false);
-                container.setStyle(StyleChooser.NIGHT);
+                setNight();
                 break;
             default: setTheme(0);
         }
@@ -51,10 +57,10 @@ public class StyleChooser {
             while (true){
                 int light = sensor.readAdc();
                 if (light < LIGHT_THRESH && current.equals(StyleChooser.DAY)){
-                    Platform.runLater(() -> container.setStyle(StyleChooser.NIGHT));
+                    Platform.runLater(() -> setNight());
                     current = StyleChooser.NIGHT;
                 } else if (light > LIGHT_THRESH && current.equals(StyleChooser.NIGHT)){
-                    Platform.runLater(() -> container.setStyle(StyleChooser.DAY));
+                    Platform.runLater(() -> setDay());
                     current = StyleChooser.DAY;
                 }
                 try {
@@ -69,7 +75,7 @@ public class StyleChooser {
         return true;
     }
 
-    private boolean stopThread(){
+    private boolean stopThread() {
         if (adaptable || thread == null) return false;
         thread.interrupt();
         thread = null;
@@ -77,5 +83,15 @@ public class StyleChooser {
 //        sensor.getStage().close();
         sensor = null;
         return true;
+    }
+
+    private void setDay(){
+        container.setStyle(StyleChooser.DAY);
+        Constants.FUEL_IMAGE.setImage(dayImage);
+    }
+
+    private void setNight() {
+        container.setStyle(StyleChooser.NIGHT);
+        Constants.FUEL_IMAGE.setImage(nightImage);
     }
 }

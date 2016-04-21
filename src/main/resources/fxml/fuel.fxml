@@ -5,6 +5,8 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <BorderPane maxHeight="100" maxWidth="340" minHeight="100" minWidth="340" prefHeight="100.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bananacore.epic.controllers.FuelController">
    <padding>
       <Insets top="10" bottom="10" left="10" right="10" />
@@ -19,7 +21,8 @@
                <Label fx:id="fuelUsageText" text="0 l/km " textAlignment="RIGHT" layoutX="10" layoutY="-5" visible="false"/>
             </children>
          </Pane>
-         <Label text="⛽" styleClass="big_icon"/>
+         <ImageView fx:id="fuelImage" disable="false" fitWidth="40" preserveRatio="true">
+         </ImageView>
       </HBox>
    </top>
    <bottom>

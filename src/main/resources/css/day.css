@@ -41,11 +41,11 @@
 /* Graph styles */
 
 .graph > .graph_label{
-    -fx-font-size: .8em !important;
+    -fx-font-size: .5em !important;
 }
 
 .graph > .graph_value_labels > .label {
-    -fx-font-size: .6em !important;
+    -fx-font-size: .48em !important;
 }
 
 .axis{
@@ -73,7 +73,7 @@
 }
 
 .fuel_bar_container .label .text{
-    -fx-font-size: 50px;
+    -fx-font-size: 40px;
     -fx-font-weight: bold;
     -fx-stroke: black;
     -fx-fill: -fx-standard-background;

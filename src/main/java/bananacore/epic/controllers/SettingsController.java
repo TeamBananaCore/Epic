@@ -4,7 +4,6 @@ import bananacore.epic.Constants;
 import bananacore.epic.DatabaseManager;
 import bananacore.epic.interfaces.ViewController;
 import bananacore.epic.interfaces.observers.SpeedInterface;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;

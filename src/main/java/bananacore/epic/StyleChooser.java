@@ -12,7 +12,6 @@ public class StyleChooser {
     private Thread thread;
     private ContainerController container;
     private boolean adaptable;
-    private Lightsensor sensor;
     private Image dayImage;
     private Image nightImage;
 
@@ -50,9 +49,10 @@ public class StyleChooser {
 
     private boolean startThread(){
         if (!adaptable || thread != null) return false;
-        sensor = new Lightsensor();
+        final Lightsensor sensor = new Lightsensor();
         thread = new Thread(() -> {
-            String current = StyleChooser.NIGHT;
+            String current = StyleChooser.DAY;
+            setDay();
 
             while (true){
                 int light = sensor.readAdc();
@@ -66,9 +66,13 @@ public class StyleChooser {
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
+                    sensor.close();
                     break;
                 }
-                if (Thread.interrupted()) break;
+                if (Thread.interrupted()) {
+                    sensor.close();
+                    break;
+                }
             }
         });
         thread.start();
@@ -79,19 +83,16 @@ public class StyleChooser {
         if (adaptable || thread == null) return false;
         thread.interrupt();
         thread = null;
-        // TODO Only for testsensor
-//        sensor.getStage().close();
-        sensor = null;
         return true;
     }
 
     private void setDay(){
-        container.setStyle(StyleChooser.DAY);
+        Platform.runLater(() -> container.setStyle(StyleChooser.DAY));
         Constants.FUEL_IMAGE.setImage(dayImage);
     }
 
     private void setNight() {
-        container.setStyle(StyleChooser.NIGHT);
+        Platform.runLater(() -> container.setStyle(StyleChooser.NIGHT));
         Constants.FUEL_IMAGE.setImage(nightImage);
     }
 }

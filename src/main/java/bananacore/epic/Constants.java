@@ -7,7 +7,6 @@ import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
 public class Constants {
 

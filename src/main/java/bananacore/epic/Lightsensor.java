@@ -1,10 +1,7 @@
 package bananacore.epic;
 // Start Real Code
 //
-//import com.pi4j.io.gpio.GpioPinDigitalInput;
-//import com.pi4j.io.gpio.GpioPinDigitalOutput;
-//import com.pi4j.io.gpio.PinState;
-//import com.pi4j.io.gpio.RaspiPin;
+//import com.pi4j.io.gpio.*;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 //
@@ -55,9 +52,14 @@ package bananacore.epic;
 //        chipSelect.setState(PinState.HIGH);
 //        return ad;
 //    }
+//
+//    public void close(){
+//        Constants.GPIO.unprovisionPin((GpioPin)dataIn.getPin(), (GpioPin)dataOut.getPin(), (GpioPin)clk.getPin(), (GpioPin)chipSelect.getPin());
+//    }
 //}
 // End real code
 
+import javafx.application.Platform;
 import javafx.scene.Scene;
         import javafx.scene.control.Label;
         import javafx.scene.control.Slider;
@@ -69,6 +71,10 @@ public class Lightsensor{
     private Slider slider;
 
     private Stage stage;
+
+    public static Lightsensor createLightsenssor(){
+        return new Lightsensor();
+    }
 
     public Lightsensor(){
         stage = new Stage();
@@ -82,11 +88,12 @@ public class Lightsensor{
         stage.show();
     }
 
-    public Stage getStage(){
-        return stage;
-    }
-
     public int readAdc(){
         return (int)slider.getValue();
+    }
+
+    public void close(){
+        System.out.println("Before");
+        Platform.runLater(()  -> stage.close());
     }
 }

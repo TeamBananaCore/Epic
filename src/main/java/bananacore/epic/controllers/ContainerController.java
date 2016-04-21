@@ -1,7 +1,6 @@
 package bananacore.epic.controllers;
 
 import bananacore.epic.Constants;
-import bananacore.epic.StyleChooser;
 import bananacore.epic.View;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

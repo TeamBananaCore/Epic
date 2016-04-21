@@ -17,6 +17,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -68,6 +69,7 @@ public class Graph extends Pane {
         double hue = 0;
         double sat = 1;
         double bright = 1;
+        DecimalFormat df = new DecimalFormat("#.##");
 
         if (dataSources == null || dataSources.size() == 0) return;
         int offset = 360/dataSources.size();
@@ -110,7 +112,7 @@ public class Graph extends Pane {
             this.getChildren().add(line);
             line.setStyle("-fx-stroke: " + getColorRGBString(color));
 
-            Label valueLabel = new Label((int) source.getMax() + " " + source.getUnit());
+            Label valueLabel = new Label(df.format(source.getMax()) + " " + source.getUnit());
             valueLabel.setStyle("-fx-text-fill: " + getColorRGBString(color));
             valueLabels.getChildren().add(valueLabel);
         }

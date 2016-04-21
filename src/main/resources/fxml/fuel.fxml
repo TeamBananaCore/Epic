@@ -14,14 +14,14 @@
       <Insets bottom="10" left="10" right="10" top="10" />
    </padding>
    <top>
-      <HBox alignment="CENTER_LEFT" maxWidth="320" prefWidth="320" spacing="5">
+      <HBox alignment="CENTER_LEFT" maxWidth="320" prefWidth="320" spacing="2">
          <children>
             <Pane fx:id="fuelLeftPane" maxHeight="80" minWidth="280.0" prefHeight="80.0" prefWidth="280.0" styleClass="fuel_bar_container" BorderPane.alignment="CENTER">
                <children>
                   <Rectangle fx:id="fuelLeftBar" arcHeight="20.0" arcWidth="20.0" height="76.0" layoutX="2.0" layoutY="2.0" styleClass="fuel_bar">
                </Rectangle>
-                  <Label fx:id="kmLeftText" layoutX="10" layoutY="10.0" text="0 km " textAlignment="RIGHT" visible="false" />
-                  <Label fx:id="fuelUsageText" layoutX="10" layoutY="10.0" text="0 l/km " textAlignment="RIGHT" visible="false" />
+                  <Label fx:id="kmLeftText" layoutX="10" layoutY="15.0" text="0 km " textAlignment="RIGHT" visible="false" />
+                  <Label fx:id="fuelUsageText" layoutX="10" layoutY="15.0" text="0 l/km " textAlignment="RIGHT" visible="false" />
                </children>
             </Pane>
             <ImageView fx:id="fuelImage" disable="false" fitWidth="40" preserveRatio="true">

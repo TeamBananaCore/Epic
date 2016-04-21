@@ -82,7 +82,7 @@
                                  <Font size="22.0" />
                               </font>
                            </Label>
-                           <Label text="Fuel transition interval" GridPane.rowIndex="3">
+                           <Label text="Fuel transition time" GridPane.rowIndex="3">
                               <font>
                                  <Font size="22.0" />
                               </font>

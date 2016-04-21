@@ -14,9 +14,7 @@ import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.List;
 
 public class DatabaseManager {
     private static Logger logger = LoggerFactory.getLogger("DatabaseManager");
@@ -196,6 +194,7 @@ public class DatabaseManager {
                 getSettings();
                 session.update(settingsObject);
             } catch (IndexOutOfBoundsException e){
+                System.out.println("IndexOBException");
                 session.save(settingsObject);
             }
             session.getTransaction().commit();

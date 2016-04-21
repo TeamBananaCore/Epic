@@ -22,10 +22,10 @@ package bananacore.epic;
 //public class Lightsensor {
 //    private Logger logger;
 //
-//    private final GpioPinDigitalInput dataIn = Constants.GPIO.provisionDigitalInputPin(RaspiPin.GPIO_02);
-//    private final GpioPinDigitalOutput dataOut = Constants.GPIO.provisionDigitalOutputPin(RaspiPin.GPIO_03);
-//    private final GpioPinDigitalOutput chipSelect = Constants.GPIO.provisionDigitalOutputPin(RaspiPin.GPIO_00);
-//    private final GpioPinDigitalOutput clk = Constants.GPIO.provisionDigitalOutputPin(RaspiPin.GPIO_01);
+//    private final GpioPinDigitalInput dataIn = Constants.GPIO.provisionDigitalInputPin(RaspiPin.GPIO_28);
+//    private final GpioPinDigitalOutput dataOut = Constants.GPIO.provisionDigitalOutputPin(RaspiPin.GPIO_25);
+//    private final GpioPinDigitalOutput chipSelect = Constants.GPIO.provisionDigitalOutputPin(RaspiPin.GPIO_22);
+//    private final GpioPinDigitalOutput clk = Constants.GPIO.provisionDigitalOutputPin(RaspiPin.GPIO_26);
 //
 //    public Lightsensor(){
 //        logger = LoggerFactory.getLogger(this.getClass());
@@ -59,11 +59,11 @@ package bananacore.epic;
 // End real code
 
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+        import javafx.scene.control.Label;
+        import javafx.scene.control.Slider;
+        import javafx.scene.layout.HBox;
+        import javafx.scene.layout.Pane;
+        import javafx.stage.Stage;
 
 public class Lightsensor{
     private Slider slider;

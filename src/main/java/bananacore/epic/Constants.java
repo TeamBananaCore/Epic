@@ -6,6 +6,7 @@ import bananacore.epic.models.SettingsEPIC;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class Constants {
@@ -20,8 +21,11 @@ public class Constants {
     public static ContainerController CONTAINER;
     public static StyleChooser STYLER;
     public static boolean firstTimeUse=false;
+    public static ImageView FUEL_IMAGE;
 
     public static Scene SCENE;
+
+    // TODO Uncomment when on pi
 //    public static final GpioController GPIO = GpioFactory.getInstance();
 
     public static NumpadController numpadController;

@@ -55,6 +55,8 @@
                 <version>8.1.4</version>
                 <configuration>
                     <mainClass>bananacore.epic.App</mainClass>
+                    <preLoader>bananacore.epic.EpicPreloader</preLoader>
+                    <allPermissions>true</allPermissions>
                 </configuration>
                 <executions>
                     <execution>
@@ -87,7 +89,10 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>bananacore.epic.App</mainClass>
+                                    <manifestEntries>
+                                        <Main-Class>bananacore.epic.App</Main-Class>
+                                        <JavaFX-Preloader-Class>bananacore.epic.EpicPreloader</JavaFX-Preloader-Class>
+                                    </manifestEntries>
                                 </transformer>
                             </transformers>
                         </configuration>

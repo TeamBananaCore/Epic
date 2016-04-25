@@ -23,6 +23,8 @@ public class PerformanceBar extends Pane {
     private Rectangle hand;
     private BooleanProperty activeProperty = new SimpleBooleanProperty(false);
 
+    private final int barPadding = 12;
+
     @FXML
     private Pane overlay;
 
@@ -52,10 +54,10 @@ public class PerformanceBar extends Pane {
             throw new IllegalArgumentException("Min value must be less than max value");
         }
 
-        hand = new Rectangle(5, getPrefHeight());
+        hand = new Rectangle(5, getPrefHeight()-2*2);
         hand.setFill(Color.BLACK);
         hand.setVisible(false);
-        hand.setLayoutY(0);
+        hand.setLayoutY(2);
         hand.visibleProperty().bind(activeProperty);
         getChildren().add(hand);
     }
@@ -67,8 +69,8 @@ public class PerformanceBar extends Pane {
         else if (current < min) current = min;
         this.current = current;
 
-        double pos = current/(max-min) * getPrefWidth();
-        hand.xProperty().setValue(0.5*getPrefWidth());
+        double pos = barPadding + current/(max-min)*(getPrefWidth()-barPadding*2);
+        hand.xProperty().setValue(0.5 * getPrefWidth());
         activeProperty.setValue(true);
         Timeline moveHand = new Timeline();
         moveHand.setCycleCount(1);

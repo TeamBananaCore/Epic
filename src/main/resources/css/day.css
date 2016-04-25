@@ -61,10 +61,6 @@
 
 /* Fuel bar style */
 
-.fuel_bar {
-    -fx-fill: #12c800;
-}
-
 .fuel_bar_container {
     -fx-border-style: solid;
     -fx-border-color: -fx-logo-color;

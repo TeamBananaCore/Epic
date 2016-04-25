@@ -48,6 +48,8 @@ public class OurParser implements Runnable {
 
     private boolean debug;
 
+    private int timeSpeed = 1;
+
     public OurParser(){
         this(false);
     }
@@ -138,6 +140,7 @@ public class OurParser implements Runnable {
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(bufferedReader.readLine());
             Timestamp time = new Timestamp(new Double((Double) jsonObject.get("timestamp")*1000).longValue());
+            sendData(time, jsonObject.get("name").toString(), jsonObject.get("value").toString());
             while (bufferedReader.ready() && time != null) {
                 time = findNext(bufferedReader,parser,time);
             }
@@ -153,72 +156,83 @@ public class OurParser implements Runnable {
             if(dataTypes.contains(dataType)){
                 Timestamp time = new Timestamp(new Double((Double) json.get("timestamp")*1000).longValue());
                 String value = json.get("value").toString();
-                switch (dataType){
-                    case "engine_speed":
-                        int rpm = Integer.parseInt(value);
-                        if(Math.abs(lastRPMData-rpm)>RPMDataDiff){
-                            sleep(time.getTime()-current.getTime());
-                            lastRPMData = rpm;
-                            Platform.runLater(()->updateRPMObservers(rpm, time));
-                            return time;
-                        }
-                        break;
-                    case "fuel_consumed_since_restart":
-                        double fuel = Double.parseDouble(value);
-                        if(Math.abs(lastFuelData-fuel)>fuelDataDiff){
-                            sleep(time.getTime()-current.getTime());
-                            lastFuelData = fuel;
-                            Platform.runLater(()->updateFuelObservers(fuel,time, false));
-                            return time;
-                        }
-                        break;
-                    case "vehicle_speed":
-                        int speed = (int) Double.parseDouble(value);
-                        if(Math.abs(lastSpeedData-speed)>=speedDataDiff){
-                            sleep(time.getTime()-current.getTime());
-                            lastSpeedData = speed;
-                            Platform.runLater(()->updateSpeedObservers(speed,time));
-                            return time;
-                        }
-                        break;
-                    case "brake_pedal_status":
-                        boolean braking = Boolean.parseBoolean(value);
-                        if(braking != lastBrakeData){
-                            sleep(time.getTime()-current.getTime());
-                            lastBrakeData = braking;
-                            Platform.runLater(()->updateBrakeObservers(braking, time));
-                            return time;
-                        }
-                        break;
-                    case "transmission_gear_position":
-                        int gear = numericToInt(value);
-                        if(gear != lastGearData){
-                            sleep(time.getTime()-current.getTime());
-                            lastGearData = gear;
-                            Platform.runLater(()->updateGearObservers(gear, time));
-                            return time;
-                        }
-                        break;
-                    case "odometer":
-                        double odo = Double.parseDouble(value);
-                        if(Math.abs(lastOdometerData-odo) > odometerDataDiff){
-                            sleep(time.getTime()-current.getTime());
-                            lastOdometerData = odo;
-                            Platform.runLater(()->updateOdometerObservers(odo, time));
-                            return time;
-                        }
-                        break;
-                    case "fuel_level":
-                        if (!startFuelLevelParsed){
-                            double fuelLevel = Double.parseDouble(value);
-                            sleep(time.getTime()-current.getTime());
-                            Platform.runLater(() -> updateFuelObservers(fuelLevel, time, true));
-                            startFuelLevelParsed = true;
-                            return time;
-                        }
-
+                Timestamp next = sendData(current, time, dataType, value);
+                if(next != null){
+                    return next;
                 }
             }
+        }
+        return null;
+    }
+
+    private Timestamp sendData(Timestamp time, String dataType, String value) throws InterruptedException {
+        return sendData(time, time, dataType, value);
+    }
+
+    private Timestamp sendData(Timestamp current, Timestamp time, String dataType, String value) throws InterruptedException {
+        switch (dataType){
+            case "engine_speed":
+                int rpm = (int) Double.parseDouble(value);
+                if(Math.abs(lastRPMData-rpm)>RPMDataDiff){
+                    sleep((time.getTime()-current.getTime())/timeSpeed);
+                    lastRPMData = rpm;
+                    Platform.runLater(()->updateRPMObservers(rpm, time));
+                    return time;
+                }
+                break;
+            case "fuel_consumed_since_restart":
+                double fuel = Double.parseDouble(value);
+                if(Math.abs(lastFuelData-fuel)>fuelDataDiff){
+                    sleep((time.getTime()-current.getTime())/timeSpeed);
+                    lastFuelData = fuel;
+                    Platform.runLater(()->updateFuelObservers(fuel,time, false));
+                    return time;
+                }
+                break;
+            case "vehicle_speed":
+                int speed = (int) Double.parseDouble(value);
+                if(Math.abs(lastSpeedData-speed)>=speedDataDiff){
+                    sleep((time.getTime()-current.getTime())/timeSpeed);
+                    lastSpeedData = speed;
+                    Platform.runLater(()->updateSpeedObservers(speed,time));
+                    return time;
+                }
+                break;
+            case "brake_pedal_status":
+                boolean braking = Boolean.parseBoolean(value);
+                if(braking != lastBrakeData){
+                    sleep((time.getTime()-current.getTime())/timeSpeed);
+                    lastBrakeData = braking;
+                    Platform.runLater(()->updateBrakeObservers(braking, time));
+                    return time;
+                }
+                break;
+            case "transmission_gear_position":
+                int gear = numericToInt(value);
+                if(gear != lastGearData){
+                    sleep((time.getTime()-current.getTime())/timeSpeed);
+                    lastGearData = gear;
+                    Platform.runLater(()->updateGearObservers(gear, time));
+                    return time;
+                }
+                break;
+            case "odometer":
+                double odo = Double.parseDouble(value);
+                if(Math.abs(lastOdometerData-odo) > odometerDataDiff){
+                    sleep((time.getTime()-current.getTime())/timeSpeed);
+                    lastOdometerData = odo;
+                    Platform.runLater(()->updateOdometerObservers(odo, time));
+                    return time;
+                }
+                break;
+            case "fuel_level":
+                if (!startFuelLevelParsed){
+                    double fuelLevel = Double.parseDouble(value);
+                    sleep((time.getTime()-current.getTime())/timeSpeed);
+                    Platform.runLater(() -> updateFuelObservers(fuelLevel, time, true));
+                    startFuelLevelParsed = true;
+                    return time;
+                }
         }
         return null;
     }

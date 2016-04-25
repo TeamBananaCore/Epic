@@ -202,14 +202,12 @@ public class FuelController implements OdometerInterface, FuelInterface, Observe
             } else {
                 fuelLeftBar.setWidth(fuelLevelPercentage * FUEL_BAR_WIDTH / 100);
             }
-            if (fuelLevelPercentage < 75) {
-                if (fuelLevelPercentage > 50) {
-                    fuelLeftBar.setFill(Color.YELLOW);
-                } else if (fuelLevelPercentage > 25) {
-                    fuelLeftBar.setFill(Color.ORANGE);
-                } else {
-                    fuelLeftBar.setFill(Color.RED);
-                }
+            if (fuelLevelPercentage < 50.0) {
+                Color c = Color.RED.interpolate(Color.YELLOW, fuelLevelPercentage / 50.0);
+                fuelLeftBar.setFill(c);
+            }else{
+                Color c = Color.YELLOW.interpolate(Color.FORESTGREEN, (fuelLevelPercentage-50.0) / 50.0);
+                fuelLeftBar.setFill(c);
             }
         }
     }

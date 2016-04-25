@@ -132,3 +132,7 @@
     -fx-background-radius: 100px;
     -fx-effect: dropshadow(three-pass-box, #4b4b4b, 3, 0, 0, 0);
 }
+
+.numpad_button {
+    -fx-font-size: 30px;
+}

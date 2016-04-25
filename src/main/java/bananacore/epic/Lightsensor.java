@@ -54,13 +54,13 @@ package bananacore.epic;
 //    }
 //
 //    public void close(){
-//        Constants.GPIO.unprovisionPin((GpioPin)dataIn.getPin(), (GpioPin)dataOut.getPin(), (GpioPin)clk.getPin(), (GpioPin)chipSelect.getPin());
+//        Constants.GPIO.unprovisionPin(dataIn, dataOut, clk, chipSelect);
 //    }
 //}
 // End real code
 
 import javafx.application.Platform;
-import javafx.scene.Scene;
+        import javafx.scene.Scene;
         import javafx.scene.control.Label;
         import javafx.scene.control.Slider;
         import javafx.scene.layout.HBox;

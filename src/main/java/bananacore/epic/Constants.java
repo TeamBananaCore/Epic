@@ -31,9 +31,11 @@ public class Constants {
         PARSER = new OurParser();
         try{
             settingsEPIC = DatabaseManager.getSettings();
+            PARSER.setSendData(true);
         } catch (IndexOutOfBoundsException e){
             settingsEPIC = new SettingsEPIC(false,6,900,true,50,true,true,30, 0);
             firstTimeUse=true;
+            PARSER.setSendData(false);
         }
     }
 

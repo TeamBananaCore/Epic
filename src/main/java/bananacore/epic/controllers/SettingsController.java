@@ -61,8 +61,6 @@ public class SettingsController implements SpeedInterface, ViewController {
         themeValues.put("day", 1);
         themeValues.put("night", 2);
         intervalLabel.setText(addSpace(interval));
-        scrollPane.setFitToWidth(true);
-        Constants.PARSER.addToSpeedObservers(this);
         numpadController=Constants.numpadController;
         numpadController.addSettingsController(this);
 
@@ -73,8 +71,8 @@ public class SettingsController implements SpeedInterface, ViewController {
         markGear();
         initializeFuel();
         initializeTheme();
+
         displayFuelCheckbox.setSelected(Constants.settingsEPIC.getFueldisplay());
-        displaySpeedCheckbox.setSelected(Constants.settingsEPIC.getSpeeddisplay());
         displayFuelUsageCheckbox.setSelected(Constants.settingsEPIC.getFuelUsagedisplay());
 
         //welcome screen
@@ -300,13 +298,11 @@ public class SettingsController implements SpeedInterface, ViewController {
     public void save(){
         boolean fuelDisplay = displayFuelCheckbox.isSelected();
         boolean fuelUsageDisplay = displayFuelUsageCheckbox.isSelected();
-        boolean speedDisplay = displaySpeedCheckbox.isSelected();
         interval = Integer.parseInt(intervalLabel.getText().trim());
 
         //updates local version. (the rest is updated on press.)
         Constants.settingsEPIC.setFueldisplay(fuelDisplay);
         Constants.settingsEPIC.setFuelUsagedisplay(fuelUsageDisplay);
-        Constants.settingsEPIC.setSpeeddisplay(speedDisplay);
         Constants.settingsEPIC.setScreeninterval(interval);
         Constants.settingsEPIC.setTheme(themeValues.getOrDefault(((RadioButton) themeGroup.getSelectedToggle()).getText().toLowerCase(), 0));
         oldTheme = Constants.settingsEPIC.getTheme();
@@ -323,6 +319,7 @@ public class SettingsController implements SpeedInterface, ViewController {
 
         //after first time use
         if (Constants.firstTimeUse){
+            Constants.PARSER.setSendData(true);
             Constants.firstTimeUse=false;
             cancelButton.setVisible(true);
             saveButton.setText("Save");
@@ -371,11 +368,13 @@ public class SettingsController implements SpeedInterface, ViewController {
 
     @Override
     public void hidden() {
-
+        Constants.PARSER.removeSpeedObserver(this);
     }
 
     @Override
     public void shown() {
-
+        if(!Constants.firstTimeUse){
+            Constants.PARSER.addToSpeedObservers(this);
+        }
     }
 }

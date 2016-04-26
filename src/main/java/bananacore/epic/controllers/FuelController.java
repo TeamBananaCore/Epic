@@ -79,7 +79,6 @@ public class FuelController implements OdometerInterface, FuelInterface, Observe
         }
 
         updateFuelConsumed(value);
-        updateFuelLevel(value);
 
         if (odoUpdated){
             updateEstimatedKmLeft(timestamp);
@@ -87,9 +86,25 @@ public class FuelController implements OdometerInterface, FuelInterface, Observe
         }
     }
 
+    private void updateFuelConsumed(double fuelConsumed) {
+        if (validFuelConsumedValue(fuelConsumed)) {
+            this.fuelConsumedInterval = fuelConsumed-fuelIntervalStart;
+
+            if (fuelConsumedInterval > 0){
+                updateFuelLevel(fuelConsumedInterval);
+            }
+
+            if(odoUpdated){
+                fuelIntervalStart = fuelConsumed;
+                updateFuelUsage();
+            }
+        }
+    }
+
     @Override
     public void parseInitialFuelLevel(double initialFuelLevel, Timestamp timestamp){
         startFuelLevelPercentage = initialFuelLevel;
+        updateFuelLeftRectangle();
     }
 
     @Override
@@ -109,17 +124,6 @@ public class FuelController implements OdometerInterface, FuelInterface, Observe
 
     }
 
-    private void updateFuelConsumed(double fuelConsumed) {
-        if (validFuelConsumedValue(fuelConsumed)) {
-            this.fuelConsumedInterval = fuelConsumed-fuelIntervalStart;
-
-            if(odoUpdated){
-                fuelIntervalStart = fuelConsumed;
-                updateFuelUsage();
-            }
-        }
-    }
-
     private void updateFuelUsage() {
         if(distanceTravelledInterval < 1 && distanceTravelledInterval >= 0.5){
             fuelUsageInterval = fuelConsumedInterval / distanceTravelledInterval;
@@ -132,8 +136,16 @@ public class FuelController implements OdometerInterface, FuelInterface, Observe
 
     private void updateFuelLevel(double fuelConsumed) {
         if(startFuelLevelPercentage != 0.0){
-            totalFuelConsumed = (tankSize-tankSize/100*startFuelLevelPercentage) + fuelConsumed;
-            this.fuelLevelPercentage = ((startFuelLevelPercentage*tankSize/100)-totalFuelConsumed)*(100/tankSize);
+            // Set total fuel consumed equal to the missing amount from start plus what has been consumed this trip
+            if(totalFuelConsumed == 0.0){
+                // initial value + consumed this interval
+                totalFuelConsumed = (tankSize-tankSize/100*startFuelLevelPercentage) + fuelConsumed;
+            } else {
+                // else add consumed this interval
+                totalFuelConsumed += fuelConsumed;
+            }
+            // update percentage based on how much has been consumed in total
+            this.fuelLevelPercentage = (tankSize-totalFuelConsumed)/tankSize*100;
             updateFuelLeftRectangle();
         }
     }

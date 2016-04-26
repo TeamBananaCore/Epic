@@ -50,15 +50,24 @@ public class OurParser implements Runnable {
 
     private int timeSpeed = 1;
 
+    private boolean sendData;
+
     public OurParser(){
         this(false);
     }
 
     public OurParser(boolean debug){
+        if(!isSendData()){
+            return;
+        }
         this.debug = debug;
+        setSendData(false);
     }
 
     private void updateOdometerObservers(double value, Timestamp timestamp){
+        if(!isSendData()){
+            return;
+        }
         if(debug) logger.debug(timestamp + " - updating odometer: " + value);
         for (OdometerInterface odometerObserver : odometerObservers) {
             odometerObserver.updateOdometer(value, timestamp);
@@ -66,8 +75,12 @@ public class OurParser implements Runnable {
     }
 
     private void updateFuelObservers(double value, Timestamp timestamp, boolean startFuelLevel) {
+        if(!isSendData()){
+            return;
+        }
         if(startFuelLevel){
             if(debug) logger.debug(timestamp + " - parsing initial fuelLevel: " + value);
+            startFuelLevelParsed = true;
             for (FuelInterface fuelObserver : fuelObservers){
                 fuelObserver.parseInitialFuelLevel(value, timestamp);
             }
@@ -80,6 +93,9 @@ public class OurParser implements Runnable {
     }
 
     private void updateSpeedObservers(int value, Timestamp timestamp) {
+        if(!isSendData()){
+            return;
+        }
         if(debug) logger.debug(timestamp + " - updating speed: " + value);
         for (SpeedInterface speedObserver : speedObservers) {
             speedObserver.updateVehicleSpeed(value, timestamp);
@@ -87,6 +103,9 @@ public class OurParser implements Runnable {
     }
 
     private void updateGearObservers(int value, Timestamp timestamp) {
+        if(!isSendData()){
+            return;
+        }
         if(debug) logger.debug(timestamp + " - updating gear: " + value);
         for (GearInterface gearObserver : gearObservers) {
             gearObserver.updateGear(value, timestamp);
@@ -94,6 +113,9 @@ public class OurParser implements Runnable {
     }
 
     private void updateRPMObservers(int value, Timestamp timestamp) {
+        if(!isSendData()){
+            return;
+        }
         if(debug) logger.debug(timestamp + " - updating rpm: " + value);
         for (RPMInterface rpmObserver : rpmObservers) {
             rpmObserver.updateRPM(value, timestamp);
@@ -101,6 +123,9 @@ public class OurParser implements Runnable {
     }
 
     private void updateBrakeObservers(Boolean value, Timestamp timestamp) {
+        if(!isSendData()){
+            return;
+        }
         if(debug) logger.debug(timestamp + " - updating brake: " + value);
         for (BrakeInterface brakeObserver : brakeObservers) {
             brakeObserver.updateBrakePedalStatus(value, timestamp);
@@ -242,7 +267,6 @@ public class OurParser implements Runnable {
                     double fuelLevel = Double.parseDouble(value);
                     sleep((time.getTime()-current.getTime())/timeSpeed);
                     Platform.runLater(() -> updateFuelObservers(fuelLevel, time, true));
-                    startFuelLevelParsed = true;
                     return time;
                 }
         }
@@ -269,8 +293,16 @@ public class OurParser implements Runnable {
         }
     }
 
+    public boolean isSendData() {
+        return sendData;
+    }
+
+    public void setSendData(boolean sendData) {
+        this.sendData = sendData;
+    }
+
     @Override
     public void run() {
-        updateFromFile("data/filmcity.json");
+        updateFromFile("data/downtown-west.json");
     }
 }

@@ -206,6 +206,7 @@ public class OurParser implements Runnable {
                 break;
             case "brake_pedal_status":
                 boolean braking = Boolean.parseBoolean(value);
+                System.out.println("Braking: " + braking + ", old: " + lastBrakeData);
                 if(braking != lastBrakeData){
                     sleep((time.getTime()-current.getTime())/timeSpeed);
                     lastBrakeData = braking;

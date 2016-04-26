@@ -53,25 +53,36 @@ public class BrakeController implements Initializable, BrakeInterface, SpeedInte
 
     public void updateBrakePedalStatus(boolean isBraking, Timestamp timestamp){
         // Started braking
-        if (!braking && isBraking){
+        if (!braking && isBraking && brakingThread == null){
             this.timestamp = timestamp;
             braking = true;
             startSpeed = speed;
             brakeLight.getStyleClass().setAll("brake_light_on");
         }
         // Stopped braking
-        else if(braking && !isBraking){
+        else if(braking && !isBraking && brakingThread == null){
             long duration = (timestamp.getTime() - this.timestamp.getTime()) / 1000;
             braking = false;
-            updateView(startSpeed, speed, duration);
+            brakeLight.getStyleClass().setAll("brake_light_off");
+            brakingThread = new BrakeThread(this.timestamp, timestamp, startSpeed, speed, this);
+            brakingThread.start();
+        }
+        // Started braking after pause
+        if (!braking && isBraking && brakingThread != null && brakingThread.isActive()){
+            braking = true;
+            brakingThread.interrupt();
+            brakingThread = null;
+            brakeLight.getStyleClass().setAll("brake_light_on");
         }
     }
 
     public void updateView(int startSpeed, int endSpeed, long duration){
-        brakeBar.setValue(Constants.calculateBrakePerformance(startSpeed,endSpeed,duration));
-        brakeLight.getStyleClass().setAll("brake_light_off");
-        BrakeSession session = new BrakeSession(startSpeed, endSpeed, timestamp, (int) duration);
-        DatabaseManager.insertBrakeSession(session);
+        if (brakingThread == null || !brakingThread.isActive()) {
+            brakingThread = null;
+            brakeBar.setValue(Constants.calculateBrakePerformance(startSpeed, endSpeed, duration));
+            BrakeSession session = new BrakeSession(startSpeed, endSpeed, timestamp, (int) duration);
+            DatabaseManager.insertBrakeSession(session);
+        }
     }
 
     public int getSpeed() {

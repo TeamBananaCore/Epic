@@ -8,18 +8,17 @@ import java.time.LocalDateTime;
 
 public class BrakeThread extends Thread{
 
-    private Timestamp startTime;
-    private int startSpeed;
+    private Timestamp startTime, endTime;
+    private int startSpeed, endSpeed;
     private BrakeController brakeController;
     private boolean active = false;
 
-    public BrakeThread(){
+    public BrakeThread(Timestamp startTime, Timestamp endTime, int startSpeed, int endSpeed, BrakeController brakeController){
         setDaemon(true);
-    }
-
-    public void setValues(Timestamp startTime, int startSpeed, BrakeController brakeController){
-        this.startTime = Timestamp.valueOf(LocalDateTime.now());
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.startSpeed = startSpeed;
+        this.endSpeed = endSpeed;
         this.brakeController = brakeController;
 
     }
@@ -29,12 +28,11 @@ public class BrakeThread extends Thread{
         try{
             Thread.sleep(Constants.BRAKE_POST_TRESHOLD);
         } catch (InterruptedException e) {
-            run();
             return;
         }
-        long duration = (Timestamp.valueOf(LocalDateTime.now()).getTime() - startTime.getTime())/1000;
-        Platform.runLater(() -> brakeController.updateView(startSpeed, brakeController.getSpeed(), duration));
+        long duration = (endTime.getTime() - startTime.getTime())/1000;
         active = false;
+        Platform.runLater(() -> brakeController.updateView(startSpeed, endSpeed, duration));
     }
 
     public boolean isActive(){

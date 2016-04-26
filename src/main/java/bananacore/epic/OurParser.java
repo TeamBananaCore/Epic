@@ -154,7 +154,13 @@ public class OurParser implements Runnable {
             JSONObject json = (JSONObject) parser.parse(reader.readLine());
             String dataType = json.get("name").toString();
             if(dataTypes.contains(dataType)){
-                Timestamp time = new Timestamp(new Double((Double) json.get("timestamp")*1000).longValue());
+                Object t = json.get("timestamp");
+                Timestamp time;
+                if(t instanceof Double){
+                    time = new Timestamp(new Double((Double) json.get("timestamp")*1000.0).longValue());
+                }else{
+                    time = new Timestamp((Long) json.get("timestamp") * 1000);
+                }
                 String value = json.get("value").toString();
                 Timestamp next = sendData(current, time, dataType, value);
                 if(next != null){
@@ -208,11 +214,17 @@ public class OurParser implements Runnable {
                 }
                 break;
             case "transmission_gear_position":
-                int gear = numericToInt(value);
+                int gear;
+                try{
+                    gear = new Integer(value);
+                }catch(NumberFormatException e) {
+                    gear = numericToInt(value);
+                }
                 if(gear != lastGearData){
                     sleep((time.getTime()-current.getTime())/timeSpeed);
                     lastGearData = gear;
-                    Platform.runLater(()->updateGearObservers(gear, time));
+                    final int lGear = gear;
+                    Platform.runLater(()->updateGearObservers(lGear, time));
                     return time;
                 }
                 break;
@@ -259,6 +271,6 @@ public class OurParser implements Runnable {
 
     @Override
     public void run() {
-        updateFromFile("data/downtown-west.txt");
+        updateFromFile("data/filmcity.json");
     }
 }

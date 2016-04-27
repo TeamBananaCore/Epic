@@ -23,7 +23,7 @@ public class Constants {
     public static Scene SCENE;
 
     // TODO Uncomment when on pi
-//    public static final GpioController GPIO = GpioFactory.getInstance();
+    //public static final GpioController GPIO = GpioFactory.getInstance();
 
     public static NumpadController numpadController;
 

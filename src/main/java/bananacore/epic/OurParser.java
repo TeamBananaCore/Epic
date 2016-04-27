@@ -61,7 +61,7 @@ public class OurParser implements Runnable {
             return;
         }
         this.debug = debug;
-        setSendData(false);
+        setSendData(true);
     }
 
     private void updateOdometerObservers(double value, Timestamp timestamp){
@@ -303,6 +303,6 @@ public class OurParser implements Runnable {
 
     @Override
     public void run() {
-        updateFromFile("data/downtown-west.json");
+        updateFromFile("data/filmcity.json");
     }
 }

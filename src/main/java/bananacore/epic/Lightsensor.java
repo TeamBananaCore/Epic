@@ -14,6 +14,8 @@ package bananacore.epic;
 // * DI: PIN 15, GPIO 3
 // * CS: PIN 11, GPIO 0
 // *
+// * Above is wrong
+// *
 // * Use 1kΩ resistor, and connect all of the above connections
 // */
 //public class Lightsensor {
@@ -23,9 +25,12 @@ package bananacore.epic;
 //    private final GpioPinDigitalOutput dataOut = Constants.GPIO.provisionDigitalOutputPin(RaspiPin.GPIO_25);
 //    private final GpioPinDigitalOutput chipSelect = Constants.GPIO.provisionDigitalOutputPin(RaspiPin.GPIO_22);
 //    private final GpioPinDigitalOutput clk = Constants.GPIO.provisionDigitalOutputPin(RaspiPin.GPIO_26);
+//    private final GpioPinDigitalOutput pwr = Constants.GPIO.provisionDigitalOutputPin(RaspiPin.GPIO_27);
 //
 //    public Lightsensor(){
 //        logger = LoggerFactory.getLogger(this.getClass());
+//
+//        pwr.setState(PinState.HIGH);
 //    }
 //
 //    public int readAdc(){
@@ -33,8 +38,12 @@ package bananacore.epic;
 //        chipSelect.setState(PinState.LOW);
 //        clk.setState(PinState.LOW);
 //
-//        for (int i = 0; i < 3; i++){
-//            dataOut.setState(PinState.HIGH);
+//        for (int i : new int[]{1,1,0}){
+//            if(i == 1){
+//                dataOut.setState(PinState.HIGH);
+//            }else{
+//                dataOut.setState(PinState.LOW);
+//            }
 //            clk.setState(PinState.HIGH);
 //            clk.setState(PinState.LOW);
 //        }
@@ -54,10 +63,10 @@ package bananacore.epic;
 //    }
 //
 //    public void close(){
-//        Constants.GPIO.unprovisionPin(dataIn, dataOut, clk, chipSelect);
+//        Constants.GPIO.unprovisionPin(dataIn, dataOut, clk, chipSelect, pwr);
 //    }
 //}
-// End real code
+//End real code
 
 import javafx.application.Platform;
         import javafx.scene.Scene;

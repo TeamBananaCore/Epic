@@ -28,6 +28,8 @@ public class Constants {
     public static NumpadController numpadController;
 
     static {
+        // TODO Uncomment when on pi
+//        GPIO.unprovisionPin(dataIn, dataOut, clk, chipSelect, pwr);
         PARSER = new OurParser();
         try{
             settingsEPIC = DatabaseManager.getSettings();

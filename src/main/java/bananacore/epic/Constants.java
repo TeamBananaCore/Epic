@@ -5,6 +5,7 @@ import bananacore.epic.controllers.NumpadController;
 import bananacore.epic.models.SettingsEPIC;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
+import com.pi4j.io.gpio.RaspiPin;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 
@@ -29,7 +30,11 @@ public class Constants {
 
     static {
         // TODO Uncomment when on pi
-//        GPIO.unprovisionPin(dataIn, dataOut, clk, chipSelect, pwr);
+//        GPIO.unprovisionPin(Constants.GPIO.provisionDigitalInputPin(RaspiPin.GPIO_28),
+//                Constants.GPIO.provisionDigitalInputPin(RaspiPin.GPIO_25),
+//                Constants.GPIO.provisionDigitalInputPin(RaspiPin.GPIO_22),
+//                Constants.GPIO.provisionDigitalInputPin(RaspiPin.GPIO_26),
+//                Constants.GPIO.provisionDigitalInputPin(RaspiPin.GPIO_27));
         PARSER = new OurParser();
         try{
             settingsEPIC = DatabaseManager.getSettings();

@@ -11,7 +11,7 @@
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- Use the location specified in properties, and name it by the date -->
-            <fileNamePattern>log/ftplog.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>log/epiclog.%d{yyyy-MM-dd}.log</fileNamePattern>
             <!-- Only keep last 30 days -->
             <maxHistory>30</maxHistory>
         </rollingPolicy>
@@ -24,7 +24,7 @@
     <logger name="org.hibernate" level="WARN" />
     <logger name="org.hibernate.stat" level="TRACE" />
 
-    <root level="DEBUG">
+    <root level="WARN">
         <appender-ref ref="FILE" />
         <appender-ref ref="STDOUT" />
     </root>

@@ -3,6 +3,8 @@ package bananacore.epic;
 import bananacore.epic.controllers.ContainerController;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.slf4j.Logger;
 
 public class StyleChooser {
     public static final String DAY = "css/day.css";
@@ -14,6 +16,8 @@ public class StyleChooser {
     private boolean adaptable;
     private Image dayImage;
     private Image nightImage;
+
+    private Logger logger = org.slf4j.LoggerFactory.getLogger(getClass());
 
     public StyleChooser(ContainerController container){
         this.container = container;
@@ -56,6 +60,7 @@ public class StyleChooser {
 
             while (true){
                 int light = sensor.readAdc();
+                logger.debug("Light sensor reading: " + light);
                 if (light < LIGHT_THRESH && current.equals(StyleChooser.DAY)){
                     Platform.runLater(() -> setNight());
                     current = StyleChooser.NIGHT;

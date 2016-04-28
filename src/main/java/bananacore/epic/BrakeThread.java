@@ -26,7 +26,7 @@ public class BrakeThread extends Thread{
     public void run(){
         active = true;
         try{
-            Thread.sleep(Constants.BRAKE_POST_TRESHOLD);
+            Thread.sleep(Constants.BRAKE_POST_TRESHOLD/Constants.TIME_SPEED);
         } catch (InterruptedException e) {
             return;
         }

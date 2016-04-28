@@ -23,8 +23,9 @@
 
     <logger name="org.hibernate" level="WARN" />
     <logger name="org.hibernate.stat" level="TRACE" />
+    <logger name="org.hibernate.stat.internal" level="INFO" />
 
-    <root level="WARN">
+    <root level="DEBUG">
         <appender-ref ref="FILE" />
         <appender-ref ref="STDOUT" />
     </root>

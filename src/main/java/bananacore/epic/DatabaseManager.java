@@ -27,7 +27,11 @@ public class DatabaseManager {
 
     public static void connectToDB(){
         Configuration configuration = new Configuration();
-        configuration.configure();
+        if(Constants.ON_PI){
+            configuration.configure(DatabaseManager.class.getClassLoader().getResource("hibernate_pi.cfg.xml"));
+        }else{
+            configuration.configure(DatabaseManager.class.getClassLoader().getResource("hibernate.cfg.xml"));
+        }
         StandardServiceRegistryBuilder ssrb;
         try{
             ssrb = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());

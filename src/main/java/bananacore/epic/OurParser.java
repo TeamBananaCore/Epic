@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.sql.Timestamp;
+import java.time.LocalTime;
 import java.util.*;
 
 
@@ -25,7 +26,7 @@ public class OurParser implements Runnable {
     private volatile ArrayList<OdometerInterface> odometerObservers = new ArrayList<>();
 
     //List of data we are interested in
-    private final List<String> dataTypes = Arrays.asList("engine_speed", "fuel_consumed_since_restart", "vehicle_speed", "brake_pedal_status", "transmission_gear_position", "odometer", "fuel_level");
+    private List<String> dataTypes = Arrays.asList("engine_speed", "fuel_consumed_since_restart", "vehicle_speed", "brake_pedal_status", "transmission_gear_position", "odometer", "fuel_level");
 
     //Data: The last data that was sent of that type. Diff: The difference from last data required to send new update
     private int lastRPMData = 0;
@@ -48,18 +49,16 @@ public class OurParser implements Runnable {
 
     private boolean debug;
 
-    private int timeSpeed = 1;
-
     private boolean sendData;
+
+    private Timestamp startTime;
+    private long timeOffset = 0; //Milliseconds
 
     public OurParser(){
         this(false);
     }
 
     public OurParser(boolean debug){
-        if(!isSendData()){
-            return;
-        }
         this.debug = debug;
         setSendData(true);
     }
@@ -160,32 +159,40 @@ public class OurParser implements Runnable {
 
     public void updateFromFile(String filepath) {
         try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(filepath)));
+            BufferedReader bufferedReader = createReader(filepath);
 
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(bufferedReader.readLine());
-            Timestamp time = new Timestamp(new Double((Double) jsonObject.get("timestamp")*1000).longValue());
+            Timestamp time = new Timestamp(new Double((Double) jsonObject.get("timestamp")*1000).longValue() + timeOffset);
+            startTime = time;
+            logger.info("Starting at " + time.toString());
             sendData(time, jsonObject.get("name").toString(), jsonObject.get("value").toString());
-            while (bufferedReader.ready() && time != null) {
+            while (bufferedReader.ready()) {
                 time = findNext(bufferedReader,parser,time);
             }
+            timeOffset += time.getTime() - startTime.getTime();
         } catch (ParseException | InterruptedException | IOException e) {
             e.printStackTrace();
         }
     }
 
+    private BufferedReader createReader(String filepath){
+        return new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(filepath)));
+    }
+
     private Timestamp findNext(BufferedReader reader, JSONParser parser, Timestamp current) throws IOException, ParseException, InterruptedException {
+        Timestamp time = new Timestamp(current.getTime());
         while(reader.ready()){
             JSONObject json = (JSONObject) parser.parse(reader.readLine());
             String dataType = json.get("name").toString();
+            Object t = json.get("timestamp");
+            if(t instanceof Double){
+                time = new Timestamp(new Double((Double) json.get("timestamp")*1000.0).longValue());
+            }else{
+                time = new Timestamp((Long) json.get("timestamp") * 1000);
+            }
+            time.setTime(time.getTime() + timeOffset);
             if(dataTypes.contains(dataType)){
-                Object t = json.get("timestamp");
-                Timestamp time;
-                if(t instanceof Double){
-                    time = new Timestamp(new Double((Double) json.get("timestamp")*1000.0).longValue());
-                }else{
-                    time = new Timestamp((Long) json.get("timestamp") * 1000);
-                }
                 String value = json.get("value").toString();
                 Timestamp next = sendData(current, time, dataType, value);
                 if(next != null){
@@ -193,7 +200,7 @@ public class OurParser implements Runnable {
                 }
             }
         }
-        return null;
+        return time;
     }
 
     private Timestamp sendData(Timestamp time, String dataType, String value) throws InterruptedException {
@@ -205,7 +212,7 @@ public class OurParser implements Runnable {
             case "engine_speed":
                 int rpm = (int) Double.parseDouble(value);
                 if(Math.abs(lastRPMData-rpm)>RPMDataDiff){
-                    sleep((time.getTime()-current.getTime())/timeSpeed);
+                    sleep((time.getTime()-current.getTime())/Constants.TIME_SPEED);
                     lastRPMData = rpm;
                     Platform.runLater(()->updateRPMObservers(rpm, time));
                     return time;
@@ -214,7 +221,7 @@ public class OurParser implements Runnable {
             case "fuel_consumed_since_restart":
                 double fuel = Double.parseDouble(value);
                 if(Math.abs(lastFuelData-fuel)>fuelDataDiff){
-                    sleep((time.getTime()-current.getTime())/timeSpeed);
+                    sleep((time.getTime()-current.getTime())/Constants.TIME_SPEED);
                     lastFuelData = fuel;
                     Platform.runLater(()->updateFuelObservers(fuel,time, false));
                     return time;
@@ -223,7 +230,7 @@ public class OurParser implements Runnable {
             case "vehicle_speed":
                 int speed = (int) Double.parseDouble(value);
                 if(Math.abs(lastSpeedData-speed)>=speedDataDiff){
-                    sleep((time.getTime()-current.getTime())/timeSpeed);
+                    sleep((time.getTime()-current.getTime())/Constants.TIME_SPEED);
                     lastSpeedData = speed;
                     Platform.runLater(()->updateSpeedObservers(speed,time));
                     return time;
@@ -232,7 +239,7 @@ public class OurParser implements Runnable {
             case "brake_pedal_status":
                 boolean braking = Boolean.parseBoolean(value);
                 if(braking != lastBrakeData){
-                    sleep((time.getTime()-current.getTime())/timeSpeed);
+                    sleep((time.getTime()-current.getTime())/Constants.TIME_SPEED);
                     lastBrakeData = braking;
                     Platform.runLater(()->updateBrakeObservers(braking, time));
                     return time;
@@ -246,7 +253,7 @@ public class OurParser implements Runnable {
                     gear = numericToInt(value);
                 }
                 if(gear != lastGearData){
-                    sleep((time.getTime()-current.getTime())/timeSpeed);
+                    sleep((time.getTime()-current.getTime())/Constants.TIME_SPEED);
                     lastGearData = gear;
                     final int lGear = gear;
                     Platform.runLater(()->updateGearObservers(lGear, time));
@@ -256,7 +263,7 @@ public class OurParser implements Runnable {
             case "odometer":
                 double odo = Double.parseDouble(value);
                 if(Math.abs(lastOdometerData-odo) > odometerDataDiff){
-                    sleep((time.getTime()-current.getTime())/timeSpeed);
+                    sleep((time.getTime()-current.getTime())/Constants.TIME_SPEED);
                     lastOdometerData = odo;
                     Platform.runLater(()->updateOdometerObservers(odo, time));
                     return time;
@@ -265,10 +272,11 @@ public class OurParser implements Runnable {
             case "fuel_level":
                 if (!startFuelLevelParsed){
                     double fuelLevel = Double.parseDouble(value);
-                    sleep((time.getTime()-current.getTime())/timeSpeed);
+                    sleep((time.getTime()-current.getTime())/Constants.TIME_SPEED);
                     Platform.runLater(() -> updateFuelObservers(fuelLevel, time, true));
                     return time;
                 }
+                break;
         }
         return null;
     }
@@ -303,6 +311,11 @@ public class OurParser implements Runnable {
 
     @Override
     public void run() {
-        updateFromFile("data/filmcity.json");
+        while(true){
+            updateFromFile(Constants.DATASET);
+            if(!Constants.DATASET_REPETITION){
+                break;
+            }
+        }
     }
 }

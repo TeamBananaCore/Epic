@@ -1,15 +1,14 @@
 package bananacore.epic;
 
 import bananacore.epic.controllers.ContainerController;
+import bananacore.epic.interfaces.Lightsensor;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
-import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.slf4j.Logger;
 
 public class StyleChooser {
     public static final String DAY = "css/day.css";
     public static final String NIGHT = "css/night.css";
-    private static final int LIGHT_THRESH = 100;
 
     private Thread thread;
     private ContainerController container;
@@ -24,7 +23,7 @@ public class StyleChooser {
         dayImage = new Image(getClass().getClassLoader().getResource("image/fuelpump_day.png").toExternalForm());
         nightImage = new Image(getClass().getClassLoader().getResource("image/fuelpump_night.png").toExternalForm());
         setTheme(Constants.settingsEPIC.getTheme());
-        System.out.println("THEME FROM START: " + Constants.settingsEPIC.getTheme());
+        logger.info("THEME FROM START: " + Constants.settingsEPIC.getTheme());
     }
 
     public void setAdaptable(boolean adaptable){
@@ -53,7 +52,12 @@ public class StyleChooser {
 
     private boolean startThread(){
         if (!adaptable || thread != null) return false;
-        final Lightsensor sensor = new Lightsensor();
+        Lightsensor sensor;
+        if(Constants.ON_PI){
+            sensor = new PiLightsensor();
+        }else{
+            sensor = new MockLightsensor();
+        }
         thread = new Thread(() -> {
             String current = StyleChooser.DAY;
             setDay();
@@ -61,10 +65,10 @@ public class StyleChooser {
             while (true){
                 int light = sensor.readAdc();
                 logger.debug("Light sensor reading: " + light);
-                if (light < LIGHT_THRESH && current.equals(StyleChooser.DAY)){
+                if (light < Constants.LIGHT_THRESH && current.equals(StyleChooser.DAY)){
                     Platform.runLater(() -> setNight());
                     current = StyleChooser.NIGHT;
-                } else if (light > LIGHT_THRESH && current.equals(StyleChooser.NIGHT)){
+                } else if (light > Constants.LIGHT_THRESH && current.equals(StyleChooser.NIGHT)){
                     Platform.runLater(() -> setDay());
                     current = StyleChooser.DAY;
                 }

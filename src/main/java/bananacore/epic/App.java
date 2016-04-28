@@ -18,7 +18,7 @@ public class App extends Application{
 
     @Override
     public void start(Stage primaryStage) {
-        DatabaseManager.connectToDB();
+        Constants.setUp();
         Platform.setImplicitExit(true);
 
         Parent root = null;
@@ -43,7 +43,7 @@ public class App extends Application{
         });
 
         Constants.SCENE = scene;
-        logger.debug("App started");
+        logger.info("Init and config complete");
         new Thread(Constants.PARSER, "parserThread").start();
     }
 }
